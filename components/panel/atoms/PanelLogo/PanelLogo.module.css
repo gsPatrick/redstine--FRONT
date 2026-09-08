@@ -1,0 +1,22 @@
+.logo {
+  display: inline-flex;
+  align-items: baseline;
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.045em;
+  text-decoration: none;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.red {
+  color: var(--pnl-accent);
+}
+
+.estine {
+  color: var(--pnl-text);
+  font-weight: 500;
+}

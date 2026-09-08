@@ -1,0 +1,83 @@
+.wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-350);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.step {
+  width: 36px;
+  height: 40px;
+  font-size: 17px;
+  color: var(--gray-920);
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+
+.step:hover {
+  background-color: var(--gray-100);
+}
+
+.quantity {
+  width: 46px;
+  height: 40px;
+  text-align: center;
+  font-size: 15px;
+  border: none;
+  outline: none;
+  background: none;
+  -moz-appearance: textfield;
+}
+
+.quantity::-webkit-outer-spin-button,
+.quantity::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 26px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.dark {
+  color: var(--color-white);
+  background-color: var(--gray-940);
+}
+
+.dark:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.outline {
+  color: var(--gray-940);
+  border: 1px solid var(--gray-940);
+}
+
+.outline:hover {
+  color: var(--color-white);
+  background-color: var(--gray-940);
+}
+
+.added {
+  background-color: #08ad21;
+  color: var(--color-white);
+  border-color: #08ad21;
+}

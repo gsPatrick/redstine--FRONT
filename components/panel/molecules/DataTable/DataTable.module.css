@@ -1,0 +1,154 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+/* A tabela rola dentro do proprio container: a pagina nunca rola na
+   horizontal, mesmo com 9 colunas em ecra pequeno. */
+.scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.tabela {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.tabela th {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 11.5px;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--pnl-text-3);
+  background: var(--pnl-surface-2);
+  border-bottom: 1px solid var(--pnl-line);
+  white-space: nowrap;
+}
+
+.tabela td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--pnl-line-soft);
+  color: var(--pnl-text);
+  vertical-align: middle;
+}
+
+.tabela tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.tabela tbody tr {
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.tabela tbody tr:hover {
+  background: var(--pnl-surface-2);
+}
+
+.direita {
+  text-align: right;
+}
+
+/* Numero e data nunca quebram linha: "16/05/2026" partido em duas linhas
+   destroi o alinhamento vertical da coluna inteira. */
+.tabela td.direita,
+.tabela td.centro {
+  white-space: nowrap;
+}
+
+.centro {
+  text-align: center;
+}
+
+.thBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.thBtn:hover {
+  color: var(--pnl-text);
+}
+
+.seta {
+  opacity: 0.35;
+}
+
+.setaAtiva {
+  opacity: 1;
+  color: var(--pnl-accent);
+}
+
+.rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 13px 18px;
+  border-top: 1px solid var(--pnl-line);
+}
+
+.contagem {
+  font-size: 12px;
+  color: var(--pnl-text-3);
+}
+
+.paginacao {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.pgBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 7px;
+  background: var(--pnl-surface);
+  color: var(--pnl-text-2);
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition: all var(--dur-fast) var(--ease-out);
+}
+
+.pgBtn:hover:not(:disabled) {
+  border-color: var(--pnl-text-3);
+  color: var(--pnl-text);
+}
+
+.pgBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pgAtiva {
+  background: var(--pnl-accent);
+  border-color: var(--pnl-accent);
+  color: #fff;
+}
+
+.pgAtiva:hover {
+  color: #fff;
+}
+
+.gap {
+  padding: 0 2px;
+  font-size: 12px;
+  color: var(--pnl-text-3);
+}

@@ -1,0 +1,24 @@
+.shell {
+  min-height: 100vh;
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: var(--pnl-sidebar-w);
+  background: var(--pnl-bg);
+}
+
+.conteudo {
+  flex: 1 1 auto;
+  width: 100%;
+  max-width: 1440px;
+  padding: clamp(20px, 2.6vw, 30px) clamp(16px, 2.5vw, 28px) 56px;
+}
+
+@media (max-width: 1023px) {
+  .coluna {
+    margin-left: 0;
+  }
+}

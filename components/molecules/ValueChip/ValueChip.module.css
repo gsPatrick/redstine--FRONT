@@ -1,0 +1,52 @@
+/**
+ * Destaque em contorno, não em fundo cheio.
+ *
+ * Estes não são CTAs — são informação de apoio. Com fundo vermelho chapado
+ * disputavam atenção com os botões de ação da página, que são os elementos que
+ * de fato levam a algum lugar. O contorno mantém o destaque sem a hierarquia
+ * de um botão.
+ */
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 15px 14px;
+  border: 1.5px solid var(--color-accent);
+  background-color: transparent;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.chip:hover {
+  transform: translateY(-3px);
+  background-color: color-mix(in srgb, var(--color-accent) 7%, transparent);
+}
+
+.deep,
+.bright {
+  border-color: var(--color-accent);
+}
+
+.left {
+  border-radius: var(--radius-pill);
+}
+
+.right {
+  border-radius: var(--radius-pill);
+}
+
+.label {
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: center;
+  color: var(--color-accent);
+}
+
+@media (max-width: 767px) {
+  .label {
+    font-size: 16px;
+  }
+}

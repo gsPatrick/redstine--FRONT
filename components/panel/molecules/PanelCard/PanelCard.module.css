@@ -1,0 +1,57 @@
+.card {
+  background: var(--pnl-surface);
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius);
+  box-shadow: var(--pnl-shadow);
+}
+
+.p-md {
+  padding: 20px;
+}
+
+.p-sm {
+  padding: 14px;
+}
+
+.p-lg {
+  padding: 26px;
+}
+
+/* Tabelas encostam na borda do cartao: o padding vive nas celulas. */
+.p-none {
+  padding: 0;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.p-none .head {
+  padding: 18px 20px 0;
+  margin-bottom: 14px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--pnl-text);
+}
+
+.descricao {
+  margin: 4px 0 0;
+  font-size: 12.5px;
+  color: var(--pnl-text-2);
+}
+
+.acao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}

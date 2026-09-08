@@ -1,0 +1,50 @@
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--pnl-line);
+}
+
+.abas {
+  flex: 1 1 auto;
+  min-width: 0;
+  border-bottom: none;
+}
+
+.busca {
+  flex: 0 0 auto;
+  width: 236px;
+  padding: 8px 8px 8px 0;
+}
+
+.verBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  color: var(--pnl-text-3);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.verBtn:hover {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent);
+}
+
+@media (max-width: 767px) {
+  .barra {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+
+  .busca {
+    width: 100%;
+    padding: 10px 8px;
+  }
+}

@@ -1,0 +1,83 @@
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
+.barra {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--pnl-line);
+}
+
+.abas {
+  border-bottom: none;
+}
+
+.lote {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 8px 8px 0;
+  font-size: 12px;
+  color: var(--pnl-text-2);
+}
+
+.check {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--pnl-accent);
+  cursor: pointer;
+}
+
+.prazo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-variant-numeric: tabular-nums;
+}
+
+.prazo em {
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.noPrazo em {
+  color: var(--pnl-text-3);
+}
+
+.vencendo em {
+  color: var(--pnl-warn);
+}
+
+.vencido em {
+  color: var(--pnl-danger);
+}
+
+@media (max-width: 1100px) {
+  .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.erroAcao {
+  margin: 0 0 var(--pnl-gap);
+  padding: 11px 14px;
+  border: 1px solid color-mix(in srgb, var(--pnl-danger) 30%, var(--pnl-line));
+  border-radius: var(--pnl-radius);
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger);
+  font-size: 12.5px;
+}

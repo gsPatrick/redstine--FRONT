@@ -1,0 +1,175 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-sans);
+  /* Tamanho padrão do CTA em todo o site.
+     Era 17px com 60px de padding lateral — um botão de ~200px de largura para
+     duas palavras, que dominava qualquer bloco onde aparecesse. Reduzir aqui
+     padroniza todas as páginas de uma vez, porque este é o default. */
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+  padding: 11px 30px;
+  text-align: center;
+  isolation: isolate;
+  overflow: hidden;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}
+
+.solid {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+.solid::before {
+  background-color: var(--gray-200);
+}
+
+.solid:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.ghost {
+  background-color: rgba(0, 0, 0, 0.25);
+  color: var(--color-white);
+  border-color: var(--color-white);
+  backdrop-filter: blur(2px);
+}
+
+.ghost::before {
+  background-color: var(--color-white);
+}
+
+.ghost:hover {
+  color: var(--color-black);
+}
+
+.ghost:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.dark {
+  background-color: var(--gray-880);
+  color: var(--gray-50);
+  border-color: var(--gray-880);
+}
+
+.dark::before {
+  background-color: var(--color-accent);
+}
+
+.dark:hover {
+  border-color: var(--color-accent);
+}
+
+.dark:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/**
+ * CTA principal, na cor da marca.
+ *
+ * O cliente pediu que os botões de ação usassem as cores da marca — a página
+ * inteira era preto, vermelho e cinza, e os CTAs ficavam no preto. O vermelho
+ * é a cor dominante da marca e passa a ser a cor de AÇÃO; preto e cinza ficam
+ * para ações secundárias.
+ */
+.accent {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  border-color: var(--color-accent);
+}
+
+.accent::before {
+  background-color: var(--gray-980);
+}
+
+.accent:hover {
+  border-color: var(--gray-980);
+}
+
+.accent:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.outline {
+  background-color: transparent;
+  color: var(--gray-940);
+  border-color: var(--gray-940);
+}
+
+.outline::before {
+  background-color: var(--gray-940);
+}
+
+.outline:hover {
+  color: var(--color-white);
+}
+
+.outline:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.sm {
+  font-size: 14px;
+  padding: 9px 22px;
+}
+
+.md {
+  font-size: 16px;
+  padding: 11px 30px;
+}
+
+/* Reservado para o CTA principal de uma página — usado com parcimônia, senão
+   deixa de ser destaque. */
+.lg {
+  font-size: 17px;
+  padding: 13px 38px;
+}
+
+@media (max-width: 767px) {
+  .button {
+    padding: 10px 24px;
+  }
+}

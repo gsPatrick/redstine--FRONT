@@ -1,0 +1,16 @@
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.iniciais {
+  background: linear-gradient(140deg, #3d4552, #22262e);
+  color: #fff;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}

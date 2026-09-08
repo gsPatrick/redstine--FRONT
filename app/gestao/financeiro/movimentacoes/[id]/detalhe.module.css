@@ -1,0 +1,101 @@
+.grade {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  align-items: start;
+  margin-bottom: var(--pnl-gap);
+}
+
+.linhas {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+}
+
+.linha {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* O liquido fecha a conta acima dele: a regra separa o que entra do que sai. */
+.separador {
+  padding-top: 12px;
+  border-top: 1px solid var(--pnl-line);
+}
+
+.linha dt {
+  flex: 0 0 auto;
+  font-size: 12.5px;
+  color: var(--pnl-text-2);
+}
+
+.linha dd {
+  margin: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.destaque {
+  font-size: 15px !important;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.prazo {
+  margin: 18px 0 0;
+  padding: 11px 13px;
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-warn-soft);
+  color: var(--pnl-warn);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+.historico {
+  max-width: 100%;
+}
+
+@media (max-width: 1100px) {
+  .grade {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Custos entram como lista sob as regras: são a origem do desconto que
+   transforma o bruto em líquido, e a seção 6 exige cada um individualizado. */
+.custos {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--pnl-line);
+  list-style: none;
+}
+
+.custos li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  color: var(--pnl-text-2);
+}
+
+.custos strong {
+  color: var(--pnl-text);
+  font-variant-numeric: tabular-nums;
+}

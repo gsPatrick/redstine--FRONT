@@ -1,0 +1,295 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-white);
+}
+
+.desktop {
+  border-bottom: 1px solid var(--gray-500);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 25px 20px;
+}
+
+.logoSlot {
+  flex: 0 0 13%;
+  max-width: 13%;
+}
+
+.rail {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  min-width: 0;
+}
+
+.search {
+  flex: 0 0 38%;
+  margin-right: auto;
+  margin-left: 22px;
+}
+
+.searchTrigger,
+.iconLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: var(--gray-820);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.searchTrigger:hover,
+.iconLink:hover {
+  color: var(--color-black);
+  background-color: var(--gray-100);
+}
+
+.nav {
+  display: block;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+}
+
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  color: var(--gray-820);
+  padding: 10px;
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.navLink::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: 2px;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.navLink:hover,
+.navLinkActive {
+  color: var(--color-black);
+}
+
+.navLink:hover::after,
+.navLinkActive::after {
+  transform: scaleX(1);
+}
+
+.caret {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.navItem:hover .caret {
+  transform: rotate(180deg);
+}
+
+.mobile {
+  display: none;
+  border-bottom: 1px solid var(--gray-500);
+}
+
+.mobileInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 16px;
+}
+
+.mobileLogo {
+  flex: 0 0 34%;
+  max-width: 34%;
+}
+
+.mobileIcons {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.burger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: var(--gray-820);
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 120;
+  display: flex;
+  flex-direction: column;
+  width: min(88vw, 380px);
+  height: 100dvh;
+  background-color: var(--color-white);
+  transform: translateX(-100%);
+  visibility: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    visibility var(--dur-slow) var(--ease-out);
+}
+
+.drawerOpen {
+  transform: translateX(0);
+  visibility: visible;
+}
+
+.drawerHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px;
+  border-bottom: 1px solid var(--gray-250);
+}
+
+.drawerTitle {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+}
+
+.drawerNav {
+  padding: 12px 20px 48px;
+}
+
+.drawerItem {
+  border-bottom: 1px solid var(--gray-150);
+}
+
+.drawerLink {
+  display: block;
+  padding: 16px 0;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.drawerSub {
+  padding: 0 0 16px 12px;
+}
+
+.drawerSubHead {
+  display: block;
+  padding: 10px 0 4px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.drawerLeaf {
+  padding-bottom: 8px;
+}
+
+.drawerLeafLink {
+  display: block;
+  padding: 7px 0;
+  font-size: 14px;
+  color: var(--gray-600);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.drawerLeafLink:hover {
+  color: var(--color-black);
+}
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 110;
+  background-color: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    visibility var(--dur-base) var(--ease-out);
+}
+
+.scrimOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (max-width: 1024px) {
+  .desktop {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+}
+
+.badge {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  min-width: 17px;
+  height: 17px;
+  padding: 0 4px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 17px;
+  text-align: center;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+}
+
+/* Ponto discreto no ícone quando há sessão: o utilizador precisa saber que
+   está autenticado sem que o header vire uma barra de perfil. */
+.iconLinkAtivo::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--brand-green);
+  border: 1.5px solid var(--color-white);
+}

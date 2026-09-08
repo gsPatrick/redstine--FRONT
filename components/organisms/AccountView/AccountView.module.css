@@ -1,0 +1,301 @@
+.dashLink {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.authSlot {
+  margin-bottom: 56px;
+}
+
+.auth {
+  max-width: 520px;
+  margin-inline: auto;
+  padding: 32px 30px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+}
+
+.authSwitch {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+
+.authTab {
+  flex: 1;
+  padding: 11px 18px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gray-600);
+  background-color: var(--color-white);
+  border: 1px solid var(--gray-250);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.authTabLabel {
+  font-size: inherit;
+  font-weight: inherit;
+  color: inherit;
+}
+
+.authTabActive {
+  color: var(--color-white);
+  background-color: var(--gray-940);
+  border-color: var(--gray-940);
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.remember {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: var(--gray-600);
+  cursor: pointer;
+}
+
+.rememberInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.rememberBox {
+  position: relative;
+  width: 17px;
+  height: 17px;
+  border: 1px solid var(--gray-350);
+  border-radius: 4px;
+  background-color: var(--color-white);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.rememberBox::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 5px;
+  height: 10px;
+  border: solid var(--color-white);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.rememberInput:checked + .rememberBox {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.rememberInput:checked + .rememberBox::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.authSubmit {
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--color-white);
+  background-color: var(--gray-940);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.authSubmit:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.authLink,
+.inlineLink {
+  font-size: 13px;
+  color: var(--gray-600);
+  text-decoration: underline;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.authLink:hover,
+.inlineLink:hover {
+  color: var(--color-accent);
+}
+
+.privacy {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--gray-600);
+}
+
+.empty {
+  padding: 30px 0;
+  font-size: 16px;
+  color: var(--gray-600);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.metric {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 28px 26px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+}
+
+.metricLabel {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.metricValue {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.placeholderBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.placeholderTitle {
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.placeholderGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.placeholderCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--color-white);
+}
+
+.placeholderImage {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  background-color: var(--gray-100);
+}
+
+.placeholderLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+.accountBox {
+  max-width: 520px;
+  padding: 28px 26px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+}
+
+.accountRows {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.accountRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--gray-300);
+  font-size: 15px;
+  color: var(--gray-600);
+}
+
+.accountRow dd {
+  margin: 0;
+  font-weight: 500;
+  color: var(--gray-940);
+}
+
+.signOut {
+  padding: 10px 26px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gray-940);
+  border: 1px solid var(--gray-940);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    background-color var(--dur-base) var(--ease-out);
+}
+
+.signOut:hover {
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.panelNote {
+  margin-top: 40px;
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--gray-940);
+}
+
+@media (max-width: 1024px) {
+  .placeholderGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .auth {
+    padding: 26px 22px;
+  }
+
+  .metrics,
+  .placeholderGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .metricValue {
+    font-size: 26px;
+  }
+
+  .panelNote {
+    font-size: 30px;
+  }
+}

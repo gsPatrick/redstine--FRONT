@@ -1,0 +1,83 @@
+.tela {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  min-height: 100vh;
+  background: var(--pnl-bg);
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding: 28px clamp(20px, 5vw, 56px);
+  background: var(--pnl-surface);
+}
+
+.topo {
+  flex: 0 0 auto;
+}
+
+.conteudo {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.rodape {
+  flex: 0 0 auto;
+  font-size: 12.5px;
+}
+
+.rodape a {
+  color: var(--pnl-text-3);
+  text-decoration: none;
+}
+
+.rodape a:hover {
+  color: var(--pnl-accent);
+}
+
+.lado {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  padding: 44px;
+  background:
+    linear-gradient(180deg, rgba(12, 12, 14, 0.25) 0%, rgba(12, 12, 14, 0.86) 100%),
+    url("/images/2026/07/Fundo-galpao-01-3-768x576.png") center / cover no-repeat;
+}
+
+.ladoTexto {
+  max-width: 380px;
+  color: #fff;
+}
+
+.ladoTitulo {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.03em;
+}
+
+.ladoApoio {
+  margin: 12px 0 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  opacity: 0.82;
+}
+
+@media (max-width: 900px) {
+  .tela {
+    grid-template-columns: 1fr;
+  }
+
+  .lado {
+    display: none;
+  }
+}

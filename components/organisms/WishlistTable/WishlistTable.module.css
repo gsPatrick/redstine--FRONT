@@ -1,0 +1,139 @@
+.bareTitle {
+  margin-bottom: 20px;
+  font-size: 21px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.emptyBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: 34px 30px;
+  border: 1px dashed var(--gray-350);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+}
+
+.empty {
+  font-size: 16px;
+  color: var(--gray-600);
+}
+
+.scroller {
+  overflow-x: auto;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+}
+
+.table {
+  width: 100%;
+  min-width: 720px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.head {
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-920);
+  background-color: var(--gray-50);
+  border-bottom: 1px solid var(--gray-250);
+}
+
+.cell {
+  padding: 16px 20px;
+  font-size: 15px;
+  color: var(--gray-870);
+  border-bottom: 1px solid var(--gray-200);
+  vertical-align: middle;
+}
+
+.product {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.thumb {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+  background-color: var(--gray-100);
+}
+
+.name {
+  font-weight: 500;
+  color: var(--gray-920);
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.name:hover {
+  color: var(--color-accent);
+}
+
+.inStock {
+  display: inline-block;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #08ad21;
+  background-color: rgba(8, 173, 33, 0.1);
+}
+
+.outStock {
+  display: inline-block;
+  padding: 5px 13px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  background-color: var(--gray-100);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cart {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-white);
+  background-color: var(--gray-940);
+  white-space: nowrap;
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.cart:hover {
+  background-color: var(--color-accent);
+}
+
+.remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  color: var(--gray-600);
+  background-color: var(--gray-100);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.remove:hover {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}

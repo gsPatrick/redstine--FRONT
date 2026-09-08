@@ -1,0 +1,155 @@
+.experience {
+  position: relative;
+  background: transparent;
+}
+
+/* Vazio escuro ao redor da moldura — é ele que faz o banner ler como card. */
+.mediaBg {
+  position: relative;
+  height: calc(100vh - 100px);
+  min-height: 560px;
+  background-color: var(--color-black);
+}
+
+/* Moldura recolhida: respiro generoso para o preto aparecer em volta. */
+.frame {
+  position: absolute;
+  top: clamp(16px, 2.6vh, 30px);
+  right: clamp(16px, 2.6vw, 34px);
+  bottom: clamp(16px, 2.6vh, 30px);
+  left: clamp(16px, 2.6vw, 34px);
+  border-radius: var(--radius-banner);
+  overflow: hidden;
+  will-change: top, right, bottom, left, border-radius;
+  transition:
+    top 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    right 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    bottom 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    left 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    border-radius 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.expanded {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 0;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-black);
+  animation: introPanel 2.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes introPanel {
+  from {
+    clip-path: inset(48.5% 48.5% 48.5% 48.5% round 80px);
+  }
+  to {
+    clip-path: inset(0% 0% 0% 0% round 0px);
+  }
+}
+
+@keyframes introUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(2, 1, 1, 0.34) 0%,
+    rgba(2, 1, 1, 0.18) 36%,
+    rgba(2, 1, 1, 0.6) 74%,
+    rgba(2, 1, 1, 0.84) 100%
+  );
+  pointer-events: none;
+}
+
+/* Todo o conteúdo fica preso ao banner. */
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(24px, 4vh, 44px) clamp(24px, 3.6vw, 52px);
+  box-sizing: border-box;
+  color: var(--color-white);
+  transition: padding 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.expanded .content {
+  padding: clamp(32px, 6vh, 68px) clamp(32px, 5.2vw, 78px) clamp(38px, 6vh, 68px);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(20px, 2.6vh, 32px);
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  animation: introUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.15s both;
+}
+
+.heading {
+  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+  text-wrap: balance;
+  transition: font-size 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.expanded .heading {
+  font-size: var(--fs-hero);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+@media (max-width: 767px) {
+  .mediaBg {
+    height: calc(100vh - 76px);
+    min-height: 500px;
+  }
+
+  .heading br {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .canvas,
+  .copy {
+    animation: none;
+  }
+
+  .frame,
+  .content,
+  .heading {
+    transition: none;
+  }
+}

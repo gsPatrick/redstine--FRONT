@@ -1,0 +1,83 @@
+.section {
+  padding: clamp(56px, 7vw, 96px) 0;
+  background-color: var(--color-white);
+}
+
+.inner {
+  width: min(100% - 40px, var(--container-max));
+  margin: 0 auto;
+}
+
+.head {
+  margin-bottom: clamp(26px, 3vw, 40px);
+}
+
+.kicker {
+  display: block;
+  margin-bottom: 12px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  max-width: 20ch;
+  font-size: var(--fs-block);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--gray-940);
+}
+
+/* Quatro colunas fixas: são oito fotos, e `auto-fit` distribuía 5 na primeira
+   linha e 3 na segunda, deixando um buraco no canto. Duas linhas de quatro é o
+   que a orientação pedia e é o que fecha o retângulo. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.tile {
+  position: relative;
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-card);
+  background-color: var(--gray-100);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.tile:hover .image {
+  transform: scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image,
+  .tile:hover .image {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+}

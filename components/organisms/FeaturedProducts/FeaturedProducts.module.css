@@ -1,0 +1,247 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--color-white);
+  padding-block: clamp(40px, 5vw, 60px);
+  overflow-x: clip;
+}
+
+/* A secao inteira cabe em uma tela — sem scroll dentro dela. */
+@media (min-width: 901px) and (min-height: 680px) {
+  .section {
+    min-height: calc(100dvh - 100px);
+  }
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 20px;
+  margin-bottom: clamp(22px, 2.4vw, 32px);
+}
+
+.headText {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kicker {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  max-width: 26ch;
+  font-size: clamp(1.6rem, 2.7vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--gray-940);
+  text-wrap: balance;
+}
+
+.nav {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-350);
+  color: var(--gray-940);
+  background-color: var(--color-white);
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.arrow svg {
+  width: 19px;
+  height: 19px;
+}
+
+.arrow:hover {
+  background-color: var(--color-accent);
+  border-color: var(--gray-940);
+  color: var(--color-white);
+}
+
+/* Trilho que sangra: começa alinhado ao conteúdo e termina fora da margem. */
+.viewport {
+  width: calc(50vw + 50% - 20px);
+  max-width: calc(100vw - 20px);
+  margin-left: max(20px, calc((100vw - var(--container-max)) / 2 + 20px));
+  overflow: hidden;
+  cursor: grab;
+  touch-action: pan-y;
+}
+
+.viewport:active {
+  cursor: grabbing;
+}
+
+.track {
+  display: flex;
+  gap: 20px;
+  will-change: transform;
+}
+
+.slide {
+  flex: 0 0 clamp(240px, 22vw, 282px);
+  user-select: none;
+  --card-image-h: clamp(150px, 17vh, 190px);
+  --card-min-h: 0px;
+}
+
+.slide > * {
+  height: 100%;
+}
+
+/* ---------- régua de progresso ---------- */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 3vw, 40px);
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 20px;
+  margin-top: clamp(20px, 2.4vw, 30px);
+}
+
+.ruler {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.bullet {
+  position: relative;
+  flex: 1 1 0;
+  height: 4px;
+  border-radius: 2px;
+  background-color: rgba(26, 27, 27, 0.16);
+  overflow: hidden;
+  transition: flex-grow 0.75s cubic-bezier(0.45, 0, 0.55, 1);
+}
+
+.bulletActive {
+  flex-grow: 8;
+}
+
+.bulletFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0;
+  background-color: var(--color-accent);
+}
+
+.counter {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  flex-shrink: 0;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+}
+
+.counterNow {
+  color: var(--gray-940);
+}
+
+.counterSep {
+  opacity: 0.5;
+}
+
+.catalogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 13px 26px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-white);
+  background-color: var(--gray-940);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.catalogo svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.catalogo:hover {
+  background-color: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.catalogo:hover svg {
+  transform: translateX(4px);
+}
+
+@media (max-width: 900px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .footer {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .ruler {
+    flex-basis: 100%;
+    order: 1;
+  }
+
+  .counter {
+    order: 2;
+  }
+
+  .catalogo {
+    order: 3;
+    margin-left: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    transition: none !important;
+  }
+
+  .bulletFill {
+    transition: none !important;
+  }
+}

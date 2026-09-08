@@ -1,0 +1,28 @@
+.reveal {
+  opacity: 0;
+  transition:
+    opacity 1200ms var(--ease-out),
+    transform 1200ms var(--ease-out);
+  will-change: opacity, transform;
+}
+
+.fadeIn {
+  transform: none;
+}
+
+.fadeInUp {
+  transform: translateY(34px);
+}
+
+.shown {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

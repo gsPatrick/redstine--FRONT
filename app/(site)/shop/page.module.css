@@ -1,0 +1,22 @@
+.categories {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.categories > * {
+  height: 100%;
+}
+
+@media (max-width: 1024px) {
+  .categories {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .categories {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+}

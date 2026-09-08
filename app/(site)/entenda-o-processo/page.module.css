@@ -1,0 +1,147 @@
+.timeline {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 18px;
+  counter-reset: node;
+}
+
+.node {
+  position: relative;
+  padding-top: 26px;
+  text-align: center;
+}
+
+.node::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--gray-300);
+}
+
+.node:first-child::before {
+  left: 50%;
+}
+
+.node:last-child::before {
+  right: 50%;
+}
+
+.node::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  border-radius: 50%;
+  background-color: var(--color-accent);
+}
+
+.marker {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--color-accent);
+}
+
+.nodeLabel {
+  display: block;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--gray-920);
+}
+
+.blocks {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.blocks > * {
+  height: 100%;
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 34px 30px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--color-white);
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out);
+}
+
+.block:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 48px -30px rgba(0, 0, 0, 0.35);
+}
+
+.index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+}
+
+.blockTitle {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--gray-940);
+}
+
+.blockText {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--gray-870);
+  text-wrap: pretty;
+}
+
+.action {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+@media (max-width: 1024px) {
+  .blocks {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .timeline {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 12px;
+  }
+
+  .node::before,
+  .node::after {
+    display: none;
+  }
+
+  .node {
+    padding-top: 0;
+  }
+
+  .block {
+    padding: 28px 24px;
+  }
+}

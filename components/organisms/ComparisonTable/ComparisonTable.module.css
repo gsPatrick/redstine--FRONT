@@ -1,0 +1,47 @@
+.scroller {
+  overflow-x: auto;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+}
+
+.table {
+  width: 100%;
+  min-width: 640px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.corner {
+  width: 26%;
+  background-color: var(--gray-50);
+}
+
+.head {
+  padding: 20px 22px;
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--color-white);
+  background-color: var(--gray-940);
+}
+
+.head:first-of-type {
+  background-color: var(--gray-870);
+}
+
+.label {
+  padding: 18px 22px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--gray-920);
+  background-color: var(--gray-50);
+  border-top: 1px solid var(--gray-250);
+}
+
+.cell {
+  padding: 18px 22px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--gray-870);
+  border-top: 1px solid var(--gray-250);
+  border-left: 1px solid var(--gray-250);
+}

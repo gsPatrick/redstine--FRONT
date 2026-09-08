@@ -1,0 +1,37 @@
+/* Tres colunas fixas: sao seis cartoes e auto-fit deixava um orfao na
+   segunda linha, com largura diferente dos outros cinco. */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+}
+
+.legendaEstado {
+  margin: 12px 2px 20px;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.graficos {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: var(--pnl-gap);
+}
+
+@media (max-width: 1200px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  .graficos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

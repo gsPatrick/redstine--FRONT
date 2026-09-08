@@ -1,0 +1,43 @@
+.form {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  min-width: 0;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 14px;
+  font-size: 14px;
+  color: var(--gray-930);
+  background-color: var(--color-white);
+  border: 1px solid var(--gray-350);
+  border-right: none;
+  border-radius: 20px 0 0 20px;
+  outline: none;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+.form:focus-within .input {
+  border-color: var(--gray-500);
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 15px;
+  color: var(--color-white);
+  background-color: #a3a3a3;
+  border-radius: 0 20px 20px 0;
+  transition: background-color var(--dur-base) var(--ease-out);
+}
+
+.submit:hover {
+  background-color: var(--gray-600);
+}

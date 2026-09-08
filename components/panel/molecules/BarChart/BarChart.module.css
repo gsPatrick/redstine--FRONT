@@ -1,0 +1,137 @@
+.wrap {
+  width: 100%;
+  /* Largura da coluna do eixo Y. Um so lugar define o respiro, e o eixo X
+     usa o mesmo valor para alinhar com as barras. */
+  --gutter: 52px;
+}
+
+.legenda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin: 0 0 14px;
+  padding: 0;
+  list-style: none;
+  font-size: 11.5px;
+  color: var(--pnl-text-2);
+}
+
+.legenda li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.marca {
+  width: 9px;
+  height: 9px;
+  border-radius: 3px;
+}
+
+.plot {
+  display: grid;
+  grid-template-columns: var(--gutter) minmax(0, 1fr);
+  height: var(--altura);
+}
+
+.eixoY {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-right: 8px;
+  text-align: right;
+}
+
+.eixoY span {
+  font-size: 10px;
+  line-height: 1;
+  color: var(--pnl-text-3);
+  /* Centra o rotulo na sua linha de grade em vez de o pousar em cima dela. */
+  transform: translateY(-50%);
+}
+
+.eixoY span:first-child {
+  transform: none;
+}
+
+.eixoY span:last-child {
+  transform: translateY(-100%);
+}
+
+.area {
+  position: relative;
+  min-width: 0;
+}
+
+.grade {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.linha {
+  display: block;
+  border-top: 1px solid var(--pnl-line-soft);
+}
+
+.grupos {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  gap: 8px;
+  height: 100%;
+}
+
+.grupo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+}
+
+.barras {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  height: 100%;
+}
+
+.barra {
+  width: clamp(10px, 22%, 22px);
+  min-height: 2px;
+  border-radius: 3px 3px 0 0;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.barra:hover {
+  opacity: 0.78;
+}
+
+/* O eixo X repete a mesma grelha do plot: primeira coluna vazia do tamanho do
+   gutter, depois uma faixa por grupo — assim rotulo e barra ficam alinhados. */
+.eixoX {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+  margin-left: var(--gutter);
+  padding-top: 8px;
+}
+
+.eixoX span {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: 10px;
+  color: var(--pnl-text-3);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

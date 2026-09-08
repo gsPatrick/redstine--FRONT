@@ -1,0 +1,39 @@
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.note {
+  margin-bottom: 18px;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--gray-940);
+}
+
+.head {
+  margin-bottom: 34px;
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.action {
+  margin-top: 40px;
+}
+
+@media (max-width: 767px) {
+  .note {
+    font-size: 30px;
+  }
+
+  .action {
+    margin-top: 30px;
+  }
+}

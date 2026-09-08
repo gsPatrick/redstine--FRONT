@@ -1,0 +1,42 @@
+.head {
+  margin-bottom: 20px;
+}
+
+.trilha {
+  margin-bottom: 12px;
+}
+
+.linha {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.titulo {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 650;
+  letter-spacing: -0.032em;
+  color: var(--pnl-text);
+}
+
+.descricao {
+  margin: 5px 0 0;
+  font-size: 13px;
+  color: var(--pnl-text-2);
+}
+
+.acoes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 767px) {
+  .linha {
+    align-items: flex-start;
+  }
+}

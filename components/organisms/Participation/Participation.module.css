@@ -1,0 +1,146 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-white);
+  padding-block: clamp(56px, 7vw, 88px);
+}
+
+/* A secao inteira cabe em uma tela — sem scroll dentro dela. */
+
+
+.head {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 0 20px clamp(24px, 2.8vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.kicker {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  font-size: clamp(1.6rem, 2.7vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--gray-940);
+}
+
+/* Dois paineis colados, de ponta a ponta, ocupando o resto da tela. */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(14px, 1.6vw, 22px);
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: 20px;
+  min-height: 0;
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(260px, 30vw, 330px);
+  padding: clamp(24px, 2.6vw, 36px);
+  border-radius: var(--radius-banner);
+  background-color: var(--gray-940);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgba(2, 1, 1, 0.9) 0%,
+    rgba(2, 1, 1, 0.62) 46%,
+    rgba(2, 1, 1, 0.34) 100%
+  );
+  transition: background-color var(--dur-slow) var(--ease-out);
+}
+
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: rgba(2, 1, 1, 0);
+  transition: background-color var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+
+.panel:hover::after {
+  background-color: rgba(2, 1, 1, 0.18);
+}
+
+.body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 40ch;
+}
+
+.index {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.panelTitle {
+  font-size: var(--fs-card-title);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--color-white);
+}
+
+/**
+ * Altura de três linhas.
+ *
+ * Os dois painéis têm descrições de tamanhos diferentes e o conteúdo é
+ * ancorado embaixo — o resultado é que o título de um subia e o do outro
+ * descia. Fixar a altura do texto alinha título, descrição e botão nos dois,
+ * que é o padrão que o cliente pediu.
+ */
+.text {
+  min-height: calc(3 * 1.55em);
+  font-size: clamp(0.95rem, 1.2vw, 1.08rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.84);
+  text-wrap: pretty;
+}
+
+.action {
+  margin-top: 8px;
+}
+
+@media (max-width: 767px) {
+  .panels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .panel {
+    min-height: 260px;
+  }
+}

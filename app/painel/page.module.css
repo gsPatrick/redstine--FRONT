@@ -1,0 +1,216 @@
+.saudacao {
+  margin-bottom: 22px;
+}
+
+.saudacao h1 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  font-weight: 650;
+  letter-spacing: -0.035em;
+}
+
+.saudacao p {
+  margin: 6px 0 0;
+  font-size: 13.5px;
+  color: var(--pnl-text-2);
+}
+
+.blocos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
+.bloco {
+  display: flex;
+  flex-direction: column;
+}
+
+.blocoTopo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.blocoTopo h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pnl-text);
+}
+
+.selo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--pnl-radius-sm);
+}
+
+.seloCompra {
+  background: var(--pnl-ok-soft);
+  color: var(--pnl-ok);
+}
+
+.seloVenda {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent);
+}
+
+/* Auto-fit em vez de 3 colunas fixas: o bloco Vender tem 3 indicadores e o
+   Comprar tambem, mas em ecra estreito eles quebram sozinhos. */
+.numeros {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(112px, 1fr));
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.indicador {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 13px 14px;
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-surface-2);
+}
+
+.indRotulo {
+  font-size: 11.5px;
+  color: var(--pnl-text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.indValor {
+  font-size: 1.5rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.indLink {
+  font-size: 11.5px;
+  color: var(--pnl-accent);
+  text-decoration: none;
+}
+
+.indLink:hover {
+  text-decoration: underline;
+}
+
+.receber {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 13px 14px;
+  border: 1px solid color-mix(in srgb, var(--pnl-warn) 30%, var(--pnl-line));
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-warn-soft);
+}
+
+.receberRotulo {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--pnl-warn);
+}
+
+.receberValor {
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  color: var(--pnl-warn);
+}
+
+.cta {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+.verTudo {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pnl-accent);
+  text-decoration: none;
+}
+
+.verTudo:hover {
+  text-decoration: underline;
+}
+
+.atividades {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.atividades li + li {
+  border-top: 1px solid var(--pnl-line-soft);
+}
+
+.atividades a {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 12px 4px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.atividades a:hover .atividadeTitulo {
+  color: var(--pnl-accent);
+}
+
+.check {
+  flex: 0 0 auto;
+  color: var(--pnl-ok);
+}
+
+.atividadeTitulo {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 13px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.atividades time {
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 900px) {
+  .blocos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .atividades a {
+    flex-wrap: wrap;
+  }
+
+  .atividades time {
+    width: 100%;
+    padding-left: 27px;
+  }
+}
+
+.semAtividade {
+  margin: 0;
+  padding: 18px 4px;
+  font-size: 12.5px;
+  color: var(--pnl-text-3);
+}

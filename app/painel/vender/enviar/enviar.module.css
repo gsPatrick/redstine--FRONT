@@ -1,0 +1,151 @@
+.aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: var(--pnl-gap);
+  padding: 13px 16px;
+  border: 1px solid color-mix(in srgb, var(--pnl-warn) 30%, var(--pnl-line));
+  border-radius: var(--pnl-radius);
+  background: var(--pnl-warn-soft);
+  color: var(--pnl-warn);
+}
+
+.aviso svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}
+
+.aviso p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pnl-gap);
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.largo {
+  grid-column: 1 / -1;
+}
+
+.upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 34px 20px;
+  border: 1.5px dashed var(--pnl-line);
+  border-radius: var(--pnl-radius);
+  background: var(--pnl-surface-2);
+  color: var(--pnl-text-3);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.upload:hover {
+  border-color: var(--pnl-accent);
+  background: var(--pnl-accent-soft);
+}
+
+.upload strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pnl-text);
+}
+
+.upload span {
+  font-size: 11.5px;
+}
+
+.inputArquivo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rodape {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.sucesso {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 46px 24px;
+  text-align: center;
+}
+
+.selo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--pnl-ok-soft);
+  color: var(--pnl-ok);
+}
+
+.sucesso h2 {
+  margin: 6px 0 0;
+  font-size: 17px;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.sucesso p {
+  margin: 0;
+  max-width: 480px;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--pnl-text-2);
+}
+
+.acoesSucesso {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rodape {
+    justify-content: stretch;
+  }
+}
+
+.erro {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px 14px;
+  border: 1px solid color-mix(in srgb, var(--pnl-danger) 30%, var(--pnl-line));
+  border-radius: var(--pnl-radius);
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.erro svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}

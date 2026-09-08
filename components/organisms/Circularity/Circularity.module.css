@@ -1,0 +1,220 @@
+.section {
+  padding: clamp(56px, 7vw, 100px) 0;
+  background-color: var(--gray-50);
+}
+
+.inner {
+  width: min(100% - 40px, var(--container-max));
+  margin: 0 auto;
+}
+
+.head {
+  max-width: 62ch;
+  margin: 0 auto clamp(28px, 4vw, 48px);
+  text-align: center;
+}
+
+.kicker {
+  display: block;
+  margin-bottom: 12px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--fs-block);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
+  color: var(--gray-940);
+}
+
+.subtitle {
+  margin: 14px auto 0;
+  max-width: 58ch;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--gray-600);
+  text-wrap: pretty;
+}
+
+/* Palco quadrado: o círculo precisa de proporção 1:1 ou vira elipse. */
+/* O rótulo do topo fica ACIMA do anel, então o palco precisa de folga vertical
+   própria — senão ele encosta no subtítulo da seção. */
+.palco {
+  position: relative;
+  margin-top: 40px;
+  width: min(100%, 520px);
+  /* Folga para os rótulos que ficam fora do anel não serem cortados. */
+  padding: 0 60px;
+  box-sizing: content-box;
+  margin: 0 auto;
+  aspect-ratio: 1;
+}
+
+.anel {
+  position: absolute;
+  inset: 0;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.trilho {
+  fill: none;
+  stroke: var(--gray-300);
+  stroke-width: 0.6;
+}
+
+/* 264 é ~ a circunferência (2πr com r=42). O traço cobre 88% e deixa 12% de
+   abertura, girando devagar para o ciclo parecer vivo sem distrair. */
+.arco {
+  fill: none;
+  stroke: var(--color-accent);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 232 32;
+  transform-origin: 50% 50%;
+  animation: girar 26s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.miolo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.miolo strong {
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--gray-940);
+}
+
+.miolo em {
+  font-style: normal;
+  font-size: var(--fs-body);
+  color: var(--gray-500);
+}
+
+.nos {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Marco e rótulo são posicionados separadamente, cada um no seu raio: o
+   componente calcula (x, y) com seno e cosseno, então acrescentar uma sexta
+   etapa redistribui todas sozinho. */
+.no {
+  display: contents;
+}
+
+.marco {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1.5px solid var(--color-accent);
+  border-radius: 50%;
+  background-color: var(--gray-50);
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  color: var(--color-accent);
+  transform: translate(-50%, -50%);
+}
+
+.rotulo {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: 130px;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--gray-800);
+  text-align: center;
+  text-wrap: balance;
+  transform: translate(-50%, -50%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arco {
+    animation: none;
+  }
+}
+
+/* Abaixo de 900px o círculo vira lista. Não é só legibilidade: nessa largura
+   os rótulos externos já saíam do container, e o ciclo deixava de caber. */
+@media (max-width: 900px) {
+  .palco {
+    aspect-ratio: auto;
+    max-width: 420px;
+  }
+
+  .anel {
+    display: none;
+  }
+
+  .nos {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .no {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--gray-250);
+  }
+
+  .no:last-child {
+    border-bottom: none;
+  }
+
+  .marco,
+  .rotulo {
+    position: static;
+    transform: none;
+  }
+
+  .marco {
+    flex: 0 0 auto;
+  }
+
+  .rotulo {
+    width: auto;
+    font-size: 15px;
+    text-align: left;
+  }
+}

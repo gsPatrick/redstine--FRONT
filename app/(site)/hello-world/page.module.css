@@ -1,0 +1,31 @@
+.post {
+  max-width: 760px;
+  margin-inline: auto;
+}
+
+.title {
+  margin-bottom: 12px;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--gray-940);
+}
+
+.meta {
+  margin-bottom: 28px;
+  font-size: 14px;
+  color: var(--gray-600);
+}
+
+.body {
+  font-size: 17px;
+  line-height: 1.85;
+  color: var(--gray-870);
+}
+
+@media (max-width: 767px) {
+  .title {
+    font-size: 30px;
+  }
+}

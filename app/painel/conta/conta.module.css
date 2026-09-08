@@ -1,0 +1,120 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pnl-gap);
+  max-width: 780px;
+}
+
+.grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.largo {
+  grid-column: 1 / -1;
+}
+
+.rodape {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.aviso {
+  margin: 0 0 18px;
+  padding: 11px 14px;
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-info-soft);
+  color: var(--pnl-info);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.sessoes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sessao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-surface-2);
+}
+
+.sessaoInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.sessaoInfo strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.sessaoInfo span {
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.atual {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--pnl-ok);
+}
+
+.tituloSecao {
+  margin: 26px 0 14px;
+  padding-top: 20px;
+  border-top: 1px solid var(--pnl-line);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tituloSecao:first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: none;
+}
+
+@media (max-width: 767px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.avisoErro,
+.avisoOk {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  padding: 12px 14px;
+  border-radius: var(--pnl-radius);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.avisoErro {
+  border: 1px solid color-mix(in srgb, var(--pnl-danger) 30%, var(--pnl-line));
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger);
+}
+
+.avisoOk {
+  border: 1px solid color-mix(in srgb, var(--pnl-ok) 30%, var(--pnl-line));
+  background: var(--pnl-ok-soft);
+  color: var(--pnl-ok);
+}
+
+.avisoErro svg,
+.avisoOk svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+}

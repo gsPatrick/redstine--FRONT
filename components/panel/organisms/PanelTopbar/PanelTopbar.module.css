@@ -1,0 +1,138 @@
+.topo {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: var(--pnl-topbar-h);
+  padding: 0 clamp(16px, 2.5vw, 28px);
+  background: color-mix(in srgb, var(--pnl-surface) 88%, transparent);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--pnl-line);
+}
+
+.hamburguer {
+  display: none;
+  padding: 7px;
+  border: none;
+  border-radius: var(--pnl-radius-sm);
+  background: none;
+  color: var(--pnl-text-2);
+  cursor: pointer;
+}
+
+.hamburguer:hover {
+  background: var(--pnl-neutral-soft);
+}
+
+.direita {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+.conta {
+  position: relative;
+}
+
+.gatilho {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 4px 4px;
+  border: none;
+  border-radius: var(--pnl-radius-pill, 999px);
+  background: none;
+  color: var(--pnl-text);
+  font: inherit;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.gatilho:hover {
+  background: var(--pnl-neutral-soft);
+}
+
+.identidade {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+  line-height: 1.25;
+}
+
+.identidade strong {
+  font-size: 12.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.identidade em {
+  font-size: 11px;
+  font-style: normal;
+  color: var(--pnl-text-3);
+}
+
+.girado {
+  transform: rotate(180deg);
+}
+
+.menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 70;
+  min-width: 196px;
+  padding: 5px;
+  background: var(--pnl-surface);
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  box-shadow: var(--pnl-shadow-lg);
+}
+
+.menu a,
+.menu button {
+  display: flex;
+  width: 100%;
+  border: none;
+  background: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 6px;
+  color: var(--pnl-text-2);
+  font-size: 12.5px;
+  text-decoration: none;
+}
+
+.menu a:hover,
+.menu button:hover {
+  background: var(--pnl-surface-2);
+  color: var(--pnl-text);
+}
+
+.sair {
+  margin-top: 4px;
+  padding-top: 10px;
+  border-top: 1px solid var(--pnl-line);
+  border-radius: 0;
+  color: var(--pnl-accent) !important;
+}
+
+@media (max-width: 1023px) {
+  .hamburguer {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 767px) {
+  .identidade {
+    display: none;
+  }
+}

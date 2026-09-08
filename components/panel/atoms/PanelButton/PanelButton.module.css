@@ -1,0 +1,106 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--pnl-radius-sm);
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  text-decoration: none;
+  /* O rotulo pode encolher ate ao limite do proprio botao, mas nunca vaza:
+     "Consultar Condições" num botao de meia largura saia 4px para fora. */
+  min-width: 0;
+  overflow: hidden;
+  transition: background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.btn > span {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.md {
+  height: 38px;
+  padding: 0 16px;
+  font-size: 13px;
+}
+
+.sm {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+.lg {
+  height: 44px;
+  padding: 0 20px;
+  font-size: 14px;
+}
+
+.solid {
+  background: var(--pnl-accent);
+  color: #fff;
+}
+
+.solid:hover {
+  background: var(--pnl-accent-hover);
+}
+
+/* Verde para a acao positiva do card COMPRAR, como no layout aprovado. */
+.success {
+  background: #1a8a4a;
+  color: #fff;
+}
+
+.success:hover {
+  background: #157a41;
+}
+
+.outline {
+  background: var(--pnl-surface);
+  border-color: var(--pnl-line);
+  color: var(--pnl-text);
+}
+
+.outline:hover {
+  border-color: var(--pnl-text-3);
+  background: var(--pnl-surface-2);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--pnl-text-2);
+}
+
+.ghost:hover {
+  background: var(--pnl-neutral-soft);
+  color: var(--pnl-text);
+}
+
+.link {
+  height: auto;
+  padding: 0;
+  background: none;
+  color: var(--pnl-accent);
+  font-size: 13px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}

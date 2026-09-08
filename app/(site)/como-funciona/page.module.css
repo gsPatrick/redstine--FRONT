@@ -1,0 +1,62 @@
+.bridge {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.bridge > * {
+  height: 100%;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  height: 100%;
+  padding: 38px 32px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--color-white);
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 26px 48px -30px rgba(0, 0, 0, 0.35);
+}
+
+.kicker {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+}
+
+.flow {
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.6;
+  color: var(--gray-920);
+}
+
+.action {
+  margin-top: auto;
+  padding-top: 12px;
+}
+
+@media (max-width: 767px) {
+  .bridge {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+
+  .card {
+    padding: 28px 24px;
+  }
+
+  .flow {
+    font-size: 17px;
+  }
+}

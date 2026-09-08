@@ -1,0 +1,64 @@
+.abas {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--pnl-line);
+  scrollbar-width: none;
+}
+
+.abas::-webkit-scrollbar {
+  display: none;
+}
+
+.aba {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 14px;
+  border: none;
+  background: none;
+  color: var(--pnl-text-2);
+  font: inherit;
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.aba:hover {
+  color: var(--pnl-text);
+}
+
+.aba em {
+  padding: 1px 6px;
+  border-radius: 999px;
+  background: var(--pnl-neutral-soft);
+  color: var(--pnl-text-3);
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 600;
+}
+
+.ativa {
+  color: var(--pnl-accent);
+  font-weight: 600;
+}
+
+.ativa::after {
+  content: "";
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--pnl-accent);
+}
+
+.ativa em {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent);
+}

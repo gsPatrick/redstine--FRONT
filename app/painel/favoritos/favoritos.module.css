@@ -1,0 +1,136 @@
+.grade {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(248px, 1fr));
+  gap: var(--pnl-gap);
+}
+
+.cartao {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px;
+  background: var(--pnl-surface);
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius);
+  box-shadow: var(--pnl-shadow);
+  transition: border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.cartao:hover {
+  border-color: var(--pnl-text-3);
+  box-shadow: var(--pnl-shadow-lg);
+  transform: translateY(-2px);
+}
+
+.coracao {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 50%;
+  background: var(--pnl-surface);
+  color: var(--pnl-accent);
+  cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+
+.coracao svg {
+  fill: currentColor;
+}
+
+.coracao:hover {
+  transform: scale(1.08);
+  background: var(--pnl-accent-soft);
+}
+
+.foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  margin-bottom: 6px;
+  border: 1px solid var(--pnl-line-soft);
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-surface-2);
+  overflow: hidden;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.categoria {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.nome {
+  margin: 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.local {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11.5px;
+  color: var(--pnl-text-2);
+}
+
+.preco {
+  margin-top: 4px;
+  font-size: 1.15rem;
+  font-weight: 650;
+  letter-spacing: -0.025em;
+}
+
+.indisponivel {
+  font-size: 11px;
+  color: var(--pnl-danger);
+}
+
+/* Os dois botoes dividem a linha quando cabem. Quando o rotulo e longo
+   ("Consultar Condições"), a base e o proprio conteudo e o par quebra para
+   linhas separadas — truncar um CTA e pior do que empilhar: o utilizador
+   deixa de saber o que o botao faz. */
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 12px;
+}
+
+.acao {
+  flex: 1 1 auto;
+}
+
+.rodape {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.rodape a {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--pnl-accent);
+  text-decoration: none;
+}
+
+.rodape a:hover {
+  text-decoration: underline;
+}

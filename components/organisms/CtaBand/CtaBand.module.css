@@ -1,0 +1,50 @@
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 34px;
+}
+
+.copy {
+  flex: 1 1 460px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.title {
+  max-width: 24ch;
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--gray-940);
+  text-wrap: balance;
+}
+
+.text {
+  max-width: 56ch;
+  font-size: 19px;
+  font-weight: 500;
+  line-height: 1.65;
+  color: var(--gray-650);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+@media (max-width: 767px) {
+  .title {
+    font-size: 30px;
+  }
+
+  .text {
+    font-size: 17px;
+  }
+}

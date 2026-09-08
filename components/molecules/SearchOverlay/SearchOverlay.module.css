@@ -1,0 +1,87 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(72px, 18vh, 180px) 20px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    visibility var(--dur-base) var(--ease-out);
+}
+
+.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(10, 10, 10, 0.72);
+  backdrop-filter: blur(6px);
+  cursor: default;
+}
+
+.panel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: min(100%, 720px);
+  padding: 18px 20px;
+  background-color: var(--color-white);
+  border-radius: 999px;
+  box-shadow: 0 32px 70px -28px rgba(0, 0, 0, 0.55);
+  transform: translateY(-14px) scale(0.97);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.open .panel {
+  transform: translateY(0) scale(1);
+}
+
+.glyph {
+  color: var(--gray-400);
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  font-size: 17px;
+  font-weight: 400;
+  color: var(--gray-940);
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.input::placeholder {
+  color: var(--gray-400);
+}
+
+.input::-webkit-search-cancel-button {
+  display: none;
+}
+
+.close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--gray-600);
+  background-color: var(--gray-100);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.close:hover {
+  background-color: var(--gray-940);
+  color: var(--color-white);
+}

@@ -1,0 +1,17 @@
+# Dependências
+node_modules/
+
+# Build
+.next/
+.next-build/
+out/
+
+# Segredos
+.env
+.env.*
+!.env.example
+
+# Sistema e logs
+.DS_Store
+*.log
+npm-debug.log*

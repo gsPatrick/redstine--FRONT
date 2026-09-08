@@ -1,0 +1,94 @@
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+  background-color: var(--gray-940);
+}
+
+.md {
+  /* Faixa, não capa cheia.
+     A home tem a imagem alta; nas internas o conteúdo é o que importa e uma
+     capa de 520px empurrava tudo para baixo da dobra. */
+  min-height: 340px;
+}
+
+.lg {
+  min-height: 420px;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-color: rgba(2, 1, 1, 0.66);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: 52px 20px;
+  text-align: center;
+}
+
+.title {
+  max-width: 26ch;
+  font-size: 44px;
+  font-weight: 600;
+  line-height: 1.24;
+  letter-spacing: -0.02em;
+  color: var(--color-white);
+  text-wrap: balance;
+}
+
+.subtitle {
+  max-width: 64ch;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.86);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 10px;
+}
+
+@media (max-width: 1024px) {
+  .inner {
+    max-width: var(--container-max-tablet);
+  }
+}
+
+@media (max-width: 767px) {
+  .md,
+  .lg {
+    min-height: 280px;
+  }
+
+  .inner {
+    max-width: var(--container-max-mobile);
+    padding-inline: 16px;
+  }
+
+  .title {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+}

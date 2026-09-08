@@ -1,0 +1,15 @@
+.logo {
+  display: block;
+  width: 100%;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.logo:hover {
+  opacity: 0.78;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}

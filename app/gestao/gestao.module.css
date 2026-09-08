@@ -1,0 +1,134 @@
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
+/* Quatro pendencias ocupam a primeira coluna larga; as notificacoes ficam ao
+   lado, porque sao a leitura complementar do mesmo "o que precisa de atencao". */
+.pendencias {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
+.avisos {
+  grid-column: span 4;
+}
+
+.listaAvisos {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.listaAvisos li + li {
+  border-top: 1px solid var(--pnl-line-soft);
+}
+
+.listaAvisos a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 2px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.listaAvisos a:hover .avisoTexto {
+  color: var(--pnl-accent);
+}
+
+.ponto {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+}
+
+.ponto.ok {
+  background: var(--pnl-ok);
+}
+
+.ponto.info {
+  background: var(--pnl-info);
+}
+
+.ponto.warn {
+  background: var(--pnl-warn);
+}
+
+.avisoTexto {
+  flex: 1 1 auto;
+  min-width: 0;
+  font-size: 12.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.listaAvisos time {
+  flex: 0 0 auto;
+  font-size: 11px;
+  color: var(--pnl-text-3);
+}
+
+.graficos {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: var(--pnl-gap);
+}
+
+.tagPeriodo {
+  padding: 4px 9px;
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  font-size: 11.5px;
+  color: var(--pnl-text-2);
+}
+
+.rodapeNota {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 18px 2px 0;
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: var(--pnl-text-3);
+}
+
+.rodapeNota svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+@media (max-width: 1200px) {
+  .kpis,
+  .pendencias {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .avisos {
+    grid-column: span 2;
+  }
+
+  .graficos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .kpis,
+  .pendencias {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .avisos {
+    grid-column: auto;
+  }
+}

@@ -1,0 +1,132 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  padding: 16px 18px;
+  background: var(--pnl-surface);
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius);
+  box-shadow: var(--pnl-shadow);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+
+.clicavel:hover {
+  border-color: var(--pnl-text-3);
+  box-shadow: var(--pnl-shadow-lg);
+  transform: translateY(-1px);
+}
+
+.destaque {
+  border-color: color-mix(in srgb, var(--pnl-accent) 35%, var(--pnl-line));
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--pnl-radius-sm);
+  flex: 0 0 auto;
+}
+
+.icone.neutral {
+  background: var(--pnl-neutral-soft);
+  color: var(--pnl-text-2);
+}
+
+.icone.accent {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent);
+}
+
+.icone.ok {
+  background: var(--pnl-ok-soft);
+  color: var(--pnl-ok);
+}
+
+.icone.warn {
+  background: var(--pnl-warn-soft);
+  color: var(--pnl-warn);
+}
+
+.icone.info {
+  background: var(--pnl-info-soft);
+  color: var(--pnl-info);
+}
+
+.rotulo {
+  /* Sem isto o ellipsis nao dispara: um filho flex nao encolhe abaixo do
+     proprio conteudo, e "Consultas aguardando atendimento" empurrava o cartao
+     64px para fora em ecra estreito. */
+  min-width: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--pnl-text-2);
+  letter-spacing: -0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.valor {
+  font-size: clamp(1.5rem, 2.1vw, 1.85rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--pnl-text);
+}
+
+.rodape {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+  min-height: 16px;
+}
+
+.variacao {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+.variacao em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--pnl-text-3);
+}
+
+.alta {
+  color: var(--pnl-ok);
+}
+
+.baixa {
+  color: var(--pnl-danger);
+}
+
+.nota,
+.link {
+  min-width: 0;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.link {
+  color: var(--pnl-accent);
+  font-weight: 600;
+}

@@ -1,0 +1,102 @@
+.section {
+  background-color: var(--color-white);
+  padding-block: clamp(32px, 3.8vw, 52px);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(32px, 4.5vw, 76px);
+  align-items: start;
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: clamp(44px, 5vw, 72px) clamp(32px, 3.8vw, 56px);
+  border-radius: var(--radius-banner);
+  background-color: var(--gray-940);
+  color: var(--color-white);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.kicker {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff4b4b;
+}
+
+/* Duas linhas com a mesma margem esquerda: "Ativos por ate" em cima,
+   e o numero junto de "do preco de mercado" embaixo, alinhados pela base. */
+.statement {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lead {
+  font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.line {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.2vw, 18px);
+}
+
+.figure {
+  font-size: clamp(3.2rem, 6.4vw, 5.4rem);
+  font-weight: 600;
+  line-height: 0.88;
+  letter-spacing: -0.05em;
+  color: #ff4b4b;
+}
+
+.trail {
+  font-size: clamp(1.35rem, 2.2vw, 1.95rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.028em;
+  color: var(--color-white);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 22px;
+  padding-top: clamp(4px, 0.8vw, 12px);
+}
+
+.support {
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.72);
+  text-wrap: pretty;
+}
+
+@media (max-width: 900px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .aside {
+    padding-top: 0;
+  }
+}
+
+.cta {
+  font-size: clamp(1rem, 1.25vw, 1.12rem);
+  padding: 18px 42px;
+}

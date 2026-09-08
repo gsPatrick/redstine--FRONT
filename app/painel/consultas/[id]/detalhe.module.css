@@ -1,0 +1,95 @@
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: var(--pnl-gap);
+  align-items: start;
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pnl-gap);
+}
+
+.mensagem {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--pnl-text);
+}
+
+.assinatura {
+  display: block;
+  margin-top: 12px;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.aguardando {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--pnl-text-2);
+}
+
+.foto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 16px;
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-surface-2);
+  overflow: hidden;
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.linhas {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  margin: 0;
+}
+
+.linhas div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.linhas dt {
+  font-size: 12.5px;
+  color: var(--pnl-text-2);
+}
+
+.linhas dd {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  text-align: right;
+}
+
+@media (max-width: 900px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.cotado {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 14px 0 0;
+  padding: 10px 12px;
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-ok-soft);
+  color: var(--pnl-ok);
+  font-size: 12.5px;
+}

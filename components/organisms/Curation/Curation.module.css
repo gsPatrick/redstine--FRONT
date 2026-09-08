@@ -1,0 +1,37 @@
+.kicker {
+  display: block;
+  margin-bottom: 14px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 48px;
+}
+
+.copy {
+  flex: 1 1 420px;
+  min-width: 0;
+}
+
+.head {
+  margin-bottom: 28px;
+}
+
+.points {
+  flex: 1 1 420px;
+  display: grid;
+  gap: 14px;
+}
+
+@media (max-width: 767px) {
+  .inner {
+    gap: 32px;
+  }
+}

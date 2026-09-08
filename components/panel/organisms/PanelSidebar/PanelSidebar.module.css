@@ -1,0 +1,225 @@
+.barra {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  width: var(--pnl-sidebar-w);
+  height: 100vh;
+  padding: 0 12px 16px;
+  background: var(--pnl-sidebar);
+  border-right: 1px solid var(--pnl-line);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--pnl-topbar-h);
+  padding: 0 6px;
+  flex: 0 0 auto;
+}
+
+.logo {
+  flex: 0 0 auto;
+}
+
+.fechar {
+  display: none;
+  padding: 6px;
+  border: none;
+  background: none;
+  color: var(--pnl-text-2);
+  cursor: pointer;
+}
+
+.contexto {
+  margin: 2px 8px 14px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.nav {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.rotulo {
+  display: block;
+  margin: 0 8px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.lista,
+.sublista {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 10px;
+  border: none;
+  border-radius: var(--pnl-radius-sm);
+  background: none;
+  color: var(--pnl-text-2);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.item span {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.item:hover {
+  background: var(--pnl-neutral-soft);
+  color: var(--pnl-text);
+}
+
+/* Ativo: fundo suave + barra vermelha a esquerda. A barra faz o item ser
+   localizavel na periferia da visao, sem depender de ler o texto. */
+.ativo {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent);
+  font-weight: 600;
+}
+
+.ativo::before {
+  content: "";
+  position: absolute;
+  top: 7px;
+  bottom: 7px;
+  left: -12px;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--pnl-accent);
+}
+
+.ativo:hover {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent);
+}
+
+.paiAtivo {
+  color: var(--pnl-text);
+}
+
+.caret {
+  flex: 0 0 auto;
+  opacity: 0.6;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+
+.caretFechado {
+  transform: rotate(-90deg);
+}
+
+.sublista {
+  margin: 2px 0 2px 26px;
+  padding-left: 10px;
+  border-left: 1px solid var(--pnl-line);
+}
+
+.subitem {
+  display: block;
+  padding: 7px 10px;
+  border-radius: 6px;
+  color: var(--pnl-text-2);
+  font-size: 12.5px;
+  text-decoration: none;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.subitem:hover {
+  background: var(--pnl-neutral-soft);
+  color: var(--pnl-text);
+}
+
+.subitem.ativo::before {
+  left: -11px;
+  top: 6px;
+  bottom: 6px;
+}
+
+.contador {
+  flex: 0 0 auto;
+  min-width: 18px;
+  padding: 2px 5px;
+  border-radius: var(--pnl-radius-pill, 999px);
+  background: var(--pnl-accent);
+  color: #fff;
+  font-size: 10.5px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+}
+
+.sair {
+  flex: 0 0 auto;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--pnl-line);
+  border-radius: 0;
+}
+
+.sair:hover {
+  background: none;
+  color: var(--pnl-accent);
+}
+
+.veu {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  display: none;
+  border: none;
+  background: rgba(6, 8, 12, 0.5);
+  backdrop-filter: blur(2px);
+  cursor: pointer;
+}
+
+@media (max-width: 1023px) {
+  .barra {
+    transform: translateX(-100%);
+    transition: transform var(--dur-base) var(--ease-out);
+    box-shadow: var(--pnl-shadow-lg);
+  }
+
+  .abertaMobile {
+    transform: none;
+  }
+
+  .fechar,
+  .veu {
+    display: block;
+  }
+}

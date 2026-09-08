@@ -1,0 +1,45 @@
+.stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transform: scale(1);
+  transition-property: opacity;
+  transition-timing-function: linear;
+}
+
+.active {
+  opacity: 1;
+  animation-name: kenBurnsIn;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes kenBurnsIn {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    transition: none;
+  }
+
+  .active {
+    animation: none;
+    transform: none;
+  }
+}

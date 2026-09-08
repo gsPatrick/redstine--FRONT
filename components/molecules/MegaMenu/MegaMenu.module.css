@@ -1,0 +1,96 @@
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  padding-top: 14px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility var(--dur-base) var(--ease-out);
+}
+
+.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.level1 {
+  min-width: 214px;
+  padding: 4px 0;
+  background-color: var(--color-white);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.3);
+}
+
+.parent {
+  position: relative;
+}
+
+.parentLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 13px 20px;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--gray-820);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.parentActive {
+  color: var(--color-white);
+  background-color: var(--gray-700);
+}
+
+.caret {
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.level2 {
+  position: absolute;
+  top: 0;
+  left: 100%;
+  min-width: 266px;
+  padding: 4px 0;
+  background-color: var(--color-white);
+  box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-6px);
+  transition:
+    opacity var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out),
+    visibility var(--dur-base) var(--ease-out);
+}
+
+.level2Open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+.childLink {
+  display: block;
+  padding: 13px 22px;
+  font-size: 15px;
+  font-weight: 400;
+  white-space: nowrap;
+  color: var(--gray-820);
+  transition:
+    color var(--dur-fast) var(--ease-out),
+    background-color var(--dur-fast) var(--ease-out);
+}
+
+.childLink:hover {
+  color: var(--color-white);
+  background-color: var(--gray-700);
+}

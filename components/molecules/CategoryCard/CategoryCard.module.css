@@ -1,0 +1,157 @@
+/**
+ * Contorno colorido em vez de fundo chapado.
+ *
+ * Duas linhas apenas — a externa do card e a do box da imagem — como pedido na
+ * revisão. `--marca` é a única coisa que muda entre as três categorias; o resto
+ * do card é idêntico, e é isso que faz as três lerem como um conjunto.
+ */
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: clamp(14px, 1.4vw, 18px);
+  border: 1.5px solid var(--marca);
+  border-radius: var(--radius-banner);
+  background-color: var(--color-white);
+  color: var(--gray-940);
+  overflow: hidden;
+  transition:
+    transform var(--dur-slow) var(--ease-out),
+    box-shadow var(--dur-slow) var(--ease-out);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 14px 34px color-mix(in srgb, var(--marca) 18%, transparent);
+}
+
+/* Uma cor da marca por categoria. O vermelho fica com Construção, a frente
+   principal; verde e roxo distinguem as outras duas sem disputar com os CTAs,
+   que continuam todos vermelhos. */
+.red {
+  --marca: var(--brand-red);
+}
+
+.green {
+  --marca: var(--brand-green);
+}
+
+.purple {
+  --marca: var(--brand-purple);
+}
+
+/* Tile branco: as fotos do catalogo vem com fundo branco, entao o produto
+   aparece limpo sobre a cor do card em vez de recortado na marra. */
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 4 / 3;
+  border: 1px solid color-mix(in srgb, var(--marca) 28%, transparent);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+  overflow: hidden;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: clamp(14px, 1.6vw, 22px);
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.card:hover .image {
+  transform: scale(1.05);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 9px;
+  padding: clamp(18px, 1.8vw, 24px) clamp(6px, 0.8vw, 10px) clamp(6px, 0.8vw, 10px);
+}
+
+.index {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.06em;
+  opacity: 0.62;
+}
+
+.title {
+  font-size: var(--fs-highlight);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.description {
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  opacity: 0.8;
+  text-wrap: pretty;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 16px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.cta svg {
+  width: 16px;
+  height: 16px;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.card:hover .cta svg {
+  transform: translateX(5px);
+}
+
+/* Índice e título ganham a cor da categoria; o corpo do texto continua neutro
+   para a leitura não cansar. */
+.index {
+  color: var(--marca);
+}
+
+.title {
+  color: var(--gray-980);
+}
+
+/* As quinze frentes de produto, três por card. Substituem o bloco que antes
+   repetia as categorias só para listá-las. */
+.subs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.subs li {
+  padding: 5px 10px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  line-height: 1.2;
+  color: var(--gray-600);
+  transition: border-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+
+.card:hover .subs li {
+  border-color: color-mix(in srgb, var(--marca) 40%, var(--gray-250));
+  color: var(--gray-800);
+}
+
+.cta {
+  color: var(--marca);
+}

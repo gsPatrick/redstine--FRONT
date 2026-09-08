@@ -1,0 +1,35 @@
+.espera {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 100vh;
+  background: var(--pnl-bg, #f4f5f7);
+}
+
+.giro {
+  width: 26px;
+  height: 26px;
+  border: 2.5px solid var(--pnl-line, #e6e8eb);
+  border-top-color: var(--pnl-accent, #c40404);
+  border-radius: 50%;
+  animation: girar 700ms linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.texto {
+  font-size: 13px;
+  color: var(--pnl-text-2, #5c636e);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .giro {
+    animation-duration: 2s;
+  }
+}

@@ -1,0 +1,55 @@
+.bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 90;
+  display: none;
+  background-color: var(--color-white);
+  border-top: 1px solid var(--gray-250);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  box-shadow: 0 -8px 28px -18px rgba(0, 0, 0, 0.4);
+}
+
+.list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 4px 8px;
+  color: var(--gray-600);
+  transition: color var(--dur-base) var(--ease-out);
+}
+
+.glyph {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.label {
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.active {
+  color: var(--color-accent);
+}
+
+.link:active .glyph,
+.active .glyph {
+  transform: translateY(-2px);
+}
+
+@media (max-width: 767px) {
+  .bar {
+    display: block;
+  }
+}

@@ -1,0 +1,66 @@
+.wrap {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+  flex-wrap: wrap;
+}
+
+.svg {
+  flex: 0 0 auto;
+}
+
+.totalValor {
+  fill: var(--pnl-text);
+  font-size: 20px;
+  font-weight: 650;
+  text-anchor: middle;
+  letter-spacing: -0.03em;
+}
+
+.totalRotulo {
+  fill: var(--pnl-text-3);
+  font-size: 9px;
+  text-anchor: middle;
+}
+
+.legenda {
+  flex: 1 1 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12.5px;
+}
+
+.legenda li {
+  display: grid;
+  grid-template-columns: 10px 1fr auto auto;
+  align-items: center;
+  gap: 9px;
+}
+
+.marca {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+}
+
+.nome {
+  color: var(--pnl-text-2);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.pct {
+  color: var(--pnl-text-3);
+  font-variant-numeric: tabular-nums;
+}
+
+.valor {
+  color: var(--pnl-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
