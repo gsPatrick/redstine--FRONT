@@ -25,7 +25,7 @@ NODE_ENV=production
 APP_PORT=4000
 APP_API_PREFIX=/api
 APP_SITE_URL=https://redestine.com.br
-APP_PUBLIC_URL=https://api.redestine.com.br
+APP_PUBLIC_URL=https://redstine-redstine--api.9jczjy.easypanel.host
 
 DB_HOST=<nome-do-serviço-postgres-na-rede-interna>
 DB_PORT=5432
@@ -86,7 +86,7 @@ o seed.
 ### Build argument — não é variável de ambiente
 
 ```
-NEXT_PUBLIC_API_URL=https://api.redestine.com.br/api/v1
+NEXT_PUBLIC_API_URL=https://redstine-redstine--api.9jczjy.easypanel.host/api/v1
 ```
 
 > Este valor precisa ir em **"Build arguments"**, não em "Environment".
