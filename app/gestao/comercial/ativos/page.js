@@ -109,7 +109,7 @@ export default function AtivosGestaoPage() {
       // apenas com status publicado. Linkar os demais levaria a um 404, entao
       // o olho fica inerte e diz por que.
       render: (l) =>
-        l.status === "publicado" && l.slug ? (
+        l.statusChave === "publicado" && l.slug ? (
           <Link
             href={`/produto/${l.slug}`}
             target="_blank"
