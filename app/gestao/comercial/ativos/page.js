@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
 import PageHeader from "@/components/panel/molecules/PageHeader/PageHeader";
 import PanelCard from "@/components/panel/molecules/PanelCard/PanelCard";
 import DataTable from "@/components/panel/molecules/DataTable/DataTable";
@@ -104,11 +105,30 @@ export default function AtivosGestaoPage() {
       titulo: "Ação",
       alinhar: "centro",
       largura: 68,
-      render: () => (
-        <span className={styles.verBtn}>
-          <PanelIcon name="eye" size={16} />
-        </span>
-      ),
+      // So o ativo publicado tem pagina publica — a API serve `/ativos/:slug`
+      // apenas com status publicado. Linkar os demais levaria a um 404, entao
+      // o olho fica inerte e diz por que.
+      render: (l) =>
+        l.status === "publicado" && l.slug ? (
+          <Link
+            href={`/produto/${l.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.verBtn}
+            title={`Ver ${l.nome || "ativo"} no site`}
+            aria-label={`Ver ${l.nome || "ativo"} no site`}
+          >
+            <PanelIcon name="eye" size={16} />
+          </Link>
+        ) : (
+          <span
+            className={`${styles.verBtn} ${styles.verBtnInativo}`}
+            title="Sem página pública: o ativo ainda não foi publicado."
+            aria-label="Sem página pública"
+          >
+            <PanelIcon name="eye" size={16} />
+          </span>
+        ),
     },
   ];
 
