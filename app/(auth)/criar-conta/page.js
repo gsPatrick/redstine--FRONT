@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PanelField from "@/components/panel/molecules/PanelField/PanelField";
 import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
@@ -22,6 +22,19 @@ export default function CriarContaPage() {
   const router = useRouter();
   const [perfil, setPerfil] = useState("comprador");
   const [erro, setErro] = useState(null);
+
+  /**
+   * Trava o envio até a hidratação.
+   *
+   * Um `<form>` sem `action` submete nativamente para a própria URL, por GET —
+   * e os campos viram query string. Antes de o React assumir o formulário,
+   * isso colocaria a SENHA na barra de endereço, no histórico do navegador e
+   * nos logs do servidor.
+   *
+   * O botão só habilita quando este efeito roda, o que só acontece no cliente.
+   */
+  const [pronto, setPronto] = useState(false);
+  useEffect(() => setPronto(true), []);
   const [enviando, setEnviando] = useState(false);
 
   async function submeter(e) {
@@ -118,7 +131,7 @@ export default function CriarContaPage() {
           />
         </div>
 
-        <PanelButton type="submit" size="lg" className={styles.acao} disabled={enviando}>
+        <PanelButton type="submit" size="lg" className={styles.acao} disabled={enviando || !pronto}>
           {enviando ? "Criando…" : "Criar conta"}
         </PanelButton>
       </form>

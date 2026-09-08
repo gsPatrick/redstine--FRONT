@@ -56,7 +56,7 @@ export default function FavoritosPage() {
         trilha={[{ label: "Comprar" }, { label: "Favoritos" }]}
       />
 
-      <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} altura={280}>
+      <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="cards" quantidade={4}>
       {lista.length ? (
         <>
           <div className={styles.grade}>

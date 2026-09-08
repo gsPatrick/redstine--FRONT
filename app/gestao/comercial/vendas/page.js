@@ -101,7 +101,7 @@ export default function VendasGestaoPage() {
         acoes={<PeriodFilter valor={periodo} onChange={setPeriodo} />}
       />
 
-      <EstadoDaTela carregando={resumo.carregando} erro={resumo.erro} onTentarNovamente={resumo.recarregar} altura={130}>
+      <EstadoDaTela carregando={resumo.carregando} erro={resumo.erro} onTentarNovamente={resumo.recarregar} esqueleto="cards" quantidade={4}>
       {r && (
       <div className={styles.kpis4}>
         <StatCard
@@ -138,7 +138,7 @@ export default function VendasGestaoPage() {
       </EstadoDaTela>
 
       <PanelCard padding="none">
-        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar}>
+        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={10}>
         <DataTable
           colunas={colunas}
           linhas={movimentacoes}

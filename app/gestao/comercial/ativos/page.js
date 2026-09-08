@@ -207,7 +207,7 @@ export default function AtivosGestaoPage() {
           />
         </div>
 
-        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar}>
+        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={10}>
         <DataTable
           colunas={colunas}
           linhas={linhas}

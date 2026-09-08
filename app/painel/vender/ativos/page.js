@@ -140,7 +140,7 @@ export default function MeusAtivosPage() {
           />
         </div>
 
-        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar}>
+        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="tabela" colunas={8}>
         <DataTable
           colunas={colunas}
           linhas={linhas}

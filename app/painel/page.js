@@ -31,7 +31,7 @@ export default function VisaoGeralPage() {
         <p>Acompanhe suas compras, consultas, ativos e resultados na RED.</p>
       </header>
 
-      <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} altura={320}>
+      <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="cards" quantidade={3}>
         {dados && (
           <>
             <div className={styles.blocos}>

@@ -84,7 +84,7 @@ export default function ConsultasPage() {
       />
 
       <PanelCard padding="none">
-        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar}>
+        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="tabela" colunas={6}>
         <DataTable
           colunas={colunas}
           linhas={consultas}

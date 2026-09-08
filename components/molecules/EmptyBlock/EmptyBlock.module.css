@@ -1,0 +1,79 @@
+/**
+ * Contorno tracejado, não uma caixa cheia: comunica "espaço reservado" em vez
+ * de parecer mais um card de conteúdo.
+ */
+.bloco {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 260px;
+  padding: 44px 24px;
+  border: 1.5px dashed var(--gray-300);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+  text-align: center;
+}
+
+.icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  margin-bottom: 4px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: 1px solid var(--gray-250);
+  color: var(--gray-500);
+}
+
+.icone svg {
+  width: 22px;
+  height: 22px;
+}
+
+.titulo {
+  margin: 0;
+  font-size: clamp(1rem, 1.3vw, 1.12rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--gray-940);
+}
+
+.descricao {
+  margin: 0;
+  max-width: 46ch;
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  color: var(--gray-600);
+  text-wrap: pretty;
+}
+
+.acao {
+  margin-top: 10px;
+  padding: 10px 24px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-accent);
+  text-decoration: none;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.acao:hover {
+  background-color: var(--color-accent);
+  color: var(--color-white);
+}
+
+/* Falha ganha a cor de alerta no ícone — o visitante precisa distinguir
+   "não há nada" de "não deu para buscar". */
+.erro .icone {
+  border-color: color-mix(in srgb, var(--color-accent) 30%, var(--gray-250));
+  color: var(--color-accent);
+}

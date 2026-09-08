@@ -245,3 +245,17 @@
     transition: none !important;
   }
 }
+
+/* A altura mínima existe para o carrossel caber na tela sem rolagem. Sem
+   carrossel ela vira 800px de vazio — o bloco de ausência ocupa o que
+   precisa e nada mais. */
+.sectionVazia {
+  min-height: 0;
+}
+
+/* Container do estado vazio: acompanha a largura do cabeçalho da seção, não
+   a do trilho, que sangra até a borda da tela. */
+.inner {
+  width: min(100% - 40px, var(--container-max));
+  margin: 0 auto;
+}

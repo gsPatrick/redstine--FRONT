@@ -129,7 +129,7 @@ export default function FinanceiroFornecedorPage() {
         carregando={resumo.carregando}
         erro={resumo.erro}
         onTentarNovamente={resumo.recarregar}
-        altura={150}
+        esqueleto="cards" quantidade={4}
       >
       {resumo.dados && (
       <div className={styles.cards}>
@@ -183,7 +183,7 @@ export default function FinanceiroFornecedorPage() {
         />
 
         {aba === "movimentacoes" ? (
-          <EstadoDaTela carregando={movs.carregando} erro={movs.erro} onTentarNovamente={movs.recarregar}>
+          <EstadoDaTela carregando={movs.carregando} erro={movs.erro} onTentarNovamente={movs.recarregar} esqueleto="tabela" colunas={7}>
           <DataTable
             colunas={colunasMov}
             linhas={vendas}
@@ -192,7 +192,7 @@ export default function FinanceiroFornecedorPage() {
           />
           </EstadoDaTela>
         ) : (
-          <EstadoDaTela carregando={pags.carregando} erro={pags.erro} onTentarNovamente={pags.recarregar}>
+          <EstadoDaTela carregando={pags.carregando} erro={pags.erro} onTentarNovamente={pags.recarregar} esqueleto="tabela" colunas={7}>
           <DataTable
             colunas={colunasPag}
             linhas={pagamentos}

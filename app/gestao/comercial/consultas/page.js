@@ -109,7 +109,7 @@ export default function ConsultasGestaoPage() {
         }
       />
 
-      <EstadoDaTela carregando={resumo.carregando} erro={resumo.erro} onTentarNovamente={resumo.recarregar} altura={130}>
+      <EstadoDaTela carregando={resumo.carregando} erro={resumo.erro} onTentarNovamente={resumo.recarregar} esqueleto="cards" quantidade={5}>
       {r && (
       <div className={styles.kpis5}>
         <StatCard
@@ -153,7 +153,7 @@ export default function ConsultasGestaoPage() {
       </EstadoDaTela>
 
       <PanelCard padding="none">
-        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar}>
+        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={8}>
         <DataTable
           colunas={colunas}
           linhas={linhas}

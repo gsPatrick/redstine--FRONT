@@ -114,7 +114,8 @@ export default function ComprasPage() {
           carregando={todas.carregando}
           erro={todas.erro}
           onTentarNovamente={todas.recarregar}
-        >
+          esqueleto="tabela"
+>
         <DataTable
           colunas={colunas}
           linhas={linhas}

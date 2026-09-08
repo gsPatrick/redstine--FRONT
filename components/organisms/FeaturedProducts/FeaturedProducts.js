@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/molecules/ProductCard/ProductCard";
+import EmptyBlock from "@/components/molecules/EmptyBlock/EmptyBlock";
 import styles from "./FeaturedProducts.module.css";
 
 const DURACAO = 5000;
@@ -15,9 +16,15 @@ const TRANSICAO = 750;
  * - posiciona por offsetLeft, não por largura × índice
  * - a pausa preserva o progresso restante em vez de reiniciar
  */
-export default function FeaturedProducts({ products, title = "Oportunidades em destaque" }) {
-  const N = products.length;
-  const slides = Array.from({ length: N * 3 }, (_, i) => products[i % N]);
+export default function FeaturedProducts({
+  products,
+  title = "Oportunidades em destaque",
+  vazio,
+}) {
+  const N = products?.length ?? 0;
+  // `products[i % N]` com N = 0 dá NaN, e o contador da régua mostrava
+  // "NaN / 00" na tela. O carrossel só é montado quando há o que rodar.
+  const slides = N ? Array.from({ length: N * 3 }, (_, i) => products[i % N]) : [];
 
   const trackRef = useRef(null);
   const [atual, setAtual] = useState(N);
@@ -104,6 +111,33 @@ export default function FeaturedProducts({ products, title = "Oportunidades em d
     setPausado(false);
     if (Math.abs(dx) > 60) ir(dx < 0 ? 1 : -1);
   };
+
+  // Sem ativos, a seção mantém o título e troca o carrossel por um bloco que
+  // explica a ausência. Uma faixa em branco sob um título faria o visitante
+  // achar que a página quebrou.
+  if (!N) {
+    return (
+      <section className={`${styles.section} ${styles.sectionVazia}`}>
+        <div className={styles.head}>
+          <div className={styles.headText}>
+            <span className={styles.kicker}>O que circula na RED</span>
+            <h2 className={styles.title}>{title}</h2>
+          </div>
+        </div>
+
+        <div className={styles.inner}>
+          <EmptyBlock
+            titulo={vazio?.titulo ?? "Nenhum ativo publicado no momento."}
+            descricao={
+              vazio?.descricao ??
+              "A curadoria RED está avaliando os próximos lotes. Assim que forem aprovados, aparecem aqui."
+            }
+            acao={vazio?.acao ?? { label: "Enviar Ativos", href: "/vender#enviar" }}
+          />
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className={styles.section}>

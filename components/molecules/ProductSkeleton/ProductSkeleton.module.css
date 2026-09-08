@@ -1,0 +1,87 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: var(--card-min-h, 300px);
+  padding: 0 0 20px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--color-white);
+  overflow: hidden;
+}
+
+/* Base de todos os blocos: a faixa de brilho é um gradiente que atravessa. */
+.bloco {
+  position: relative;
+  display: block;
+  background-color: var(--gray-150);
+  overflow: hidden;
+}
+
+.bloco::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.75),
+    transparent
+  );
+  animation: brilho 1.4s ease-in-out infinite;
+}
+
+@keyframes brilho {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.imagem {
+  height: var(--card-image-h, 260px);
+  border-radius: 0;
+}
+
+.chip {
+  width: 120px;
+  height: 26px;
+  margin: -13px 0 0 20px;
+  border-radius: var(--radius-pill);
+  background-color: var(--gray-100);
+}
+
+.linha {
+  width: calc(100% - 40px);
+  height: 15px;
+  margin: 18px 20px 0;
+  border-radius: 5px;
+}
+
+.linhaCurta {
+  width: 55%;
+  height: 15px;
+  margin: 8px 20px 0;
+  border-radius: 5px;
+}
+
+.preco {
+  width: 110px;
+  height: 22px;
+  margin: 20px 20px 0;
+  border-radius: 6px;
+}
+
+.botao {
+  width: calc(100% - 40px);
+  height: 40px;
+  margin: auto 20px 0;
+  border-radius: var(--radius-pill);
+}
+
+/* Quem pediu menos movimento vê a estrutura parada — continua comunicando
+   que algo está a carregar, sem a animação. */
+@media (prefers-reduced-motion: reduce) {
+  .bloco::after {
+    animation: none;
+  }
+}

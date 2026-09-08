@@ -47,7 +47,7 @@ export default function DashboardVendasPage() {
         acoes={<PeriodFilter valor={periodo} onChange={setPeriodo} />}
       />
 
-      <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} altura={420}>
+      <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="cards" quantidade={6}>
       {dados && (
       <>
       <div className={styles.cards}>

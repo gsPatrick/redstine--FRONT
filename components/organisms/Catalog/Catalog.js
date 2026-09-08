@@ -36,6 +36,10 @@ export default function Catalog({ products, initialTerm = "", title, subtitle })
   });
   const [panelOpen, setPanelOpen] = useState(false);
 
+  // Distingue "não há acervo" de "os filtros não acharam nada".
+  const temFiltro =
+    term.trim() !== "" || Object.values(filters).some((lista) => lista.length > 0);
+
   const facets = useMemo(
     () => ({
       category: facet(products, (p) => p.categories.map((c) => c.name)),
@@ -185,7 +189,27 @@ export default function Catalog({ products, initialTerm = "", title, subtitle })
           <p className={styles.count}>
             {results.length} {results.length === 1 ? "ativo" : "ativos"}
           </p>
-          <ProductGrid products={results} />
+          {/* A mensagem muda conforme a causa: catálogo realmente vazio é
+              diferente de filtro que não achou nada, e a saída também. */}
+          <ProductGrid
+            products={results}
+            vazio={
+              temFiltro
+                ? {
+                    tipo: "busca",
+                    titulo: "Nenhum ativo com esses filtros.",
+                    descricao:
+                      "Tente remover um filtro ou buscar por outro termo. O acervo muda conforme novos lotes são aprovados.",
+                  }
+                : {
+                    tipo: "vazio",
+                    titulo: "Nenhum ativo publicado no momento.",
+                    descricao:
+                      "A curadoria RED está avaliando os próximos lotes. Assim que forem aprovados, aparecem aqui.",
+                    acao: { label: "Enviar Ativos", href: "/vender#enviar" },
+                  }
+            }
+          />
         </div>
       </div>
     </Section>

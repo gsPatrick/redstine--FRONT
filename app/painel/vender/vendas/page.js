@@ -100,7 +100,7 @@ export default function VendasPage() {
       />
 
       <PanelCard padding="none">
-        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar}>
+        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="tabela" colunas={9}>
         <DataTable
           colunas={colunas}
           linhas={vendas}

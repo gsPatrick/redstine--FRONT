@@ -162,7 +162,7 @@ export default function RepassesPage() {
         trilha={[{ label: "Financeiro" }, { label: "Repasses" }]}
       />
 
-      <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} altura={130}>
+      <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="cards" quantidade={4}>
       {resumo && (
       <div className={proprios.kpis}>
         <StatCard
@@ -238,7 +238,7 @@ export default function RepassesPage() {
           )}
         </div>
 
-        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar}>
+        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={8}>
         <DataTable
           colunas={colunas}
           linhas={linhas}

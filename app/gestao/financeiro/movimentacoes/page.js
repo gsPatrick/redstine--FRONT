@@ -160,7 +160,7 @@ export default function MovimentacoesPage() {
         }
       />
 
-      <EstadoDaTela carregando={ind.carregando} erro={ind.erro} onTentarNovamente={ind.recarregar} altura={130}>
+      <EstadoDaTela carregando={ind.carregando} erro={ind.erro} onTentarNovamente={ind.recarregar} esqueleto="cards" quantidade={5}>
       {ind.dados && (
       <div className={styles.kpis}>
         <StatCard
@@ -204,7 +204,7 @@ export default function MovimentacoesPage() {
       </EstadoDaTela>
 
       <PanelCard padding="none">
-        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar}>
+        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={10}>
         <DataTable
           colunas={colunas}
           linhas={linhas}
