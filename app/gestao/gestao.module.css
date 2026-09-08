@@ -1,6 +1,8 @@
+/* Sao seis indicadores: em quatro colunas sobrava uma linha de 4 + 2 com dois
+   buracos ao lado. Tres colunas fecham duas linhas cheias. */
 .kpis {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--pnl-gap);
   margin-bottom: var(--pnl-gap);
 }
