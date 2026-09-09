@@ -30,6 +30,12 @@ const TOM = {
   respondida: "ok",
   encerrada: "neutral",
 
+  // envios
+  aprovada: "ok",
+  recusada: "danger",
+  aprovado: "ok",
+  recusado: "danger",
+
   // ativos
   "em avaliacao": "warn",
   "em avaliação": "warn",

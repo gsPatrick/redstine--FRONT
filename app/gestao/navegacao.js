@@ -21,6 +21,7 @@ const TODOS = [
         label: "Comercial",
         icone: "chart",
         filhos: [
+          { label: "Envios", href: "/gestao/comercial/envios" },
           { label: "Consultas", href: "/gestao/comercial/consultas" },
           { label: "Ativos", href: "/gestao/comercial/ativos" },
           { label: "Vendas", href: "/gestao/comercial/vendas" },

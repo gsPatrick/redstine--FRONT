@@ -27,7 +27,7 @@ import styles from "./gestao.module.css";
 function pendenciasDe(alertas) {
   return [
     { rotulo: "Consultas aguardando atendimento", valor: alertas.consultasEmAberto, icone: "chat", tone: "warn", href: "/gestao/comercial/consultas", hrefLabel: "Ver consultas" },
-    { rotulo: "Ativos aguardando avaliação", valor: alertas.enviosSemAvaliacao, icone: "box", tone: "warn", href: "/gestao/comercial/ativos", hrefLabel: "Ver ativos" },
+    { rotulo: "Ativos aguardando avaliação", valor: alertas.enviosSemAvaliacao, icone: "box", tone: "warn", href: "/gestao/comercial/envios", hrefLabel: "Ver envios" },
     { rotulo: "Ativos aguardando aprovação", valor: alertas.ativosAguardandoAprovacao, icone: "clock", tone: "info", href: "/gestao/comercial/ativos", hrefLabel: "Ver ativos" },
     { rotulo: "Repasses fora do prazo", valor: alertas.repassesForaDoPrazo, icone: "wallet", tone: "accent", href: "/gestao/financeiro/repasses", hrefLabel: "Ver repasses" },
   ];
