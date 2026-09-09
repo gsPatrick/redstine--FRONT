@@ -373,3 +373,152 @@
     padding: 16px;
   }
 }
+
+/* ------------------------------------------------------------- edição */
+
+.botaoEditar {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 7px;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pnl-text-2);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.botaoEditar:hover {
+  border-color: var(--pnl-accent);
+  color: var(--pnl-accent);
+}
+
+.formEdicao {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gradeCampos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.campoLargo {
+  grid-column: 1 / -1;
+}
+
+.bloco {
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 10px;
+}
+
+.bloco legend {
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.galeriaEdicao {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(88px, 1fr));
+  gap: 9px;
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+}
+
+.galeriaEdicao li {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid var(--pnl-line);
+  border-radius: 9px;
+  overflow: hidden;
+  background: var(--pnl-surface-2);
+}
+
+.galeriaEdicao img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.galeriaEdicao button {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.66);
+  color: #fff;
+  cursor: pointer;
+}
+
+.galeriaEdicao button:hover {
+  background: #c00000;
+}
+
+.soltaEdicao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  border: 1.5px dashed var(--pnl-line);
+  border-radius: 10px;
+  background: var(--pnl-surface-2);
+  color: var(--pnl-text-3);
+  cursor: pointer;
+}
+
+.soltaEdicao:hover {
+  border-color: var(--pnl-accent);
+  background: var(--pnl-accent-soft);
+}
+
+.soltaEdicao strong {
+  font-size: 12.5px;
+  color: var(--pnl-text);
+}
+
+.inputArquivo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rodapeEdicao {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.irParaAtivo {
+  margin-top: 14px;
+  width: 100%;
+}
+
+@media (max-width: 560px) {
+  .gradeCampos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

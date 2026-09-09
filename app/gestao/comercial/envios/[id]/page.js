@@ -20,6 +20,7 @@ import {
   MODALIDADES,
 } from "@/lib/painel/envios";
 import Galeria from "./Galeria";
+import Editar from "./Editar";
 import styles from "./envio.module.css";
 
 /**
@@ -41,6 +42,7 @@ export default function EnvioDetalhePage() {
   const { dados: categorias } = useRecurso("/catalog/categories");
 
   const [decisao, setDecisao] = useState(null); // "aprovar" | "recusar"
+  const [editando, setEditando] = useState(false);
   const [categoria, setCategoria] = useState("");
   const [gravando, setGravando] = useState(false);
   const [falha, setFalha] = useState(null);
@@ -48,6 +50,7 @@ export default function EnvioDetalhePage() {
   const subs = (categorias || []).find((c) => c.id === categoria)?.subcategorias || [];
   const decidido =
     envio?.status === STATUS_ENVIO.APROVADA || envio?.status === STATUS_ENVIO.RECUSADA;
+  const ativoGerado = envio?.avaliacoes?.find((a) => a.assetId)?.assetId;
 
   const iniciar = async () => {
     setFalha(null);
@@ -140,12 +143,44 @@ export default function EnvioDetalhePage() {
                 <Galeria fotos={envio.photos || []} legenda={envio.assetType} />
               </PanelCard>
 
-              <PanelCard titulo="O que foi enviado">
+              <PanelCard
+                titulo="O que foi enviado"
+                acao={
+                  !editando ? (
+                    <button
+                      type="button"
+                      className={styles.botaoEditar}
+                      onClick={() => setEditando(true)}
+                    >
+                      <PanelIcon name="settings" size={13} />
+                      Editar
+                    </button>
+                  ) : null
+                }
+              >
+                {editando ? (
+                  <Editar
+                    envio={envio}
+                    aoCancelar={() => setEditando(false)}
+                    aoSalvar={() => {
+                      setEditando(false);
+                      recarregar();
+                    }}
+                  />
+                ) : (
                 <dl className={styles.dados}>
                   <Dado rotulo="Descrição" valor={envio.assetType || envio.description} largo />
                   <Dado rotulo="Quantidade aproximada" valor={envio.approximateQuantity} />
                   <Dado rotulo="Localização" valor={envio.city} />
-                  <Dado rotulo="Condição declarada" valor={envio.attributes?.condicao} />
+                  {/* O envio guarda a chave crua (`sem_uso`); mostrar isso ao
+                      utilizador expõe o vocabulário interno do banco. */}
+                  <Dado
+                    rotulo="Condição declarada"
+                    valor={
+                      CONDICOES.find((c) => c.valor === envio.attributes?.condicao)?.label ||
+                      envio.attributes?.condicao
+                    }
+                  />
                   <Dado rotulo="Recebido em" valor={fmtData(envio.createdAt, { comHora: true })} />
                   <Dado
                     rotulo="Origem"
@@ -157,6 +192,7 @@ export default function EnvioDetalhePage() {
                   />
                   <Dado rotulo="Observações do fornecedor" valor={envio.notes} largo />
                 </dl>
+                )}
               </PanelCard>
 
               {envio.avaliacoes?.length > 0 && (
@@ -195,12 +231,12 @@ export default function EnvioDetalhePage() {
 
                         {a.assetId && (
                           <Link
-                            href="/gestao/comercial/ativos"
+                            href={`/gestao/comercial/ativos/${a.assetId}`}
                             className={styles.linkAtivo}
-                            title="Este envio gerou um ativo no catálogo"
+                            title="Abrir a gestão do ativo que este envio gerou"
                           >
                             <PanelIcon name="box" size={14} />
-                            Ver o ativo gerado
+                            Gerir o ativo gerado
                           </Link>
                         )}
                       </li>
@@ -234,10 +270,26 @@ export default function EnvioDetalhePage() {
                 )}
 
                 {decidido ? (
-                  <p className={styles.decidido}>
-                    Este envio já foi {envio.status === STATUS_ENVIO.APROVADA ? "aprovado" : "recusado"}.
-                    A decisão fica registrada no histórico e não é refeita aqui.
-                  </p>
+                  <>
+                    <p className={styles.decidido}>
+                      Este envio já foi{" "}
+                      {envio.status === STATUS_ENVIO.APROVADA ? "aprovado" : "recusado"}. A decisão
+                      fica registrada no histórico e não é refeita aqui.
+                    </p>
+
+                    {/* Aprovado, o trabalho continua NO ATIVO: preço, fotos e
+                        publicação vivem lá. Sem este atalho o utilizador fica
+                        num ecrã sem nada para fazer e sem saber para onde ir. */}
+                    {ativoGerado && (
+                      <PanelButton
+                        href={`/gestao/comercial/ativos/${ativoGerado}`}
+                        size="lg"
+                        className={styles.irParaAtivo}
+                      >
+                        Gerir o ativo gerado
+                      </PanelButton>
+                    )}
+                  </>
                 ) : envio.status === STATUS_ENVIO.RECEBIDA ? (
                   <>
                     <p className={styles.aviso}>
