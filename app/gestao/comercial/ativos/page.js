@@ -105,30 +105,19 @@ export default function AtivosGestaoPage() {
       titulo: "Ação",
       alinhar: "centro",
       largura: 68,
-      // So o ativo publicado tem pagina publica — a API serve `/ativos/:slug`
-      // apenas com status publicado. Linkar os demais levaria a um 404, entao
-      // o olho fica inerte e diz por que.
-      render: (l) =>
-        l.statusChave === "publicado" && l.slug ? (
-          <Link
-            href={`/produto/${l.slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.verBtn}
-            title={`Ver ${l.nome || "ativo"} no site`}
-            aria-label={`Ver ${l.nome || "ativo"} no site`}
-          >
-            <PanelIcon name="eye" size={16} />
-          </Link>
-        ) : (
-          <span
-            className={`${styles.verBtn} ${styles.verBtnInativo}`}
-            title="Sem página pública: o ativo ainda não foi publicado."
-            aria-label="Sem página pública"
-          >
-            <PanelIcon name="eye" size={16} />
-          </span>
-        ),
+      // Leva a gestao do ativo, nao a pagina publica: e daqui que se corrige
+      // dado, troca foto e move o ciclo de vida. Ver no site continua a um
+      // clique, dentro do detalhe, e so existe quando ha pagina para ver.
+      render: (l) => (
+        <Link
+          href={`/gestao/comercial/ativos/${l.id}`}
+          className={styles.verBtn}
+          title={`Gerir ${l.nome || "ativo"}`}
+          aria-label={`Gerir ${l.nome || "ativo"}`}
+        >
+          <PanelIcon name="settings" size={16} />
+        </Link>
+      ),
     },
   ];
 

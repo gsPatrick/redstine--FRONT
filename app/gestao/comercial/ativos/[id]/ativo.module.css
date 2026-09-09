@@ -1,0 +1,352 @@
+.grade {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  gap: var(--pnl-gap);
+  align-items: start;
+}
+
+.coluna {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pnl-gap);
+  min-width: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pnl-gap);
+}
+
+.acoesTopo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.verNoSite {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pnl-text-2);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.verNoSite:hover {
+  border-color: var(--pnl-accent);
+  color: var(--pnl-accent);
+}
+
+/* ------------------------------------------------------------- formulário */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.largo {
+  grid-column: 1 / -1;
+}
+
+.tecnicos {
+  margin-top: 16px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 9px;
+  padding: 11px 13px;
+}
+
+.tecnicos summary {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--pnl-text-2);
+  cursor: pointer;
+}
+
+.tecnicos[open] summary {
+  margin-bottom: 14px;
+}
+
+.destaque {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 13px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.destaque input {
+  margin-top: 2px;
+  accent-color: var(--pnl-accent);
+}
+
+.destaque span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.destaque strong {
+  font-size: 13px;
+  color: var(--pnl-text);
+}
+
+.destaque em {
+  font-style: normal;
+  font-size: 12px;
+  color: var(--pnl-text-3);
+}
+
+.rodape {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+}
+
+.salvo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--pnl-ok, #00a850);
+}
+
+/* ------------------------------------------------------------- fotos */
+
+.fotos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0 0 14px;
+  padding: 0;
+}
+
+.foto {
+  position: relative;
+  aspect-ratio: 1;
+  border: 1px solid var(--pnl-line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--pnl-surface-2);
+}
+
+.foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.capa {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background: var(--pnl-accent);
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.acoesFoto {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: flex;
+  gap: 4px;
+}
+
+.acoesFoto button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.66);
+  color: #fff;
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.acoesFoto button:hover:not(:disabled) {
+  background: rgba(0, 0, 0, 0.86);
+}
+
+.acoesFoto button:disabled {
+  opacity: 0.32;
+  cursor: not-allowed;
+}
+
+.removerFoto:hover:not(:disabled) {
+  background: #c00000 !important;
+}
+
+.solta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 26px 20px;
+  border: 1.5px dashed var(--pnl-line);
+  border-radius: var(--pnl-radius);
+  background: var(--pnl-surface-2);
+  color: var(--pnl-text-3);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.solta:hover {
+  border-color: var(--pnl-accent);
+  background: var(--pnl-accent-soft);
+}
+
+.solta strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pnl-text);
+}
+
+.solta span {
+  font-size: 11.5px;
+}
+
+.inputArquivo {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.semFoto {
+  margin: 0 0 14px;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: var(--pnl-surface-2);
+  border-left: 3px solid var(--pnl-warn, #d68a00);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--pnl-text-2);
+}
+
+.dicaOrdem {
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.ocupado {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------- ciclo de vida */
+
+.estadoAtual {
+  margin: 0 0 14px;
+  font-size: 13px;
+  color: var(--pnl-text-2);
+}
+
+.transicoes {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.semTransicao,
+.avisoCiclo {
+  margin: 14px 0 0;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: var(--pnl-surface-2);
+  border-left: 3px solid var(--pnl-line);
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--pnl-text-2);
+}
+
+.avisoCiclo {
+  border-left-color: var(--pnl-accent);
+}
+
+.semTransicao {
+  margin-top: 0;
+}
+
+/* ------------------------------------------------------------- dados */
+
+.dados {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px 16px;
+  margin: 0;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.dados dt {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.dados dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pnl-text);
+  overflow-wrap: anywhere;
+}
+
+.erro {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0 0 var(--pnl-gap);
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: rgba(192, 0, 0, 0.09);
+  color: #c00000;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 1100px) {
+  .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .grid,
+  .dados {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
