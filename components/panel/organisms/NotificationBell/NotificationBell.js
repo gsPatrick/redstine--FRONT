@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import PanelIcon from "../../atoms/PanelIcon/PanelIcon";
 import { tempoRelativo } from "@/lib/painel/formato";
+import { lerNotificacao, lerTodasNotificacoes } from "@/lib/painel/api-cliente";
 import styles from "./NotificationBell.module.css";
 
 const ICONE_POR_TIPO = {
@@ -26,6 +27,19 @@ export default function NotificationBell({ notificacoes = [] }) {
   const [aberto, setAberto] = useState(false);
   const [lidas, setLidas] = useState([]);
   const ref = useRef(null);
+
+  // A leitura marcava apenas no estado local: bastava recarregar a pagina para
+  // o contador voltar ao que era. Agora avisa a API, e o estado local so
+  // antecipa o efeito para o clique parecer imediato.
+  const marcarUma = (id) => {
+    setLidas((l) => (l.includes(id) ? l : [...l, id]));
+    lerNotificacao(id).catch(() => {});
+  };
+
+  const marcarTodas = () => {
+    setLidas(notificacoes.map((n) => n.id));
+    lerTodasNotificacoes().catch(() => {});
+  };
 
   const naoLidas = notificacoes.filter((n) => !n.lida && !lidas.includes(n.id));
 
@@ -62,7 +76,7 @@ export default function NotificationBell({ notificacoes = [] }) {
               <button
                 type="button"
                 className={styles.marcar}
-                onClick={() => setLidas(notificacoes.map((n) => n.id))}
+                onClick={marcarTodas}
               >
                 Marcar todas como lidas
               </button>
@@ -78,7 +92,7 @@ export default function NotificationBell({ notificacoes = [] }) {
                     href={n.link || "#"}
                     className={`${styles.linha} ${lida ? styles.lida : ""}`}
                     onClick={() => {
-                      setLidas((l) => (l.includes(n.id) ? l : [...l, n.id]));
+                      marcarUma(n.id);
                       setAberto(false);
                     }}
                   >
@@ -99,7 +113,7 @@ export default function NotificationBell({ notificacoes = [] }) {
           {!notificacoes.length && <p className={styles.vazio}>Nenhuma notificação por enquanto.</p>}
 
           <footer className={styles.rodape}>
-            <Link href="#" onClick={() => setAberto(false)}>
+            <Link href="/painel/notificacoes" onClick={() => setAberto(false)}>
               Ver todas as notificações
             </Link>
           </footer>

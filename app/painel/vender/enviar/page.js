@@ -1,13 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PageHeader from "@/components/panel/molecules/PageHeader/PageHeader";
 import PanelCard from "@/components/panel/molecules/PanelCard/PanelCard";
 import PanelField from "@/components/panel/molecules/PanelField/PanelField";
 import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
-import { useRecurso, enviarAtivo } from "@/lib/painel/api-cliente";
+import { useRecurso, enviarAtivo, enviarFotosDoAtivo } from "@/lib/painel/api-cliente";
 import styles from "./enviar.module.css";
 
 /** Os cinco valores oficiais de condição, iguais aos do filtro do catálogo. */
@@ -20,6 +20,10 @@ const CONDICOES = [
   { valor: "necessita_reparo", label: "Necessita reparo" },
 ];
 
+const MAX_FOTOS = 8;
+const MAX_MB = 8;
+const TIPOS = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+
 /**
  * Enviar Ativos.
  *
@@ -30,9 +34,55 @@ const CONDICOES = [
  */
 export default function EnviarAtivosPage() {
   const [categoria, setCategoria] = useState("");
+  const [fotos, setFotos] = useState([]);
+  const inputFotos = useRef(null);
   const [enviado, setEnviado] = useState(false);
   const [enviando, setEnviando] = useState(false);
   const [erro, setErro] = useState(null);
+
+  // As pré-visualizações são object URLs: sem revogar, cada foto escolhida
+  // deixa um blob preso na memória da aba até a página ser recarregada.
+  useEffect(() => () => fotos.forEach((f) => URL.revokeObjectURL(f.previa)), [fotos]);
+
+  const adicionarFotos = (lista) => {
+    const escolhidos = Array.from(lista || []);
+    if (!escolhidos.length) return;
+
+    const recusados = [];
+    const aceites = [];
+
+    for (const file of escolhidos) {
+      if (!TIPOS.includes(file.type)) {
+        recusados.push(`${file.name}: formato não aceito`);
+      } else if (file.size > MAX_MB * 1024 * 1024) {
+        recusados.push(`${file.name}: acima de ${MAX_MB} MB`);
+      } else {
+        aceites.push(file);
+      }
+    }
+
+    setFotos((atuais) => {
+      const espaco = MAX_FOTOS - atuais.length;
+      if (aceites.length > espaco) {
+        recusados.push(`o limite é de ${MAX_FOTOS} fotos por envio`);
+      }
+      const novas = aceites.slice(0, Math.max(0, espaco)).map((file) => ({
+        file,
+        previa: URL.createObjectURL(file),
+      }));
+      return [...atuais, ...novas];
+    });
+
+    // Dizer o que ficou de fora é o ponto: antes o ficheiro simplesmente
+    // sumia e o utilizador não tinha como saber por quê.
+    setErro(recusados.length ? recusados.join(". ") : null);
+  };
+
+  const removerFoto = (i) =>
+    setFotos((atuais) => {
+      URL.revokeObjectURL(atuais[i].previa);
+      return atuais.filter((_, j) => j !== i);
+    });
 
   // Categorias e subcategorias vêm do catálogo real: uma lista fixa aqui
   // ficaria desatualizada no dia em que a RED criar uma subcategoria nova.
@@ -90,7 +140,17 @@ export default function EnviarAtivosPage() {
           setEnviando(true);
           const d = new FormData(e.currentTarget);
           try {
+            // As fotos sobem primeiro: o envio guarda apenas os URLs. Se o
+            // upload falhar, nada é criado — melhor do que gravar um envio
+            // sem as fotos que o fornecedor achou que tinha mandado.
+            let urls;
+            if (fotos.length) {
+              const guardadas = await enviarFotosDoAtivo(fotos.map((f) => f.file));
+              urls = guardadas.map((g) => g.url);
+            }
+
             await enviarAtivo({
+              fotos: urls,
               nome: d.get("nome"),
               categoryId: d.get("categoria") || undefined,
               subcategoryId: d.get("subcategoria") || undefined,
@@ -168,13 +228,60 @@ export default function EnviarAtivosPage() {
           </div>
         </PanelCard>
 
-        <PanelCard titulo="Fotos do ativo" descricao="Fotos reais aceleram a avaliação. Até 8 imagens.">
-          <label className={styles.upload}>
-            <input type="file" accept="image/*" multiple className={styles.inputArquivo} />
-            <PanelIcon name="image" size={22} />
-            <strong>Arraste as fotos ou clique para selecionar</strong>
-            <span>JPG, PNG ou WEBP até 8 MB cada</span>
-          </label>
+        <PanelCard
+          titulo="Fotos do ativo"
+          descricao={`Fotos reais aceleram a avaliação. Até ${MAX_FOTOS} imagens.`}
+        >
+          {fotos.length > 0 && (
+            <ul className={styles.galeria}>
+              {fotos.map((f, i) => (
+                <li key={f.previa} className={styles.miniatura}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={f.previa} alt={f.file.name} />
+                  <button
+                    type="button"
+                    className={styles.remover}
+                    onClick={() => removerFoto(i)}
+                    aria-label={`Remover ${f.file.name}`}
+                    title="Remover"
+                  >
+                    <PanelIcon name="close" size={13} />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {fotos.length < MAX_FOTOS && (
+            <label
+              className={styles.upload}
+              onDragOver={(ev) => ev.preventDefault()}
+              onDrop={(ev) => {
+                ev.preventDefault();
+                adicionarFotos(ev.dataTransfer.files);
+              }}
+            >
+              <input
+                ref={inputFotos}
+                type="file"
+                accept={TIPOS.join(",")}
+                multiple
+                className={styles.inputArquivo}
+                onChange={(ev) => {
+                  adicionarFotos(ev.target.files);
+                  // Sem limpar, escolher o mesmo ficheiro outra vez não
+                  // dispara change e parece que o clique não fez nada.
+                  ev.target.value = "";
+                }}
+              />
+              <PanelIcon name="image" size={22} />
+              <strong>Arraste as fotos ou clique para selecionar</strong>
+              <span>
+                JPG, PNG ou WEBP até {MAX_MB} MB cada
+                {fotos.length ? ` · ${MAX_FOTOS - fotos.length} restantes` : ""}
+              </span>
+            </label>
+          )}
         </PanelCard>
 
         <PanelCard titulo="Observações">
@@ -188,7 +295,7 @@ export default function EnviarAtivosPage() {
 
         <div className={styles.rodape}>
           <PanelButton type="submit" size="lg" variant="success" disabled={enviando}>
-            {enviando ? "Enviando…" : "Enviar para avaliação"}
+            {enviando ? (fotos.length ? "Enviando fotos…" : "Enviando…") : "Enviar para avaliação"}
           </PanelButton>
         </div>
       </form>
