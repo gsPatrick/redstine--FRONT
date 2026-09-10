@@ -12,6 +12,12 @@ import styles from "./PanelModal.module.css";
  * de uma célula de tabela ele herdaria `overflow: hidden` e apareceria cortado
  * ou atrás do conteúdo.
  *
+ * Só que as cores do painel (`--pnl-*`) são declaradas em `.painel`, não em
+ * `:root`. Ao sair para o `body` o diálogo saía do escopo delas e TODA variável
+ * resolvia para vazio: fundo transparente, bordas invisíveis, texto na cor
+ * herdada — o formulário aparecia flutuando por cima da página. Por isso o
+ * portal recebe as mesmas classes de tema da casca do painel.
+ *
  * Esc fecha, o fundo fecha, e o foco vai para dentro ao abrir e volta para o
  * elemento que abriu ao fechar — sem isso quem navega por teclado continua
  * a tabular pela página atrás do diálogo.
@@ -57,8 +63,16 @@ export default function PanelModal({
 
   if (!aberto || typeof document === "undefined") return null;
 
+  // Copia `painel` e `painel--dark` da casca: é onde os tokens de cor vivem.
+  const tema = Array.from(document.querySelector(".painel")?.classList || [])
+    .filter((c) => c.startsWith("painel"))
+    .join(" ");
+
   return createPortal(
-    <div className={styles.fundo} onMouseDown={(e) => e.target === e.currentTarget && aoFechar()}>
+    <div
+      className={`${tema} ${styles.fundo}`}
+      onMouseDown={(e) => e.target === e.currentTarget && aoFechar()}
+    >
       <div
         className={styles.caixa}
         style={{ maxWidth: largura }}
