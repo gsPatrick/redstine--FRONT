@@ -72,7 +72,15 @@ export default function Galeria({ fotos = [], legenda = "" }) {
           aria-label={`Foto ${aberta + 1} de ${fotos.length}`}
           onClick={() => setAberta(null)}
         >
-          <button type="button" className={styles.fechar} aria-label="Fechar">
+          {/* Fecha por bolha no fundo, mas o handler explicito evita que
+              amanha alguem adicione um stopPropagation e o botao morra sem
+              ninguem reparar. */}
+          <button
+            type="button"
+            className={styles.fechar}
+            aria-label="Fechar"
+            onClick={() => setAberta(null)}
+          >
             <PanelIcon name="close" size={18} />
           </button>
 

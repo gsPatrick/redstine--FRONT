@@ -48,3 +48,13 @@
     padding: 10px 8px;
   }
 }
+
+/* Ativo sem página pública: o ícone continua visível para a coluna não ficar
+   vazia, mas sem fingir que leva a algum lado. */
+.verBtnInativo,
+.verBtnInativo:hover {
+  color: var(--pnl-text-3);
+  background: none;
+  opacity: 0.38;
+  cursor: not-allowed;
+}

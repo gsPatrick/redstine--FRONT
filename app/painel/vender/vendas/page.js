@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import PageHeader from "@/components/panel/molecules/PageHeader/PageHeader";
 import PanelCard from "@/components/panel/molecules/PanelCard/PanelCard";
@@ -82,11 +83,30 @@ export default function VendasPage() {
       titulo: "Ação",
       alinhar: "centro",
       largura: 70,
-      render: () => (
-        <span className={styles.verBtn}>
-          <PanelIcon name="eye" size={16} />
-        </span>
-      ),
+      // O olho abre a pagina do ativo no site. So o publicado tem pagina —
+      // linkar os demais levaria a um 404 —, entao nos outros fica inerte e
+      // diz por que.
+      render: (l) =>
+        l.slug ? (
+          <Link
+            href={`/produto/${l.slug}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.verBtn}
+            title={`Ver ${l.ativo || "ativo"} no site`}
+            aria-label={`Ver ${l.ativo || "ativo"} no site`}
+          >
+            <PanelIcon name="eye" size={16} />
+          </Link>
+        ) : (
+          <span
+            className={`${styles.verBtn} ${styles.verBtnInativo}`}
+            title="Sem página pública: o ativo não está publicado."
+            aria-label="Sem página pública"
+          >
+            <PanelIcon name="eye" size={16} />
+          </span>
+        ),
     },
   ];
 

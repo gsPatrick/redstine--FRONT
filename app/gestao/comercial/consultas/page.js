@@ -10,6 +10,8 @@ import PanelField from "@/components/panel/molecules/PanelField/PanelField";
 import StatusPill from "@/components/panel/atoms/StatusPill/StatusPill";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
+import PanelModal from "@/components/panel/molecules/PanelModal/PanelModal";
+import Atendimento from "./Atendimento";
 import { useLista, useRecurso, comFiltros } from "@/lib/painel/api-cliente";
 import { numero, percentual, data as fmtData, variacao } from "@/lib/painel/formato";
 import styles from "../comercial.module.css";
@@ -23,6 +25,7 @@ import styles from "../comercial.module.css";
  * para o lado do fornecedor.
  */
 export default function ConsultasGestaoPage() {
+  const [atendendo, setAtendendo] = useState(null);
   const [periodo, setPeriodo] = useState("30d");
   const [status, setStatus] = useState("");
 
@@ -74,10 +77,16 @@ export default function ConsultasGestaoPage() {
       titulo: "Ação",
       alinhar: "centro",
       largura: 68,
-      render: () => (
-        <span className={styles.verBtn}>
+      render: (l) => (
+        <button
+          type="button"
+          className={styles.verBtn}
+          onClick={() => setAtendendo(l.id)}
+          title={`Atender ${l.reference || "consulta"}`}
+          aria-label={`Atender ${l.reference || "consulta"}`}
+        >
           <PanelIcon name="eye" size={16} />
-        </span>
+        </button>
       ),
     },
   ];
@@ -162,6 +171,21 @@ export default function ConsultasGestaoPage() {
         />
         </EstadoDaTela>
       </PanelCard>
+
+      <PanelModal
+        aberto={Boolean(atendendo)}
+        aoFechar={() => setAtendendo(null)}
+        titulo="Atendimento da consulta"
+        descricao="Responder com preço e condições, definir responsável ou encerrar."
+        largura={680}
+      >
+        {atendendo && (
+          <Atendimento
+            id={atendendo}
+            aoMudar={() => lista.recarregar?.()}
+          />
+        )}
+      </PanelModal>
     </>
   );
 }

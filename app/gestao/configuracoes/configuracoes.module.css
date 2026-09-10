@@ -206,7 +206,10 @@
   justify-content: center;
   width: 30px;
   height: 30px;
+  padding: 0;
+  border: none;
   border-radius: 7px;
+  background: none;
   color: var(--pnl-text-3);
   cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
@@ -225,6 +228,49 @@
 
 @media (max-width: 767px) {
   .grade {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ------------------------------------------------------- formulário de usuário */
+
+.formUsuario {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.gradeForm {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.formLargo {
+  grid-column: 1 / -1;
+}
+
+.erroForm {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: rgba(192, 0, 0, 0.09);
+  color: #c00000;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.rodapeForm {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@media (max-width: 560px) {
+  .gradeForm {
     grid-template-columns: minmax(0, 1fr);
   }
 }

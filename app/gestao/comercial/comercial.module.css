@@ -36,7 +36,10 @@
   justify-content: center;
   width: 30px;
   height: 30px;
+  padding: 0;
+  border: none;
   border-radius: 7px;
+  background: none;
   color: var(--pnl-text-3);
   cursor: pointer;
   transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);

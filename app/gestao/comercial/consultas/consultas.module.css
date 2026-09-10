@@ -1,0 +1,139 @@
+
+/* ------------------------------------------------------------- atendimento */
+
+.atendimento {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.topoAtendimento {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ref {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 12.5px;
+  color: var(--pnl-text-2);
+}
+
+.dadosConsulta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 10px;
+  background: var(--pnl-surface-2);
+}
+
+.item,
+.itemLargo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.itemLargo {
+  grid-column: 1 / -1;
+}
+
+.dadosConsulta dt {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.dadosConsulta dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pnl-text);
+  overflow-wrap: anywhere;
+}
+
+.blocoAtendimento {
+  display: flex;
+  flex-direction: column;
+}
+
+.respostaDada {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 3px solid var(--pnl-ok, #00a850);
+  background: var(--pnl-surface-2);
+}
+
+.respostaDada strong {
+  font-size: 12.5px;
+  color: var(--pnl-text);
+}
+
+.precoDado {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--pnl-ok, #00a850);
+}
+
+.respostaDada p {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--pnl-text-2);
+}
+
+.formResposta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--pnl-line);
+}
+
+.tituloBloco {
+  font-size: 13.5px;
+  color: var(--pnl-text);
+}
+
+.acoesAtendimento {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.encerrada {
+  margin: 0;
+  padding: 11px 13px;
+  border-radius: 9px;
+  background: var(--pnl-surface-2);
+  font-size: 12.5px;
+  color: var(--pnl-text-3);
+}
+
+.erroForm {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: rgba(192, 0, 0, 0.09);
+  color: #c00000;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+@media (max-width: 560px) {
+  .dadosConsulta {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
