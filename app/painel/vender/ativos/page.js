@@ -12,6 +12,8 @@ import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import StatusPill from "@/components/panel/atoms/StatusPill/StatusPill";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
+import PanelModal from "@/components/panel/molecules/PanelModal/PanelModal";
+import AprovarPreco from "./AprovarPreco";
 import { useLista, comFiltros } from "@/lib/painel/api-cliente";
 import { moeda, percentual } from "@/lib/painel/formato";
 import styles from "./ativos.module.css";
@@ -32,6 +34,7 @@ const ABAS = [
 ];
 
 export default function MeusAtivosPage() {
+  const [aprovando, setAprovando] = useState(null);
   const [aba, setAba] = useState("todos");
   const [busca, setBusca] = useState("");
 
@@ -107,12 +110,21 @@ export default function MeusAtivosPage() {
       chave: "acao",
       titulo: "Ação",
       alinhar: "centro",
-      largura: 70,
-      // O olho abre a pagina do ativo no site. So o publicado tem pagina —
-      // linkar os demais levaria a um 404 —, entao nos outros fica inerte e
-      // diz por que.
+      largura: 150,
+      // Aguardando aprovacao e a unica situacao em que ha algo A FAZER aqui:
+      // o ativo esta parado esperando o fornecedor autorizar preco e modelo, e
+      // sem isso a RED nao pode publicar. Por isso vem como botao nomeado, e
+      // nao como icone — icone nao diz que a bola esta com ele.
       render: (l) =>
-        l.statusChave === "publicado" && l.slug ? (
+        l.statusChave === "aguardando_aprovacao" ? (
+          <button
+            type="button"
+            className={styles.btnAprovar}
+            onClick={() => setAprovando(l)}
+          >
+            Aprovar preço
+          </button>
+        ) : l.statusChave === "publicado" && l.slug ? (
           <Link
             href={`/produto/${l.slug}`}
             target="_blank"
@@ -174,6 +186,25 @@ export default function MeusAtivosPage() {
         />
         </EstadoDaTela>
       </PanelCard>
+
+      <PanelModal
+        aberto={Boolean(aprovando)}
+        aoFechar={() => setAprovando(null)}
+        titulo="Aprovar preço e modelo"
+        descricao="A RED só publica o ativo depois da sua autorização."
+        largura={520}
+      >
+        {aprovando && (
+          <AprovarPreco
+            ativo={aprovando}
+            aoCancelar={() => setAprovando(null)}
+            aoAprovar={() => {
+              setAprovando(null);
+              recarregar();
+            }}
+          />
+        )}
+      </PanelModal>
     </>
   );
 }

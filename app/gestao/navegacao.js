@@ -24,6 +24,7 @@ const TODOS = [
           { label: "Envios", href: "/gestao/comercial/envios" },
           { label: "Consultas", href: "/gestao/comercial/consultas" },
           { label: "Ativos", href: "/gestao/comercial/ativos" },
+          { label: "Pedidos", href: "/gestao/comercial/pedidos" },
           { label: "Vendas", href: "/gestao/comercial/vendas" },
         ],
       },
