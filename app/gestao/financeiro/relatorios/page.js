@@ -10,7 +10,7 @@ import DataTable from "@/components/panel/molecules/DataTable/DataTable";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
 import { useRecurso, comFiltros } from "@/lib/painel/api-cliente";
 import { API_BASE, lerToken } from "@/lib/api";
-import { moeda, percentual } from "@/lib/painel/formato";
+import { moeda, numero, percentual } from "@/lib/painel/formato";
 import styles from "./relatorios.module.css";
 
 /**
@@ -34,10 +34,16 @@ export default function RelatoriosPage() {
 
   const modelo = useRecurso("/management/reports/by-model?periodo=tudo");
   const categoria = useRecurso("/management/reports/by-category?periodo=tudo");
+  // O recorte por fornecedor a API ja servia e a tela nao mostrava. E o que
+  // responde "quanto cada fornecedor movimentou e quanto ja tem a receber" —
+  // a pergunta que o comercial faz antes de ligar para um deles.
+  const fornecedor = useRecurso("/management/reports/by-supplier?periodo=tudo");
 
   const porModelo = modelo.dados || [];
   const porCategoria = categoria.dados || [];
+  const porFornecedor = fornecedor.dados || [];
   const totalCategoria = porCategoria.reduce((a, c) => a + c.valor, 0);
+  const brutoFornecedores = porFornecedor.reduce((a, f) => a + f.valorBruto, 0);
   const receitaTotal = porModelo.reduce((a, m) => a + m.receitaRed, 0);
 
   /**
@@ -190,6 +196,49 @@ export default function RelatoriosPage() {
             rodape={`Total: ${moeda(totalCategoria)}`}
             vazio={{ icone: "chart", titulo: "Nenhuma venda no período." }}
           />
+          </EstadoDaTela>
+        </PanelCard>
+
+        <PanelCard titulo="Movimentação por fornecedor" padding="none">
+          <EstadoDaTela
+            carregando={fornecedor.carregando}
+            erro={fornecedor.erro}
+            onTentarNovamente={fornecedor.recarregar}
+          >
+            <DataTable
+              porPagina={6}
+              colunas={[
+                { chave: "fornecedor", titulo: "Fornecedor" },
+                {
+                  chave: "operacoes",
+                  titulo: "Operações",
+                  alinhar: "direita",
+                  render: (l) => numero(l.operacoes),
+                },
+                {
+                  chave: "valorBruto",
+                  titulo: "Valor bruto",
+                  alinhar: "direita",
+                  render: (l) => moeda(l.valorBruto),
+                },
+                {
+                  chave: "repasse",
+                  titulo: "Repasse",
+                  alinhar: "direita",
+                  render: (l) => moeda(l.repasse),
+                },
+                {
+                  chave: "receitaRed",
+                  titulo: "Receita RED",
+                  alinhar: "direita",
+                  render: (l) => <strong>{moeda(l.receitaRed)}</strong>,
+                },
+              ]}
+              linhas={porFornecedor}
+              chave="fornecedorId"
+              rodape={`Bruto movimentado: ${moeda(brutoFornecedores)}`}
+              vazio={{ icone: "users", titulo: "Nenhuma operação com fornecedor no período." }}
+            />
           </EstadoDaTela>
         </PanelCard>
       </div>

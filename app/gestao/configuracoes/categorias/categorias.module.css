@@ -1,0 +1,174 @@
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--pnl-gap);
+}
+
+.categoria {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cabecaCategoria {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.tituloCategoria {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.tituloCategoria strong {
+  font-size: 14.5px;
+  color: var(--pnl-text);
+}
+
+.slug {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.acoesCategoria {
+  display: flex;
+  gap: 8px;
+}
+
+.botaoLeve {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 7px;
+  background: none;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--pnl-text-2);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.botaoLeve:hover {
+  border-color: var(--pnl-accent);
+  color: var(--pnl-accent);
+}
+
+.descricao {
+  margin: 0;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--pnl-text-3);
+}
+
+.subs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.subs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 10px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 7px;
+  background: var(--pnl-surface-2);
+  font-size: 12.5px;
+  color: var(--pnl-text-2);
+}
+
+.subs li em {
+  font-style: normal;
+  color: var(--pnl-text-3);
+}
+
+.subs li button {
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--pnl-text-3);
+  cursor: pointer;
+}
+
+.subs li button:hover {
+  color: var(--pnl-accent);
+}
+
+.semSub {
+  margin: 0;
+  font-size: 12px;
+  color: var(--pnl-text-3);
+}
+
+/* ------------------------------------------------------------- formulário */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ativa {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 13px;
+  border: 1px solid var(--pnl-line);
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.ativa input {
+  margin-top: 2px;
+  accent-color: var(--pnl-accent);
+}
+
+.ativa span {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.ativa strong {
+  font-size: 13px;
+  color: var(--pnl-text);
+}
+
+.ativa em {
+  font-style: normal;
+  font-size: 12px;
+  color: var(--pnl-text-3);
+}
+
+.erro {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: rgba(192, 0, 0, 0.09);
+  color: #c00000;
+  font-size: 12.5px;
+}
+
+.rodape {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}

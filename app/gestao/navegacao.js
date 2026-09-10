@@ -49,6 +49,7 @@ const TODOS = [
     rotulo: "Configurações",
     capacidade: "admin_read",
     itens: [
+      { label: "Categorias", href: "/gestao/configuracoes/categorias", icone: "box" },
       { label: "Usuários", href: "/gestao/configuracoes/usuarios", icone: "users" },
       { label: "Permissões", href: "/gestao/configuracoes/permissoes", icone: "shield" },
       { label: "Configurações", href: "/gestao/configuracoes", icone: "settings", exato: true },
