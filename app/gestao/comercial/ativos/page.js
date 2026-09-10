@@ -9,6 +9,7 @@ import StatCard from "@/components/panel/molecules/StatCard/StatCard";
 import PanelField from "@/components/panel/molecules/PanelField/PanelField";
 import StatusPill from "@/components/panel/atoms/StatusPill/StatusPill";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
+import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
 import { useLista, useRecurso, comFiltros } from "@/lib/painel/api-cliente";
 import { moeda, numero, percentual } from "@/lib/painel/formato";
@@ -130,6 +131,11 @@ export default function AtivosGestaoPage() {
         titulo="Ativos"
         descricao="Todos os ativos da plataforma, com fornecedor e regra comercial."
         trilha={[{ label: "Comercial" }, { label: "Ativos" }]}
+        acoes={
+          <PanelButton href="/gestao/comercial/ativos/novo" icon="plus">
+            Novo ativo
+          </PanelButton>
+        }
       />
 
       <div className={styles.kpis4}>
