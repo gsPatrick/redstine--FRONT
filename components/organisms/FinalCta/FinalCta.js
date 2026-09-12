@@ -1,35 +1,24 @@
-import Section from "@/components/atoms/Section/Section";
-import Reveal from "@/components/atoms/Reveal/Reveal";
-import Button from "@/components/atoms/Button/Button";
-import styles from "./FinalCta.module.css";
+import CtaBand from "@/components/organisms/CtaBand/CtaBand";
 
+/**
+ * Encerramento da Home.
+ *
+ * Item 28 do cliente: "Padronizar banner de encerramento da home como em
+ * todas as páginas, pode variar no texto, mas deve ter mesma estrutura e
+ * estética". Portanto a Home não tem mais componente próprio: é o CtaBand
+ * padrão com o texto e os CTAs dela. Fica como invólucro (e não removido)
+ * para não exigir edição de app/(site)/page.js.
+ */
 export default function FinalCta() {
   return (
-    <Section tone="tinted" innerClassName={styles.inner}>
-      <div className={styles.panel}>
-        <span className={styles.veil} aria-hidden="true" />
-
-        <div className={styles.copy}>
-          <Reveal animation="fadeInUp" delay={250} as="h2" className={styles.title}>
-            Dê um novo destino aos seus ativos.
-          </Reveal>
-          <Reveal animation="fadeInUp" delay={250}>
-            <p className={styles.text}>
-              Compre ativos disponíveis ou envie materiais, equipamentos e mobiliário para
-              avaliação.
-            </p>
-          </Reveal>
-        </div>
-
-        <Reveal animation="fadeInUp" delay={320} className={styles.actions}>
-          <Button href="/shop" variant="solid">
-            Explorar Ativos
-          </Button>
-          <Button href="/painel/vender/enviar" variant="ghost">
-            Enviar Ativos
-          </Button>
-        </Reveal>
-      </div>
-    </Section>
+    <CtaBand
+      tone="tinted"
+      title="Dê um novo destino aos seus ativos."
+      text="Compre ativos disponíveis ou envie materiais, equipamentos e mobiliário para avaliação."
+      actions={[
+        { label: "Explorar Ativos", href: "/shop" },
+        { label: "Enviar Ativos", href: "/painel/vender/enviar" },
+      ]}
+    />
   );
 }

@@ -6,14 +6,23 @@ import FeatureCard from "@/components/molecules/FeatureCard/FeatureCard";
 import { buyingSteps } from "@/lib/shop";
 import styles from "./BuyingSteps.module.css";
 
-export default function BuyingSteps() {
+/**
+ * Jornada de compra resumida.
+ *
+ * O titulo vem por prop com este default porque o cliente nomeou o bloco:
+ * "pode ter título do bloco de 'jornada de venda resumida' e 'jornada de
+ * compra resumida'". A frase anterior descrevia a experiencia; o nome diz o
+ * que o bloco E, e e isso que permite ao leitor saber que existe uma versao
+ * completa em outro lugar.
+ */
+export default function BuyingSteps({ title = "Jornada de compra resumida" }) {
   return (
     <Section tone="tinted" id="funciona">
-      <Reveal animation="fadeInUp" delay={250}>
-        <h2 className={styles.note}>alterar imagens para numeros</h2>
-      </Reveal>
-
-      <SectionTitle title="Da escolha à retirada, simples, prático e econômico." />
+      <SectionTitle
+        kicker="Como comprar"
+        title={title}
+        subtitle="Da escolha à retirada, simples, prático e econômico."
+      />
 
       <ol className={styles.grid}>
         {buyingSteps.map((step, index) => (

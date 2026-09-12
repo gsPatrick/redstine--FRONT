@@ -1,17 +1,55 @@
 .inner {
+  padding-inline: 20px;
+}
+
+/* Estrutura única do encerramento: painel com foto de fundo, véu escuro da
+   esquerda para a direita, texto alinhado à esquerda e CTAs abaixo.
+   Copiada do antigo FinalCta da Home, que é o padrão eleito pelo cliente. */
+.panel {
+  composes: tokens from "../PageHero/bannerHeights.module.css";
+  position: relative;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 34px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 26px;
+  /* Mesma altura da interna principal (340px, medida em /sobre-a-red): o
+     encerramento é um banner e entra na mesma escala dos banners de topo,
+     em vez de ter um valor próprio (o FinalCta tinha 420px). */
+  min-height: var(--banner-h-main);
+  /* 46px (não 56) para que o conteúdo mais alto do site — título em 2 linhas
+     + apoio em 2 linhas, caso da Home e de /entenda-o-processo — ainda caiba
+     nos 340px. Com 56px esses dois estouravam para 359px e o "padrão" deixava
+     de ser um padrão. Ajustado de 46 para 42px quando o CTA passou a size
+     "lg" e voltou a estourar para 345px. */
+  padding: 42px 52px;
+  border-radius: var(--radius-banner);
+  background-color: var(--gray-940);
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.veil {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: linear-gradient(
+    to right,
+    rgba(2, 1, 1, 0.72) 0%,
+    rgba(2, 1, 1, 0.46) 46%,
+    rgba(2, 1, 1, 0.3) 100%
+  );
 }
 
 .copy {
-  flex: 1 1 460px;
-  min-width: 0;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 
 .title {
@@ -20,31 +58,40 @@
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: -0.015em;
-  color: var(--gray-940);
+  color: var(--color-white);
   text-wrap: balance;
 }
 
 .text {
-  max-width: 56ch;
-  font-size: 19px;
+  max-width: 46ch;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1.65;
-  color: var(--gray-650);
+  color: var(--color-white);
   text-wrap: pretty;
 }
 
 .actions {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
   gap: 14px;
 }
 
 @media (max-width: 767px) {
+  .panel {
+    min-height: var(--banner-h-main-mobile);
+    padding: 44px 24px;
+  }
+
   .title {
     font-size: 30px;
   }
 
   .text {
-    font-size: 17px;
+    font-size: 16px;
   }
 }

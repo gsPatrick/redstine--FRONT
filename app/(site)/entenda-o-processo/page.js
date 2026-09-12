@@ -14,7 +14,7 @@ export const metadata = {
 export default function EntendaOProcessoPage() {
   return (
     <>
-      <PageHero {...entendaOProcesso.hero} size="lg" />
+      <PageHero {...entendaOProcesso.hero} size="sm" />
 
       <Section tone="tinted">
         <ol className={styles.timeline}>

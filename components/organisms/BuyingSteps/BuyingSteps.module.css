@@ -1,16 +1,8 @@
-.note {
-  margin-bottom: 14px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
-  text-align: center;
-  color: var(--gray-940);
-}
-
+/* Quatro colunas, nao cinco: a jornada foi resumida a quatro etapas e a quinta
+   coluna virava um vao a direita. */
 .grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 26px;
   counter-reset: step;
 }

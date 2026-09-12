@@ -1,5 +1,12 @@
+/**
+ * Duas colunas no desktop, uma no mobile.
+ *
+ * O mesmo esqueleto dos blocos que o cliente aprovou na home: cabeçalho com
+ * kicker + título + apoio à esquerda, conteúdo à direita. Isso resolve o vazio
+ * lateral do anel antigo sem inventar um padrão novo para esta seção.
+ */
 .section {
-  padding: clamp(56px, 7vw, 100px) 0;
+  padding: clamp(56px, 6vw, 92px) 0;
   background-color: var(--gray-50);
 }
 
@@ -8,15 +15,25 @@
   margin: 0 auto;
 }
 
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+  gap: clamp(32px, 5vw, 84px);
+  /* Cabeçalho centrado verticalmente contra a lista: a lista é mais alta que o
+     texto, e com `start` sobrava um bloco de ~200px vazio embaixo do fecho. */
+  align-items: center;
+}
+
 .head {
-  max-width: 62ch;
-  margin: 0 auto clamp(28px, 4vw, 48px);
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  /* Colado no topo da lista: os dois blocos começam na mesma linha, que é o
+     que faz a coluna dupla ler como uma coisa só. */
+  padding-top: 4px;
 }
 
 .kicker {
-  display: block;
-  margin-bottom: 12px;
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: var(--fs-label);
   letter-spacing: 0.14em;
@@ -26,195 +43,173 @@
 
 .title {
   margin: 0;
+  max-width: 22ch;
   font-size: var(--fs-block);
   font-weight: 600;
   line-height: 1.12;
   letter-spacing: -0.03em;
   color: var(--gray-940);
+  text-wrap: balance;
 }
 
 .subtitle {
-  margin: 14px auto 0;
-  max-width: 58ch;
+  margin: 0;
+  max-width: 46ch;
   font-size: var(--fs-body);
   line-height: 1.6;
   color: var(--gray-600);
   text-wrap: pretty;
 }
 
-/* Palco quadrado: o círculo precisa de proporção 1:1 ou vira elipse. */
-/* O rótulo do topo fica ACIMA do anel, então o palco precisa de folga vertical
-   própria — senão ele encosta no subtítulo da seção. */
-.palco {
-  position: relative;
-  margin-top: 40px;
-  width: min(100%, 520px);
-  /* Folga para os rótulos que ficam fora do anel não serem cortados. */
-  padding: 0 60px;
-  box-sizing: content-box;
-  margin: 0 auto;
-  aspect-ratio: 1;
-}
-
-.anel {
-  position: absolute;
-  inset: 0;
-}
-
-.svg {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
-.trilho {
-  fill: none;
-  stroke: var(--gray-300);
-  stroke-width: 0.6;
-}
-
-/* 264 é ~ a circunferência (2πr com r=42). O traço cobre 88% e deixa 12% de
-   abertura, girando devagar para o ciclo parecer vivo sem distrair. */
-.arco {
-  fill: none;
-  stroke: var(--color-accent);
-  stroke-width: 1.4;
-  stroke-linecap: round;
-  stroke-dasharray: 232 32;
-  transform-origin: 50% 50%;
-  animation: girar 26s linear infinite;
-}
-
-@keyframes girar {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.miolo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
-.miolo strong {
-  font-size: clamp(1.1rem, 2vw, 1.5rem);
+/* Fecho: filete vermelho à esquerda, o mesmo recurso do resto da marca.
+   Destaca sem virar caixa nem competir com o título. */
+.fecho {
+  margin: 10px 0 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--color-accent);
+  font-size: var(--fs-highlight);
   font-weight: 600;
-  letter-spacing: -0.03em;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
   color: var(--gray-940);
 }
 
-.miolo em {
-  font-style: normal;
-  font-size: var(--fs-body);
-  color: var(--gray-500);
+/* A folga à esquerda é onde o colchete de retorno é desenhado. */
+.ciclo {
+  position: relative;
+  padding-left: 30px;
 }
 
-.nos {
-  position: absolute;
-  inset: 0;
+.etapas {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-/* Marco e rótulo são posicionados separadamente, cada um no seu raio: o
-   componente calcula (x, y) com seno e cosseno, então acrescentar uma sexta
-   etapa redistribui todas sozinho. */
-.no {
-  display: contents;
+.etapa {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--gray-250);
+}
+
+.etapa:first-child {
+  padding-top: 0;
+}
+
+.etapa:last-child {
+  border-bottom: none;
 }
 
 .marco {
-  position: absolute;
-  top: var(--y);
-  left: var(--x);
-  z-index: 2;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
+  width: 36px;
+  height: 36px;
   border: 1.5px solid var(--color-accent);
   border-radius: 50%;
   background-color: var(--gray-50);
   font-family: ui-monospace, "SF Mono", Menlo, monospace;
   font-size: 12px;
   color: var(--color-accent);
-  transform: translate(-50%, -50%);
 }
 
+.texto {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  /* Alinha a primeira linha do texto com o centro do marco de 36px. */
+  padding-top: 6px;
+}
+
+/* Tamanho de corpo, como o resto da home — o anel antigo usava 13px. */
 .rotulo {
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--gray-940);
+}
+
+.detalhe {
+  font-size: var(--fs-small, 15px);
+  line-height: 1.5;
+  color: var(--gray-600);
+  text-wrap: pretty;
+}
+
+/**
+ * O retorno do ciclo.
+ *
+ * Colchete "(" que nasce na última etapa e sobe até a primeira: é a informação
+ * que o círculo dava — isto não termina, volta ao começo. Feito com borda e
+ * raio, então acompanha a altura real da lista em qualquer largura.
+ */
+.retorno {
   position: absolute;
-  top: var(--y);
-  left: var(--x);
-  width: 130px;
-  font-size: 13px;
-  font-weight: 500;
-  line-height: 1.35;
-  color: var(--gray-800);
-  text-align: center;
-  text-wrap: balance;
-  transform: translate(-50%, -50%);
+  top: 18px;
+  bottom: 46px;
+  left: 0;
+  width: 22px;
+  border: 1.5px solid var(--color-accent);
+  border-right: none;
+  border-radius: 14px 0 0 14px;
+  opacity: 0.7;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .arco {
-    animation: none;
-  }
+/* Ponta da seta no topo do colchete, apontando para a etapa 01: sem ela o
+   colchete seria só um traço decorativo, sem direção. */
+.retorno::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  right: -1px;
+  width: 7px;
+  height: 7px;
+  border-top: 1.5px solid var(--color-accent);
+  border-right: 1.5px solid var(--color-accent);
+  transform: rotate(-45deg);
+  transform-origin: top right;
 }
 
-/* Abaixo de 900px o círculo vira lista. Não é só legibilidade: nessa largura
-   os rótulos externos já saíam do container, e o ciclo deixava de caber. */
+.recomeca {
+  margin: 14px 0 0;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--fs-label);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  opacity: 0.85;
+}
+
+/* Abaixo de 900px as duas colunas empilham. O colchete continua funcionando:
+   ele mede a lista, não a viewport. */
 @media (max-width: 900px) {
-  .palco {
-    aspect-ratio: auto;
-    max-width: 420px;
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 30px;
+    align-items: start;
   }
 
-  .anel {
-    display: none;
+  .title,
+  .subtitle {
+    max-width: none;
   }
 
-  .nos {
-    position: static;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  .ciclo {
+    padding-left: 24px;
   }
 
-  .no {
-    display: flex;
-    align-items: center;
+  .etapa {
+    grid-template-columns: 32px minmax(0, 1fr);
     gap: 14px;
-    width: 100%;
-    padding: 12px 0;
-    border-bottom: 1px solid var(--gray-250);
-  }
-
-  .no:last-child {
-    border-bottom: none;
-  }
-
-  .marco,
-  .rotulo {
-    position: static;
-    transform: none;
   }
 
   .marco {
-    flex: 0 0 auto;
-  }
-
-  .rotulo {
-    width: auto;
-    font-size: 15px;
-    text-align: left;
+    width: 32px;
+    height: 32px;
   }
 }

@@ -1,35 +1,30 @@
-import Button from "@/components/atoms/Button/Button";
-import Reveal from "@/components/atoms/Reveal/Reveal";
-import KenBurnsSlideshow from "@/components/molecules/KenBurnsSlideshow/KenBurnsSlideshow";
-import styles from "./ShopHero.module.css";
+import PageHero from "@/components/organisms/PageHero/PageHero";
 
-const slides = ["/images/2026/07/208303-de-que-modo-o-layout-do-armazem-pode-fazer-diferenca.jpg"];
+/* Imagem padrão da frente de compra (mantida do componente anterior). */
+const SHOP_IMAGE = "/images/2026/07/208303-de-que-modo-o-layout-do-armazem-pode-fazer-diferenca.jpg";
 
-export default function ShopHero({ title, subtitle, actions = [] }) {
+/**
+ * ShopHero agora é só um invólucro de PageHero.
+ *
+ * PORQUÊ: os dois componentes faziam exatamente a mesma coisa (imagem Ken
+ * Burns + véu + título + apoio + CTAs) com CSS duplicado, e por isso tinham
+ * alturas diferentes — 520px aqui contra 340px no PageHero. Era a origem
+ * direta do "site com banners de todos os tamanhos". Unificando, existe um
+ * único conjunto de variantes de altura.
+ *
+ * A API pública é a mesma de antes (title, subtitle, actions), então nenhuma
+ * página precisa mudar. O `size` foi acrescentado com default "cover" porque
+ * /shop é a capa "COMPRAR" da especificação; /categoria-produto é página
+ * SECUNDÁRIA e deve receber size="sm".
+ */
+export default function ShopHero({ title, subtitle, actions = [], size = "cover", image }) {
   return (
-    <section className={styles.hero}>
-      <KenBurnsSlideshow slides={slides} duration={9000} transition={500} />
-      <div className={styles.overlay} aria-hidden="true" />
-
-      <div className={styles.inner}>
-        <Reveal animation="fadeInUp" as="h1" className={styles.title}>
-          {title}
-        </Reveal>
-        {subtitle ? (
-          <Reveal animation="fadeInUp" delay={140}>
-            <p className={styles.subtitle}>{subtitle}</p>
-          </Reveal>
-        ) : null}
-        {actions.length ? (
-          <Reveal animation="fadeInUp" delay={220} className={styles.actions}>
-            {actions.map((action) => (
-              <Button key={action.label} href={action.href} variant={action.variant}>
-                {action.label}
-              </Button>
-            ))}
-          </Reveal>
-        ) : null}
-      </div>
-    </section>
+    <PageHero
+      image={image || SHOP_IMAGE}
+      title={title}
+      subtitle={subtitle}
+      actions={actions}
+      size={size}
+    />
   );
 }

@@ -19,7 +19,7 @@ export const metadata = {
 export default function EntendaOsModelosPage() {
   return (
     <>
-      <PageHero {...page.hero} />
+      <PageHero {...page.hero} size="sm" />
 
       {page.models.map((model, index) => (
         <Section key={model.id} id={model.id} tone={index % 2 === 0 ? "tinted" : "light"}>

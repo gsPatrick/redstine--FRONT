@@ -1,40 +1,34 @@
 import CategoryCard from "@/components/molecules/CategoryCard/CategoryCard";
 import { categoryCards } from "@/lib/home";
-import { mainNav } from "@/lib/navigation";
 import styles from "./CategoryGrid.module.css";
 
 /**
- * As três frentes da RED.
+ * As três frentes da RED — versão leve, para a home.
  *
- * Cada card carrega as próprias subcategorias — assim o bloco apresenta, de uma
- * vez, as 3 categorias e as 15 frentes de produto. Era isso que o bloco
- * seguinte fazia sozinho, repetindo as mesmas três categorias; ele saiu.
+ * Revisão do cliente (item 1): a home fica com os cards MENORES, sem as
+ * subcategorias, e a página Comprar recebe os cards maiores, com elas. O
+ * raciocínio dele: "deixar a home mais leve e levar mais informação para a
+ * página Comprar". Quem chega na home precisa entender que existem três
+ * frentes; quem já está em Comprar é que quer saber quais são as quinze.
  *
- * As subcategorias saem do menu principal para não existirem duas listas que
- * precisem ser mantidas em sincronia.
+ * Por isso o mapa de subcategorias (que vinha do menu principal) saiu daqui e
+ * passou a viver na página Comprar, alimentado pela API. Aqui o card recebe só
+ * nome, descrição curta, imagem do produto e CTA.
+ *
+ * O subtítulo longo também migrou para Comprar: é lá que ele informa alguém
+ * que já decidiu comprar. Na home, kicker + título bastam.
  */
-const subcategoriasPorCategoria = Object.fromEntries(
-  (mainNav.find((item) => item.columns)?.columns ?? []).map((col) => [
-    col.label,
-    // "Outros" fica de fora: é um destino do catálogo, não uma frente de
-    // produto que valha anunciar na home.
-    col.items.filter((sub) => sub.label !== "Outros").map((sub) => sub.label),
-  ])
-);
-
 export default function CategoryGrid() {
   return (
     <section className={styles.section}>
       <div className={styles.inner}>
         <div className={styles.head}>
           <span className={styles.kicker}>Catálogo</span>
-          <h2 className={styles.title}>
-            Encontre ativos para obras, empresas e novos projetos.
-          </h2>
-          <p className={styles.subtitle}>
-            Materiais, equipamentos e mobiliário provenientes de estoques, obras, reformas,
-            desmobilizações e operações corporativas.
-          </p>
+          {/* Título próprio, curto. A copy longa ("Encontre ativos para obras,
+              empresas e novos projetos" + parágrafo de origem dos ativos) foi
+              para a Comprar: repetir a mesma frase nas duas páginas faria a
+              segunda parecer a mesma seção outra vez. */}
+          <h2 className={styles.title}>Três frentes, um só catálogo.</h2>
         </div>
 
         <div className={styles.grid}>
@@ -42,7 +36,7 @@ export default function CategoryGrid() {
             <CategoryCard
               key={category.name}
               {...category}
-              subcategories={subcategoriasPorCategoria[category.name] ?? []}
+              // Sem `subcategories`: é isso que distingue o card menor do maior.
               index={`${String(i + 1).padStart(2, "0")}.`}
             />
           ))}

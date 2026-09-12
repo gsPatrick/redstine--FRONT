@@ -192,3 +192,10 @@
     padding-bottom: 84px;
   }
 }
+
+/* "Fale com a RED" é a única ação da coluna de contato, o resto é referência.
+   O peso extra existe para ela não se perder na lista. */
+.columnLinkDestaque {
+  font-weight: 700;
+  color: var(--color-white);
+}

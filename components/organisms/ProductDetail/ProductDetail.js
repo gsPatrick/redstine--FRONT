@@ -31,7 +31,11 @@ export default function ProductDetail({ product }) {
       ),
     },
     {
-      title: "Disponibilidade e negociação",
+      // "Disponibilidade e negociação" nao dizia ao comprador o que ele ia
+      // encontrar aqui. O cliente pediu "Condições comerciais" enquanto decide
+      // qual informacao cabe dentro: quantidade total e o que mais ajudar a
+      // decidir a compra.
+      title: "Condições comerciais",
       content: (
         <p>
           Disponibilidade, quantidade e condições comerciais são validadas pela RED antes da

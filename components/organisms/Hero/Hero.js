@@ -52,11 +52,13 @@ export default function Hero() {
                 voltar a gerar valor.
               </h1>
 
+              {/* Padrão de botão do item 26: sobre imagem, ação principal
+                  "solid" e alternativa "ghost"; CTA de banner é size "lg". */}
               <div className={styles.actions}>
-                <Button href="/shop" variant="solid" size="md">
+                <Button href="/shop" variant="solid" size="lg">
                   Comprar
                 </Button>
-                <Button href="/vender" variant="ghost" size="md">
+                <Button href="/vender" variant="ghost" size="lg">
                   Vender
                 </Button>
               </div>

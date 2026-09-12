@@ -15,7 +15,7 @@ export const metadata = {
 export default function ContatoPage() {
   return (
     <>
-      <PageHero {...contato.hero} />
+      <PageHero {...contato.hero} size="sm" />
 
       <Section tone="tinted">
         <SectionTitle title={contato.channelsTitle} />

@@ -5,9 +5,13 @@
 
 /* Vazio escuro ao redor da moldura — é ele que faz o banner ler como card. */
 .mediaBg {
+  composes: tokens from "../PageHero/bannerHeights.module.css";
   position: relative;
-  height: calc(100vh - 100px);
-  min-height: 560px;
+  /* A Home É a referência de altura da capa (decisão do cliente). O valor que
+     estava escrito aqui foi extraído para token compartilhado para que /shop
+     use exatamente o mesmo cálculo em vez dos 520px próprios que tinha. */
+  height: var(--banner-h-cover);
+  min-height: var(--banner-h-cover-min);
   background-color: var(--color-black);
 }
 
@@ -132,8 +136,8 @@
 
 @media (max-width: 767px) {
   .mediaBg {
-    height: calc(100vh - 76px);
-    min-height: 500px;
+    height: var(--banner-h-cover-mobile);
+    min-height: var(--banner-h-cover-min-mobile);
   }
 
   .heading br {

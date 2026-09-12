@@ -1,0 +1,55 @@
+/* =========================================================================
+   TOKENS DE ALTURA DE BANNER — fonte única da verdade
+   =========================================================================
+   O cliente fechou a especificação usando o PRÓPRIO SITE como referência,
+   não números abstratos. Os valores abaixo foram MEDIDOS com playwright em
+   viewport 1440x900 antes desta refatoração:
+
+     - Home (Hero, com animação) ............ 800px  -> calc(100vh - 100px)
+     - /shop (ShopHero) ..................... 520px  (fora do padrão)
+     - /sobre-a-red (PageHero md) ........... 340px  <- REFERÊNCIA das internas
+     - /como-funciona ....................... 372px  (estourava o min-height)
+     - /vender, /entenda-o-processo (lg) .... 420px  (fora do padrão)
+
+   Ou seja: "o site tem banners de todos os tamanhos". A correção é reduzir
+   isso a TRÊS níveis, exatamente como o cliente escreveu:
+
+   1. CAPA (Home e Comprar): "ALTURA DA IMAGEM - REFERENCIA HOME".
+      A Home usa calc(100vh - 100px) com piso de 560px — 100px é a altura do
+      header fixo, então a capa ocupa a viewport inteira menos o header.
+      Mantido tal e qual e passado a token para que /shop use o MESMO cálculo
+      em vez dos 520px fixos que tinha.
+
+   2. INTERNA PRINCIPAL (menu principal): "REFERENCIA PAGINA SOBRE A RED".
+      /sobre-a-red media 340px. É este o valor adotado.
+
+   3. SECUNDÁRIA (categorias e rodapé): "REFERENCIA SOBRE A RED (OU ATÉ UNS
+      30 % MENOR SE PUDER)". 340 x 0,7 = 238 -> arredondado para 240px.
+      Cabe com folga o conteúdo previsto (título em 1 linha + apoio em até
+      2 linhas), então o "se puder" se aplica.
+
+   Expostos como uma classe `tokens` porque CSS Modules não aceita seletor
+   global aqui; quem precisa das alturas faz `composes: tokens from ...`, o
+   que declara as custom properties no próprio elemento do banner. Um único
+   arquivo, consumido por Hero, PageHero/ShopHero e CtaBand, evita que cada
+   banner volte a inventar a sua própria altura. Fica aqui (e não em
+   globals.css) porque globals.css não é escopo deste agente.
+   ========================================================================= */
+.tokens {
+  /* Nível 1 — capa */
+  --banner-h-cover: calc(100vh - 100px);
+  --banner-h-cover-min: 560px;
+
+  /* Nível 2 — interna principal (medido em /sobre-a-red) */
+  --banner-h-main: 340px;
+
+  /* Nível 3 — secundária (~30% menor que a interna) */
+  --banner-h-sub: 240px;
+
+  /* No mobile o header encolhe (76px) e as alturas acompanham, mantendo a
+     mesma proporção entre os três níveis. */
+  --banner-h-cover-mobile: calc(100vh - 76px);
+  --banner-h-cover-min-mobile: 500px;
+  --banner-h-main-mobile: 280px;
+  --banner-h-sub-mobile: 210px;
+}

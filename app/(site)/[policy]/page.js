@@ -20,6 +20,7 @@ export default function PolicyPage({ params }) {
   return (
     <>
       <PageHero
+        size="sm"
         image="/images/2026/07/distribuidora-de-material-de-construcao-1.jpg"
         title={policy.title}
         subtitle={policy.subtitle}

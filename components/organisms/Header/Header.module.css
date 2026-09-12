@@ -25,22 +25,33 @@
   max-width: 13%;
 }
 
+/* Os itens do trilho compartilham este gap: busca, navegação e os três ícones.
+   Os 4px anteriores deixavam conta, favoritos e carrinho encostados, e a
+   distância entre a navegação e eles era a mesma que entre os ícones — nada
+   separava um grupo do outro. O cliente autorizou reduzir logo e busca para
+   caber, e é o que a largura da busca abaixo faz. */
 .rail {
   display: flex;
   flex: 1;
   align-items: center;
   justify-content: flex-end;
-  gap: 4px;
+  gap: 10px;
   min-width: 0;
 }
 
 .search {
-  flex: 0 0 38%;
+  flex: 0 0 34%;
   margin-right: auto;
   margin-left: 22px;
 }
 
 .searchTrigger,
+/* Folga extra antes do primeiro ícone, para "ícones" leem como um grupo e não
+   como continuação da navegação. */
+.rail > .iconLink:first-of-type {
+  margin-left: 12px;
+}
+
 .iconLink {
   position: relative;
   display: inline-flex;

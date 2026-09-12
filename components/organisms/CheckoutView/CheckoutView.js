@@ -132,7 +132,9 @@ export default function CheckoutView() {
   if (!cart.length) {
     return (
       <Section tone="light">
-        <SectionTitle title="Não há itens para finalizar" />
+        {/* Estado vazio: o texto e a unica coisa na tela, e encosta-lo na
+            borda parece defeito. Centralizar aqui e deliberado. */}
+        <SectionTitle title="Não há itens para finalizar" align="center" />
         <div className={styles.confirmActions}>
           <Button href="/shop" variant="dark">
             Explorar Ativos

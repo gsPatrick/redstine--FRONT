@@ -118,7 +118,10 @@ export default function Catalog({
 
   return (
     <Section tone="light" id="comprar">
-      <SectionTitle title={title} subtitle={subtitle} />
+      {/* Sem titulo, o SectionTitle renderizava um header vazio com a margem
+          dele — 48px de buraco antes dos filtros. A pagina Comprar passou a
+          ter o titulo acima dos cards, entao aqui ele e opcional. */}
+      {title || subtitle ? <SectionTitle title={title} subtitle={subtitle} /> : null}
 
       <div className={styles.layout}>
         <button

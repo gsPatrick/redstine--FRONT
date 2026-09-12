@@ -55,3 +55,16 @@
     font-size: 17px;
   }
 }
+
+/* Rótulo do bloco, em vermelho de marca. Copiado do bloco da home que o
+   cliente aprovou, para o padrão ser o que ele já viu e gostou, e não uma
+   terceira variação. Monoespaçado e em caixa alta: é etiqueta, não frase. */
+.kicker {
+  display: block;
+  margin-bottom: 10px;
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}

@@ -66,13 +66,29 @@ export default function Footer() {
           <div className={styles.column}>
             <h3 className={styles.columnTitle}>Contato</h3>
             <ul className={styles.columnList}>
-              {contactItems.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href} className={styles.columnLink}>
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
+              {contactItems.map((item) =>
+                /* WhatsApp é endereço externo: `Link` do Next é para rota
+                   interna e não abriria em nova aba, tirando a pessoa do
+                   site no meio da navegação. */
+                item.externo ? (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`${styles.columnLink} ${styles.columnLinkDestaque}`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={item.label}>
+                    <Link href={item.href} className={styles.columnLink}>
+                      {item.label}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
 
             <ul className={styles.social}>

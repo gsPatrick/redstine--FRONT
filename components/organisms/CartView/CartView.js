@@ -24,7 +24,9 @@ export default function CartView() {
   if (!cart.length) {
     return (
       <Section tone="light">
-        <SectionTitle title="Seu carrinho está vazio" />
+        {/* Estado vazio: o texto e a unica coisa na tela, e encosta-lo na
+            borda parece defeito. Centralizar aqui e deliberado. */}
+        <SectionTitle title="Seu carrinho está vazio" align="center" />
         <div className={styles.emptyAction}>
           <Button href="/shop" variant="dark">
             Explorar Ativos

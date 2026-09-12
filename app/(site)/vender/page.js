@@ -19,7 +19,7 @@ export const metadata = {
 export default function VenderPage() {
   return (
     <>
-      <PageHero {...vender.hero} size="lg" />
+      <PageHero {...vender.hero} />
 
       <ListColumns tone="tinted" title={vender.originsTitle} columns={vender.origins} />
 

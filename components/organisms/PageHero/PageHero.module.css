@@ -1,22 +1,33 @@
 .hero {
+  /* Traz os tokens de altura para o próprio elemento (ver bannerHeights). */
+  composes: tokens from "./bannerHeights.module.css";
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
   isolation: isolate;
+  /* Preto da marca como base da imagem: é o que aparece enquanto a foto
+     carrega e é o que garante contraste do título branco. */
   background-color: var(--gray-940);
 }
 
-.md {
-  /* Faixa, não capa cheia.
-     A home tem a imagem alta; nas internas o conteúdo é o que importa e uma
-     capa de 520px empurrava tudo para baixo da dobra. */
-  min-height: 340px;
+/* ---- os três níveis de altura do cliente (tokens em bannerHeights) ---- */
+
+/* Nível 1 — capa. Mesmo cálculo da Home; usada por /shop (estática, sem a
+   animação de moldura da Home). */
+.cover {
+  min-height: max(var(--banner-h-cover), var(--banner-h-cover-min));
 }
 
-.lg {
-  min-height: 420px;
+/* Nível 2 — interna principal (referência: /sobre-a-red). */
+.main {
+  min-height: var(--banner-h-main);
+}
+
+/* Nível 3 — secundária: categorias e páginas de rodapé. */
+.sub {
+  min-height: var(--banner-h-sub);
 }
 
 .overlay {
@@ -32,12 +43,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: 52px 20px;
+  /* Era 52px. Reduzido para 40px porque o padrão de altura só é REAL se o
+     conteúdo couber dentro dele: com 52px, /como-funciona e
+     /entenda-os-modelos (título 2 linhas + apoio + CTA) estouravam o
+     min-height e mediam 372px em vez dos 340px de referência. Depois que o
+     CTA de banner virou size="lg" (padrão de botão, item 26) o botão ficou
+     mais alto e 40px voltava a estourar em 346px — daí 36px. */
+  padding: 36px 20px;
   text-align: center;
+}
+
+/* A capa tem respiro maior — é uma tela cheia, não uma faixa. */
+.cover .inner {
+  padding-block: 60px;
 }
 
 .title {
@@ -50,6 +72,8 @@
   text-wrap: balance;
 }
 
+/* Conteúdo especificado pelo cliente: apoio de ATÉ DUAS LINHAS. O limite de
+   largura mantém o texto dentro dessa medida sem cortar nada. */
 .subtitle {
   max-width: 64ch;
   font-size: 18px;
@@ -59,12 +83,19 @@
   text-wrap: pretty;
 }
 
+/* Secundária: título em UMA linha. Medida mais curta para forçar isso sem
+   recorrer a corte de texto. */
+.sub .title {
+  max-width: 32ch;
+  font-size: 38px;
+}
+
 .actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 14px;
-  margin-top: 10px;
+  margin-top: 6px;
 }
 
 @media (max-width: 1024px) {
@@ -74,9 +105,16 @@
 }
 
 @media (max-width: 767px) {
-  .md,
-  .lg {
-    min-height: 280px;
+  .cover {
+    min-height: max(var(--banner-h-cover-mobile), var(--banner-h-cover-min-mobile));
+  }
+
+  .main {
+    min-height: var(--banner-h-main-mobile);
+  }
+
+  .sub {
+    min-height: var(--banner-h-sub-mobile);
   }
 
   .inner {
@@ -84,7 +122,8 @@
     padding-inline: 16px;
   }
 
-  .title {
+  .title,
+  .sub .title {
     font-size: 32px;
   }
 
