@@ -217,7 +217,7 @@ export default function Catalog({
                     titulo: "Nenhum ativo publicado no momento.",
                     descricao:
                       "A curadoria RED está avaliando os próximos lotes. Assim que forem aprovados, aparecem aqui.",
-                    acao: { label: "Enviar Ativos", href: "/vender#enviar" },
+                    acao: { label: "Enviar Ativos", href: "/painel/vender/enviar" },
                   }
             }
           />

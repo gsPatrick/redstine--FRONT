@@ -55,7 +55,7 @@ export default function EntendaOProcessoPage() {
         text="Compre ativos disponíveis ou envie materiais, equipamentos e mobiliário para avaliação."
         actions={[
           { label: "Explorar Ativos", href: "/shop", variant: "dark" },
-          { label: "Enviar Ativos", href: "/vender", variant: "outline" },
+          { label: "Enviar Ativos", href: "/painel/vender/enviar", variant: "outline" },
         ]}
       />
     </>

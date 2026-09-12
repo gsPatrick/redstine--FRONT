@@ -68,7 +68,7 @@ export default function EntendaOsModelosPage() {
           </div>
 
           <Reveal animation="fadeInUp" delay={220} className={styles.modelAction}>
-            <Button href="/vender#enviar" variant="dark">
+            <Button href="/painel/vender/enviar" variant="dark">
               Enviar Ativos
             </Button>
           </Reveal>

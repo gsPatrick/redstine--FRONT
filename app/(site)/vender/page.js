@@ -6,7 +6,7 @@ import Reveal from "@/components/atoms/Reveal/Reveal";
 import FeatureCard from "@/components/molecules/FeatureCard/FeatureCard";
 import ModelCard from "@/components/molecules/ModelCard/ModelCard";
 import StepsGrid from "@/components/organisms/StepsGrid/StepsGrid";
-import LeadForm from "@/components/organisms/LeadForm/LeadForm";
+import EnvioAcesso from "./EnvioAcesso";
 import CtaBand from "@/components/organisms/CtaBand/CtaBand";
 import { vender } from "@/lib/pages";
 import styles from "./page.module.css";
@@ -61,7 +61,7 @@ export default function VenderPage() {
         </div>
       </Section>
 
-      <LeadForm title={vender.formTitle} note={vender.formNote} id="enviar" />
+      <EnvioAcesso title={vender.formTitle} note={vender.formNote} id="enviar" />
 
       <CtaBand
         tone="light"

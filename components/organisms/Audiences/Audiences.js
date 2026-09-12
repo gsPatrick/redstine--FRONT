@@ -24,7 +24,7 @@ export default function Audiences() {
       </div>
 
       <Reveal animation="fadeInUp" delay={320} className={styles.action}>
-        <Button href="/vender" variant="dark">
+        <Button href="/painel/vender/enviar" variant="dark">
           Enviar Ativos
         </Button>
       </Reveal>

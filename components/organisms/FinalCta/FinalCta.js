@@ -25,7 +25,7 @@ export default function FinalCta() {
           <Button href="/shop" variant="solid">
             Explorar Ativos
           </Button>
-          <Button href="/vender" variant="ghost">
+          <Button href="/painel/vender/enviar" variant="ghost">
             Enviar Ativos
           </Button>
         </Reveal>

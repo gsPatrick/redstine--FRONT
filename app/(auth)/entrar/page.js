@@ -7,6 +7,7 @@ import PanelField from "@/components/panel/molecules/PanelField/PanelField";
 import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
 import { useSession } from "@/lib/auth/SessionContext";
+import AvisoDestino from "../AvisoDestino";
 import styles from "@/components/panel/molecules/AuthForm/AuthForm.module.css";
 
 function Formulario() {
@@ -65,6 +66,8 @@ function Formulario() {
         </p>
       </header>
 
+      <AvisoDestino de={destino} />
+
       <form className={styles.form} onSubmit={submeter}>
         {erro && (
           <p className={styles.erro}>
@@ -99,7 +102,10 @@ function Formulario() {
       </form>
 
       <p className={styles.alternativa}>
-        Ainda não tem conta? <Link href="/criar-conta">Criar conta</Link>
+        Ainda não tem conta?{" "}
+        <Link href={destino ? `/criar-conta?de=${encodeURIComponent(destino)}` : "/criar-conta"}>
+          Criar conta
+        </Link>
       </p>
     </>
   );

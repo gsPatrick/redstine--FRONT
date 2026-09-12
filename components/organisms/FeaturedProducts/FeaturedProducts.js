@@ -132,7 +132,7 @@ export default function FeaturedProducts({
               vazio?.descricao ??
               "A curadoria RED está avaliando os próximos lotes. Assim que forem aprovados, aparecem aqui."
             }
-            acao={vazio?.acao ?? { label: "Enviar Ativos", href: "/vender#enviar" }}
+            acao={vazio?.acao ?? { label: "Enviar Ativos", href: "/painel/vender/enviar" }}
           />
         </div>
       </section>

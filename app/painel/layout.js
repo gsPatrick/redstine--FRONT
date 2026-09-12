@@ -6,6 +6,13 @@ import { useSession } from "@/lib/auth/SessionContext";
 import { useLista } from "@/lib/painel/api-cliente";
 import { grupos, atalhosDeConta } from "./navegacao";
 
+const PAPEL_INTERNO = {
+  admin: "Administrador",
+  curador: "Curadoria",
+  comercial: "Comercial",
+  financeiro: "Financeiro",
+};
+
 /**
  * Área do Cliente.
  *
@@ -19,9 +26,16 @@ export default function PainelLayout({ children }) {
     ativo: !!utilizador,
   });
 
+  // Rótulo do topo.
+  //
+  // Não diz mais "Comprador" ou "Fornecedor": a conta é uma só e a mesma
+  // pessoa compra e vende pela mesma Área do Cliente — rotulá-la de
+  // "Comprador" sugeria, falsamente, que ela não podia vender. Os papéis
+  // internos da RED continuam identificados, porque quem é da equipe precisa
+  // saber com que perfil está a olhar o ambiente.
   const usuario = {
     nome: [utilizador?.name, utilizador?.lastName].filter(Boolean).join(" ") || "—",
-    papel: utilizador?.role === "fornecedor" ? "Fornecedor" : "Comprador",
+    papel: PAPEL_INTERNO[utilizador?.role] || "Cliente",
   };
 
   return (

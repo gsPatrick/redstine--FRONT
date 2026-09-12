@@ -1,27 +1,35 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import PanelField from "@/components/panel/molecules/PanelField/PanelField";
 import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
 import { useSession } from "@/lib/auth/SessionContext";
+import AvisoDestino from "../AvisoDestino";
 import styles from "@/components/panel/molecules/AuthForm/AuthForm.module.css";
 
 /**
  * Criar conta.
  *
- * O perfil é escolhido no cadastro porque muda a jornada inteira: quem vende
- * cai no painel de vendas, quem compra cai nas compras. Só existem estas duas
- * opções — papéis internos da RED (curador, comercial, financeiro) são criados
- * pela gestão, nunca por registo público.
+ * NÃO existe escolha entre comprador e vendedor. A mesma pessoa pode ser as
+ * duas coisas — quem vende um lote de mobiliário também compra material de
+ * obra — e obrigá-la a decidir no cadastro criava duas contas para a mesma
+ * empresa ou a prendia no lado errado da plataforma. A Área do Cliente é uma
+ * só, com COMPRAR e VENDER para todos.
+ *
+ * Papéis internos da RED (admin, curador, comercial, financeiro) continuam
+ * fora daqui: são criados pela gestão, nunca por registo público.
  */
-export default function CriarContaPage() {
+function Formulario() {
   const { criarConta } = useSession();
   const router = useRouter();
-  const [perfil, setPerfil] = useState("comprador");
+  const params = useSearchParams();
   const [erro, setErro] = useState(null);
+
+  // Volta para onde a pessoa queria ir antes de ser interrompida pelo cadastro.
+  const destino = params.get("de") || null;
 
   /**
    * Trava o envio até a hidratação.
@@ -49,15 +57,16 @@ export default function CriarContaPage() {
 
     setEnviando(true);
     try {
+      // Sem `role`: o registo público cria sempre o mesmo tipo de conta de
+      // cliente, com acesso a comprar e a vender.
       await criarConta({
         name: d.get("name"),
         email: d.get("email"),
         password: d.get("password"),
         phone: d.get("phone") || undefined,
         company: d.get("company") || undefined,
-        role: perfil,
       });
-      router.push("/painel");
+      router.push(destino || "/painel");
     } catch (e2) {
       setErro(
         e2.code === "EMAIL_IN_USE"
@@ -73,9 +82,11 @@ export default function CriarContaPage() {
       <header className={styles.cabeca}>
         <h1 className={styles.titulo}>Criar conta</h1>
         <p className={styles.apoio}>
-          Leva menos de um minuto. Você pode comprar e vender com a mesma conta.
+          Leva menos de um minuto. Uma conta só: você compra e vende pela mesma Área do Cliente.
         </p>
       </header>
+
+      <AvisoDestino de={destino} />
 
       <form className={styles.form} onSubmit={submeter}>
         {erro && (
@@ -84,25 +95,6 @@ export default function CriarContaPage() {
             {erro}
           </p>
         )}
-
-        <span className={styles.rotuloGrupo}>Como você vai usar a RED?</span>
-        <div className={styles.perfil}>
-          {[
-            { valor: "comprador", titulo: "Quero comprar", apoio: "Buscar ativos para minha operação." },
-            { valor: "fornecedor", titulo: "Quero vender", apoio: "Disponibilizar ativos para avaliação." },
-          ].map((o) => (
-            <button
-              key={o.valor}
-              type="button"
-              className={`${styles.opcaoPerfil} ${perfil === o.valor ? styles.perfilAtivo : ""}`}
-              onClick={() => setPerfil(o.valor)}
-              aria-pressed={perfil === o.valor}
-            >
-              <strong>{o.titulo}</strong>
-              <span>{o.apoio}</span>
-            </button>
-          ))}
-        </div>
 
         <PanelField label="Nome completo" name="name" autoComplete="name" required />
         <PanelField label="E-mail" name="email" type="email" autoComplete="email" required />
@@ -137,8 +129,17 @@ export default function CriarContaPage() {
       </form>
 
       <p className={styles.alternativa}>
-        Já tem conta? <Link href="/entrar">Entrar</Link>
+        Já tem conta?{" "}
+        <Link href={destino ? `/entrar?de=${encodeURIComponent(destino)}` : "/entrar"}>Entrar</Link>
       </p>
     </>
+  );
+}
+
+export default function CriarContaPage() {
+  return (
+    <Suspense fallback={null}>
+      <Formulario />
+    </Suspense>
   );
 }

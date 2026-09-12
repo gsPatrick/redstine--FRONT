@@ -1,0 +1,52 @@
+.painel {
+  max-width: 860px;
+  margin-inline: auto;
+  padding: 40px 36px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--color-white);
+  text-align: center;
+}
+
+.aviso {
+  margin-bottom: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--color-accent);
+  text-wrap: pretty;
+}
+
+.texto {
+  max-width: 640px;
+  margin-inline: auto;
+  font-size: 16px;
+  line-height: 1.9;
+  color: var(--gray-870);
+  text-wrap: pretty;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.nota {
+  margin-top: 26px;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--gray-600);
+}
+
+@media (max-width: 767px) {
+  .painel {
+    padding: 28px 22px;
+  }
+
+  .acoes > * {
+    width: 100%;
+  }
+}
