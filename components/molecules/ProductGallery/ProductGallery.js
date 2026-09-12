@@ -28,7 +28,11 @@ export default function ProductGallery({ images, name }) {
       {images.length > 1 ? (
         <ul className={styles.thumbs}>
           {images.map((image, index) => (
-            <li key={image.src}>
+            /* A chave inclui o índice porque o mesmo ficheiro pode aparecer
+               duas vezes no ativo — o catálogo importado tem lotes com a foto
+               repetida, e só o src fazia o React avisar de chave duplicada e
+               potencialmente omitir uma miniatura. */
+            <li key={`${image.src}-${index}`}>
               <button
                 type="button"
                 className={`${styles.thumb} ${index === active ? styles.thumbActive : ""}`}

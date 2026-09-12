@@ -181,3 +181,46 @@
     font-size: 26px;
   }
 }
+
+/* Segunda linha de ações: coração, WhatsApp e compartilhar, nessa ordem. O
+   WhatsApp fica no meio porque é a ação com texto — os dois ícones iguais nas
+   pontas dão simetria, que é o que o cliente pediu ao padronizar. */
+.actionsSecundarias {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+/* Sob consulta não tem preço: o rótulo ocupa o lugar do número, então precisa
+   de peso visual parecido para o bloco não desmontar. */
+.priceConsulta {
+  font-size: 26px;
+  color: var(--gray-700);
+}
+
+.consultar {
+  padding: 13px 26px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: filter var(--dur-base) var(--ease-out);
+}
+
+.consultar:hover {
+  filter: brightness(1.08);
+}
+
+.painelConsulta {
+  margin: 0 0 22px;
+  padding: 20px;
+  border: 1px solid var(--gray-300);
+  border-radius: 14px;
+  background: var(--color-white);
+}

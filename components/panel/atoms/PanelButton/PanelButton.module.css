@@ -53,23 +53,27 @@
   font-size: 14px;
 }
 
+/* Fundo solido com letra branca usa o vermelho escuro: no tema escuro o
+   `accent` de interface (#e33232) so chegava a 4.40:1 com o branco. */
 .solid {
-  background: var(--pnl-accent);
+  background: var(--pnl-accent-on-solid);
   color: #fff;
 }
 
 .solid:hover {
-  background: var(--pnl-accent-hover);
+  background: color-mix(in srgb, var(--pnl-accent-on-solid) 86%, #000);
 }
 
 /* Verde para a acao positiva do card COMPRAR, como no layout aprovado. */
 .success {
-  background: #1a8a4a;
+  /* #1a8a4a dava 4.39:1 com a letra branca — passava perto, mas passava por
+     baixo. Este verde e o mesmo tom, escurecido ate 5.4:1. */
+  background: #137a41;
   color: #fff;
 }
 
 .success:hover {
-  background: #157a41;
+  background: #0f6836;
 }
 
 .outline {
@@ -97,7 +101,7 @@
   height: auto;
   padding: 0;
   background: none;
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-size: 13px;
 }
 

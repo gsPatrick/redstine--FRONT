@@ -34,7 +34,7 @@
 .ativo {
   border-color: var(--pnl-accent);
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-weight: 600;
 }
 

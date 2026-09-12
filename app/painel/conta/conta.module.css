@@ -24,8 +24,9 @@
   margin: 0 0 18px;
   padding: 11px 14px;
   border-radius: var(--pnl-radius-sm);
-  background: var(--pnl-info-soft);
-  color: var(--pnl-info);
+  border: 1px solid var(--pnl-note-line);
+  background: var(--pnl-note-soft);
+  color: var(--pnl-note);
   font-size: 12.5px;
   line-height: 1.55;
 }

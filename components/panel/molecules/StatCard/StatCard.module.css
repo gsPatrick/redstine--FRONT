@@ -48,7 +48,7 @@
 
 .icone.accent {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .icone.ok {
@@ -127,6 +127,6 @@
 }
 
 .link {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-weight: 600;
 }

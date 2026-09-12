@@ -1,10 +1,6 @@
 import Section from "@/components/atoms/Section/Section";
-import Button from "@/components/atoms/Button/Button";
-import Icon from "@/components/atoms/Icon/Icon";
 import Breadcrumb from "@/components/molecules/Breadcrumb/Breadcrumb";
-import AddToCart from "@/components/molecules/AddToCart/AddToCart";
-import WishButton from "@/components/molecules/WishButton/WishButton";
-import ShareButton from "@/components/molecules/ShareButton/ShareButton";
+import AcoesDoAtivo from "./AcoesDoAtivo";
 import ProductGallery from "@/components/molecules/ProductGallery/ProductGallery";
 import Accordion from "@/components/molecules/Accordion/Accordion";
 import { formatPrice } from "@/lib/products";
@@ -86,37 +82,19 @@ export default function ProductDetail({ product }) {
             {product.brand ? <li className={styles.metaItem}>Marca: {product.brand}</li> : null}
           </ul>
 
-          <p className={styles.price}>{formatPrice(product.price)}</p>
+          {/* Sob consulta nao tem preco a exibir: o valor sai da cotacao. Mostrar
+              um numero aqui e prometer um preco que nao vale. */}
+          {product.underConsultation ? (
+            <p className={`${styles.price} ${styles.priceConsulta}`}>Sob consulta</p>
+          ) : (
+            <p className={styles.price}>{formatPrice(product.price)}</p>
+          )}
 
           {product.shortDescription ? (
             <p className={styles.summary}>{product.shortDescription}</p>
           ) : null}
 
-          <div className={styles.actions}>
-            <AddToCart product={product} withQuantity />
-            <WishButton product={product} size={19} />
-            {/* Compartilhar o ativo: um lote interessa a mais de uma pessoa
-                dentro da mesma empresa, e o link precisa circular. */}
-            <ShareButton
-              titulo={product.name}
-              texto={`Veja este ativo disponível na RED: ${product.name}`}
-            />
-          </div>
-
-          <div className={styles.actions}>
-            <a
-              href={whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.whatsapp}
-            >
-              <Icon name="whatsapp" size={18} />
-              Compre Pelo Whatsapp
-            </a>
-            <Button href="/cart" variant="outline" size="sm">
-              Ver Carrinho
-            </Button>
-          </div>
+          <AcoesDoAtivo product={product} whatsapp={whatsapp} />
 
           <Accordion items={accordionItems} />
         </div>

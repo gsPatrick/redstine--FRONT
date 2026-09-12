@@ -42,7 +42,7 @@
 }
 
 .listaAvisos a:hover .avisoTexto {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .ponto {

@@ -260,3 +260,18 @@
     justify-content: space-between;
   }
 }
+
+/* Item sob consulta preso no carrinho: diz por que não dá para comprar e para
+   onde ir. Não some sozinho porque remover item do utilizador sem ele pedir é
+   pior do que explicar. */
+.sobConsulta {
+  margin: 4px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-accent);
+}
+
+.sobConsulta a {
+  font-weight: 700;
+  text-decoration: underline;
+}

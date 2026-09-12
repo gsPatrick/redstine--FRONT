@@ -25,14 +25,25 @@ const billing = [
   { label: "Observações do pedido", name: "observacoes", type: "textarea", span: 2 },
 ];
 
+/**
+ * Formas de PAGAMENTO — não modalidades de compra.
+ *
+ * "Sob consulta" estava listado aqui e saiu: é a modalidade em que o preço
+ * ainda não existe, e portanto não há o que pagar. Misturar as duas coisas
+ * deixava o comprador escolher "sob consulta" como se fosse meio de pagamento
+ * e seguir para um pedido sem valor fechado.
+ */
 const paymentMethods = [
   { id: "pix", label: "Pix", note: "Chave enviada após a confirmação do pedido." },
   { id: "boleto", label: "Boleto bancário", note: "Vencimento em 2 dias úteis." },
-  { id: "consulta", label: "Sob consulta", note: "Condições definidas na negociação." },
 ];
 
 export default function CheckoutView() {
   const { cart, cartTotal, clearCart, ready } = useStore();
+  // Defesa de borda: o ativo sob consulta nao chega mais ao carrinho pela
+  // pagina do produto, mas carrinhos gravados antes disso podem ter um. Deixar
+  // seguir geraria pedido com preco que nao foi negociado.
+  const sobConsulta = cart.filter((l) => l.underConsultation);
   const { autenticado } = useSession();
   const [method, setMethod] = useState("pix");
   const [placed, setPlaced] = useState(null);
@@ -216,7 +227,20 @@ export default function CheckoutView() {
             </p>
           ) : null}
 
-          <button type="submit" className={styles.submit} disabled={sending || !cart.length}>
+          {sobConsulta.length > 0 && (
+            <p className={styles.bloqueio} role="alert">
+              {sobConsulta.length === 1
+                ? `"${sobConsulta[0].name}" é negociado sob consulta e não pode ser comprado direto.`
+                : `${sobConsulta.length} itens do carrinho são negociados sob consulta e não podem ser comprados direto.`}{" "}
+              Remova do carrinho e use <strong>Consultar Condições</strong> na página do ativo.
+            </p>
+          )}
+
+          <button
+            type="submit"
+            className={styles.submit}
+            disabled={sending || !cart.length || sobConsulta.length > 0}
+          >
             {sending ? "Enviando…" : "Enviar pedido"}
           </button>
         </aside>

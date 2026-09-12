@@ -36,14 +36,16 @@
   padding: 1px 6px;
   border-radius: 999px;
   background: var(--pnl-neutral-soft);
-  color: var(--pnl-text-3);
+  /* text-3 sobre neutral-soft dava 4.35:1 num numero de 10.5px — o cinza mais
+     claro precisa de fundo claro, e este nao e. */
+  color: var(--pnl-text-2);
   font-size: 10.5px;
   font-style: normal;
   font-weight: 600;
 }
 
 .ativa {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-weight: 600;
 }
 
@@ -60,5 +62,5 @@
 
 .ativa em {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }

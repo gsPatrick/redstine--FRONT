@@ -6,15 +6,18 @@ import styles from "./ShareButton.module.css";
 /**
  * Compartilhar ativo.
  *
- * Usa a partilha nativa do sistema quando existe (telemóvel), e cai para
- * copiar o link quando não existe (desktop). São dois comportamentos porque
- * são dois contextos: no telemóvel o utilizador quer mandar no WhatsApp; no
- * computador, colar num e-mail.
+ * Três caminhos, em ordem de preferência: a partilha nativa do sistema
+ * (telemóvel), o WhatsApp Web (desktop) e copiar o link (último recurso).
+ *
+ * O WhatsApp entrou no meio porque só copiar o link não resolvia: o cliente
+ * relatou "não consegui compartilhar por whatsapp" justamente no desktop, onde
+ * `navigator.share` não existe. E o WhatsApp é o canal por onde a RED negocia,
+ * não um detalhe de conveniência.
  *
  * O texto do botão confirma o que aconteceu e volta ao normal sozinho — sem
  * isso o utilizador clica, nada muda na tela e ele clica de novo.
  */
-export default function ShareButton({ titulo, texto, className = "" }) {
+export default function ShareButton({ titulo, texto, className = "", apenasIcone = false }) {
   const [estado, setEstado] = useState("pronto");
   const [nativo, setNativo] = useState(false);
 
@@ -43,6 +46,14 @@ export default function ShareButton({ titulo, texto, className = "" }) {
       }
     }
 
+    // Sem partilha nativa: abre o WhatsApp com o link já montado. `wa.me` sem
+    // número deixa o utilizador escolher o destinatário, que é o que se quer
+    // ao compartilhar (diferente do botão de compra, que fala com a RED).
+    const zap = `https://wa.me/?text=${encodeURIComponent(`${texto || titulo} ${url}`)}`;
+    const janela = window.open(zap, "_blank", "noopener,noreferrer");
+    if (janela) return;
+
+    // Bloqueador de pop-up: ainda dá para copiar.
     try {
       await navigator.clipboard.writeText(url);
       setEstado("copiado");
@@ -58,8 +69,12 @@ export default function ShareButton({ titulo, texto, className = "" }) {
     <button
       type="button"
       onClick={partilhar}
-      className={`${styles.botao} ${estado !== "pronto" ? styles.confirmado : ""} ${className}`}
+      className={`${styles.botao} ${apenasIcone ? styles.soIcone : ""} ${
+        estado !== "pronto" ? styles.confirmado : ""
+      } ${className}`}
       aria-live="polite"
+      aria-label={apenasIcone ? rotulo : undefined}
+      title={apenasIcone ? rotulo : undefined}
     >
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         {estado === "copiado" ? (
@@ -84,7 +99,7 @@ export default function ShareButton({ titulo, texto, className = "" }) {
           </>
         )}
       </svg>
-      {rotulo}
+      {!apenasIcone && rotulo}
     </button>
   );
 }

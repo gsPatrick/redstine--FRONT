@@ -8,7 +8,7 @@ import BuyingSteps from "@/components/organisms/BuyingSteps/BuyingSteps";
 import BuyingModes from "@/components/organisms/BuyingModes/BuyingModes";
 import CtaBand from "@/components/organisms/CtaBand/CtaBand";
 import { shopHero, shopCategories } from "@/lib/shop";
-import { getProducts } from "@/lib/products";
+import { getCatalogo } from "@/lib/products";
 import styles from "./page.module.css";
 
 export const metadata = {
@@ -26,7 +26,7 @@ export const metadata = {
  */
 export default async function ShopPage({ searchParams }) {
   const term = typeof searchParams?.s === "string" ? searchParams.s : "";
-  const products = await getProducts(term ? { search: term } : {});
+  const { produtos: products, filtros } = await getCatalogo(term ? { search: term } : {});
 
   return (
     <>
@@ -45,6 +45,7 @@ export default async function ShopPage({ searchParams }) {
       <Suspense>
         <Catalog
           products={products}
+          filtrosDaApi={filtros}
           initialTerm={term}
           title="Busque por produto, categoria ou localização"
         />

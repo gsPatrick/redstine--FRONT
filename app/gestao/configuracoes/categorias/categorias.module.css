@@ -60,7 +60,7 @@
 
 .botaoLeve:hover {
   border-color: var(--pnl-accent);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .descricao {
@@ -106,7 +106,7 @@
 }
 
 .subs li button:hover {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .semSub {
@@ -162,8 +162,9 @@
   margin: 0;
   padding: 10px 12px;
   border-radius: 9px;
-  background: rgba(192, 0, 0, 0.09);
-  color: #c00000;
+  border: 1px solid color-mix(in srgb, var(--pnl-danger) 30%, var(--pnl-line));
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger);
   font-size: 12.5px;
 }
 

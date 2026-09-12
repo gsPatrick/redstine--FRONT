@@ -21,7 +21,13 @@ const facet = (products, pick) => {
     .map(([value, count]) => ({ value, label: value, count }));
 };
 
-export default function Catalog({ products, initialTerm = "", title, subtitle }) {
+export default function Catalog({
+  products,
+  filtrosDaApi = null,
+  initialTerm = "",
+  title,
+  subtitle,
+}) {
   const [term, setTerm] = useState(initialTerm);
   const [filters, setFilters] = useState({
     category: [],
@@ -40,16 +46,21 @@ export default function Catalog({ products, initialTerm = "", title, subtitle })
   const temFiltro =
     term.trim() !== "" || Object.values(filters).some((lista) => lista.length > 0);
 
+  // As opções vêm da API quando ela as manda: só o servidor consegue excluir o
+  // ativo esgotado do filtro e ao mesmo tempo mantê-lo na vitrine. O cálculo
+  // local fica como reserva, para a página não perder os filtros se a API
+  // antiga responder sem `meta.filtros`.
   const facets = useMemo(
-    () => ({
-      category: facet(products, (p) => p.categories.map((c) => c.name)),
-      brand: facet(products, (p) => [p.brand]),
-      location: facet(products, (p) => [p.location]),
-      condition: facet(products, (p) => [p.conditionLabel || p.condition]),
-      saleFormat: facet(products, (p) => [p.saleFormatLabel]),
-      availability: facet(products, (p) => [p.availabilityLabel]),
-    }),
-    [products]
+    () =>
+      filtrosDaApi ?? {
+        category: facet(products, (p) => p.categories.map((c) => c.name)),
+        brand: facet(products, (p) => [p.brand]),
+        location: facet(products, (p) => [p.location]),
+        condition: facet(products, (p) => [p.conditionLabel || p.condition]),
+        saleFormat: facet(products, (p) => [p.saleFormatLabel]),
+        availability: facet(products, (p) => [p.availabilityLabel]),
+      },
+    [products, filtrosDaApi]
   );
 
   const toggle = (group) => (value) =>

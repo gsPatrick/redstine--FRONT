@@ -109,7 +109,7 @@
    localizavel na periferia da visao, sem depender de ler o texto. */
 .ativo {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-weight: 600;
 }
 
@@ -126,7 +126,7 @@
 
 .ativo:hover {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .paiAtivo {
@@ -193,7 +193,7 @@
 
 .sair:hover {
   background: none;
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .veu {

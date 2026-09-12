@@ -15,5 +15,5 @@
 
 .verBtn:hover {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }

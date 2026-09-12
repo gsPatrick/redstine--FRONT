@@ -33,10 +33,10 @@
   gap: 11px;
   margin-bottom: var(--pnl-gap);
   padding: 14px 16px;
-  border: 1px solid color-mix(in srgb, var(--pnl-info) 30%, var(--pnl-line));
   border-radius: var(--pnl-radius);
-  background: var(--pnl-info-soft);
-  color: var(--pnl-info);
+  border: 1px solid var(--pnl-note-line);
+  background: var(--pnl-note-soft);
+  color: var(--pnl-note);
 }
 
 .avisoSeguranca svg {
@@ -217,7 +217,7 @@
 
 .verBtn:hover {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 @media (max-width: 1023px) {
@@ -257,8 +257,9 @@
   margin: 0;
   padding: 10px 12px;
   border-radius: 9px;
-  background: rgba(192, 0, 0, 0.09);
-  color: #c00000;
+  border: 1px solid color-mix(in srgb, var(--pnl-danger) 30%, var(--pnl-line));
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger);
   font-size: 12.5px;
   line-height: 1.5;
 }

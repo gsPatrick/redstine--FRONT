@@ -84,6 +84,6 @@
 }
 
 .ativa {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-weight: 600;
 }

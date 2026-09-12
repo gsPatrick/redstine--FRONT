@@ -157,6 +157,41 @@ input, select, textarea {
    superficie. Por isso a paleta e declarada uma vez, em variaveis semanticas,
    e o tema escuro so redefine as variaveis — nenhum componente sabe do tema.
    ========================================================================= */
+/* ----------------------------------------------------------------------------
+   PADRAO DE AVISOS (blocos de mensagem: nota, atencao, erro, confirmacao)
+   ----------------------------------------------------------------------------
+   Antes disso cada tela escolhia a cor do proprio aviso — o de seguranca era
+   azul, o de enviar ativos era laranja — e nenhuma das duas cores pertence a
+   marca. O cliente leu isso como aleatoriedade, e estava certo.
+
+   A escala abaixo e a MESMA da StatusPill/StatCard, por escolha: o utilizador
+   nao deveria aprender dois vocabularios de cor no mesmo produto. A diferenca
+   e que a pilula descreve o ESTADO DE UM REGISTRO e o aviso descreve uma
+   MENSAGEM AO UTILIZADOR — por isso o aviso usa apenas o subconjunto da escala
+   que faz sentido como mensagem:
+
+     nota      --pnl-note-*     cinza     informa o contexto, nada a fazer
+     atencao   --pnl-warn-*     ambar     ha consequencia ou acao pendente
+     erro      --pnl-danger-*   vermelho  a operacao foi interrompida
+     confirma  --pnl-ok-*       verde     a operacao terminou bem
+
+   Duas regras de exclusao sustentam o padrao:
+
+   1. AZUL NUNCA em aviso. Na escala da pilula o azul significa "em andamento",
+      que e propriedade de um registro — um paragrafo de texto nao esta "em
+      andamento". Usar azul para informar apagaria esse significado. Informacao
+      sem carga emocional e cinza (nota).
+   2. VERMELHO DE MARCA (--pnl-accent) nunca em aviso. Ele e identidade —
+      chips de icone, item de menu ativo, enfase. Quem pinta aviso de vermelho
+      usa --pnl-danger, que e outro vermelho, mais escuro e reservado a falha.
+
+   Na duvida entre nota e atencao: se o utilizador nao precisa fazer nada
+   depois de ler, e nota. Ambar e caro — gasta atencao e so deve aparecer
+   quando ha algo a decidir ou perder.
+
+   Geometria comum a todos: padding 12-14px/14-16px, radius var(--pnl-radius),
+   borda 1px em color-mix 30% da cor sobre --pnl-line, texto 12.5px/1.55.
+   ------------------------------------------------------------------------- */
 .painel {
   --pnl-bg: #f4f5f7;
   --pnl-surface: #ffffff;
@@ -167,11 +202,22 @@ input, select, textarea {
 
   --pnl-text: #16181d;
   --pnl-text-2: #5c636e;
-  --pnl-text-3: #8b929c;
+  /* text-3 e o cinza mais claro que ainda passa 4.5:1 sobre a superficie MAIS
+     clara (#f4f5f7). O valor anterior (#8b929c) dava 2.88:1 — legendas, dicas
+     de campo e trilha ficavam ilegiveis sobre o cinza do fundo. */
+  --pnl-text-3: #697080;
 
   --pnl-accent: #c40404;
   --pnl-accent-soft: #fdeaea;
   --pnl-accent-hover: #a80303;
+  /* O vermelho como TEXTO e como FUNDO tem exigencias opostas: para ler texto
+     vermelho sobre superficie escura ele precisa clarear, e para ler texto
+     branco sobre ele precisa escurecer. Um unico token nao atende os dois — no
+     tema escuro o mesmo #e33232 dava 3.94:1 como texto no menu ativo e 4.40:1
+     como fundo do badge. Daqui pra frente: `accent` pinta fundo, `accent-text`
+     pinta letra, `accent-on-solid` e o fundo que aguenta letra branca. */
+  --pnl-accent-text: #c40404;
+  --pnl-accent-on-solid: #c00000;
 
   /* Estados. Cada par tem fundo e texto pensados juntos: pilula de status
      precisa passar contraste, nao so combinar de cor. */
@@ -185,6 +231,13 @@ input, select, textarea {
   --pnl-danger-soft: #fce9e8;
   --pnl-neutral: #5c636e;
   --pnl-neutral-soft: #eef0f3;
+
+  /* Nota: o aviso que apenas informa. Cinza de propria conta (nao herda de
+     neutral) porque precisa de um fundo distinguivel de surface-2 e de uma
+     borda visivel sem virar caixa de erro. */
+  --pnl-note: #4a515c;
+  --pnl-note-soft: #f1f2f4;
+  --pnl-note-line: #dbdee4;
 
   --pnl-shadow: 0 1px 2px rgba(16, 24, 40, 0.04), 0 1px 3px rgba(16, 24, 40, 0.06);
   --pnl-shadow-lg: 0 8px 24px rgba(16, 24, 40, 0.1);
@@ -214,11 +267,16 @@ input, select, textarea {
 
   --pnl-text: #f2f4f7;
   --pnl-text-2: #9aa2ae;
-  --pnl-text-3: #6b7280;
+  /* Mesma regra no escuro, medida contra a superficie mais clara (#191c20):
+     #6b7280 dava 3.54:1. Clarear aqui e escurecer no tema claro sao correcoes
+     opostas — e por isso que as duas tem de ser feitas juntas. */
+  --pnl-text-3: #8b93a1;
 
   --pnl-accent: #e33232;
   --pnl-accent-soft: #2a1416;
   --pnl-accent-hover: #f04444;
+  --pnl-accent-text: #ff7b7b;
+  --pnl-accent-on-solid: #c00000;
 
   --pnl-ok: #4ade80;
   --pnl-ok-soft: #12271b;
@@ -230,6 +288,10 @@ input, select, textarea {
   --pnl-danger-soft: #2a1416;
   --pnl-neutral: #9aa2ae;
   --pnl-neutral-soft: #20242a;
+
+  --pnl-note: #c3cad4;
+  --pnl-note-soft: #1b1e22;
+  --pnl-note-line: #2d3138;
 
   --pnl-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   --pnl-shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.5);

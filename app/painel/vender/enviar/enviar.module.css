@@ -4,10 +4,10 @@
   gap: 10px;
   margin-bottom: var(--pnl-gap);
   padding: 13px 16px;
-  border: 1px solid color-mix(in srgb, var(--pnl-warn) 30%, var(--pnl-line));
   border-radius: var(--pnl-radius);
-  background: var(--pnl-warn-soft);
-  color: var(--pnl-warn);
+  border: 1px solid var(--pnl-note-line);
+  background: var(--pnl-note-soft);
+  color: var(--pnl-note);
 }
 
 .aviso svg {

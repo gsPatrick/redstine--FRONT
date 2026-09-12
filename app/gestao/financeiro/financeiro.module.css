@@ -29,7 +29,7 @@
 
 .verBtn:hover {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 /* Linha de totais: e o fecho da tabela, entao ganha peso visual proprio para

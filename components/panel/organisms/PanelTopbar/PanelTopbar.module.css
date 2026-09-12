@@ -122,7 +122,7 @@
   padding-top: 10px;
   border-top: 1px solid var(--pnl-line);
   border-radius: 0;
-  color: var(--pnl-accent) !important;
+  color: var(--pnl-accent-text) !important;
 }
 
 @media (max-width: 1023px) {

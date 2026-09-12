@@ -32,3 +32,33 @@
   color: var(--brand-green);
   background-color: color-mix(in srgb, var(--brand-green) 8%, transparent);
 }
+
+/* Modo ícone: espelha exatamente o botão do coração — o cliente pediu os dois
+   "no mesmo padrão", e dois círculos de tamanhos diferentes lado a lado é o
+   tipo de detalhe que faz a página parecer montada por partes. */
+.soIcone {
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  gap: 0;
+  border-radius: 50%;
+  border-color: var(--gray-350);
+  background-color: var(--color-white);
+  color: var(--gray-600);
+  transition:
+    color var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.soIcone:hover {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  transform: scale(1.06);
+}
+
+.soIcone svg {
+  width: 19px;
+  height: 19px;
+}

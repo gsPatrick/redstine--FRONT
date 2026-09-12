@@ -12,7 +12,7 @@
 
 .verBtn:hover {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 /* Ativo sem página pública: o ícone continua visível para a coluna não ficar

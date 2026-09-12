@@ -266,3 +266,16 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+/* Bloqueio por modalidade: diz o que está errado E o que fazer. Um botão
+   desabilitado sem explicação faz o comprador achar que o site quebrou. */
+.bloqueio {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border-left: 3px solid var(--color-accent);
+  background: rgba(192, 0, 0, 0.06);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--gray-800);
+}

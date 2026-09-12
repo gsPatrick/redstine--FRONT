@@ -42,19 +42,70 @@
   color: var(--pnl-accent);
 }
 
+/*
+ * Painel de apoio sem fotografia.
+ *
+ * Antes havia a foto de um galpao com produtos em primeiro plano. Duas coisas
+ * nao funcionavam: a tela de login passava a anunciar um item especifico do
+ * catalogo (que sai de linha quando vende), e o assunto da imagem competia com
+ * o formulario, que e a unica tarefa da tela.
+ *
+ * A superficie agora e a propria marca — preto e vermelho, construidos em CSS:
+ * nenhum arquivo para carregar, nada que envelheca com o estoque, e serve as
+ * quatro telas de conta sem troca de arte. O desenho fica no fundo (brilho
+ * diagonal + malha fina) para que o texto continue a ser a coisa mais legivel.
+ */
 .lado {
   position: relative;
   display: flex;
   align-items: flex-end;
   padding: 44px;
+  overflow: hidden;
+  background: #0a0a0b;
+}
+
+/* O brilho vermelho vive num pseudo-elemento, e nao no `background` do painel,
+   porque assim a malha fina (::after) pode ficar por cima dele sem que as duas
+   camadas disputem a mesma propriedade. */
+.lado::before {
+  content: "";
+  position: absolute;
+  inset: 0;
   background:
-    linear-gradient(180deg, rgba(12, 12, 14, 0.25) 0%, rgba(12, 12, 14, 0.86) 100%),
-    url("/images/2026/07/Fundo-galpao-01-3-768x576.png") center / cover no-repeat;
+    radial-gradient(120% 90% at 8% 108%, rgba(192, 0, 0, 0.5) 0%, rgba(192, 0, 0, 0) 58%),
+    radial-gradient(80% 60% at 92% -8%, rgba(192, 0, 0, 0.16) 0%, rgba(192, 0, 0, 0) 62%);
+}
+
+/* Malha de 1px. Da materia ao preto — sem ela o painel le como um retangulo
+   chapado de cor, que parece erro de carregamento de imagem. */
+.lado::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  /* A malha desaparece em direcao ao texto: reticulado atras de letra cansa. */
+  mask-image: linear-gradient(200deg, #000 0%, rgba(0, 0, 0, 0.35) 45%, transparent 78%);
 }
 
 .ladoTexto {
+  position: relative;
+  z-index: 1;
   max-width: 380px;
   color: #fff;
+}
+
+/* Filete da marca: substitui o papel que a foto tinha de dizer "isto e a RED"
+   antes de a pessoa ler qualquer palavra. */
+.ladoTexto::before {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  margin-bottom: 22px;
+  background: #c00000;
 }
 
 .ladoTitulo {

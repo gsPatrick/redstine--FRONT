@@ -98,12 +98,12 @@
 }
 
 .perfilAtivo {
-  border-color: var(--pnl-accent);
+  border-color: var(--pnl-accent-text);
   background: var(--pnl-accent-soft);
 }
 
 .perfilAtivo strong {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .rotuloGrupo {
@@ -126,7 +126,7 @@
 }
 
 .alternativa a {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   font-weight: 600;
   text-decoration: none;
 }
@@ -144,7 +144,7 @@
 }
 
 .esqueci:hover {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 @media (max-width: 560px) {

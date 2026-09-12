@@ -64,7 +64,15 @@ export default function CartView() {
                 {line.location ? (
                   <p className={styles.meta}>Localização: {line.location}</p>
                 ) : null}
-                <p className={styles.unit}>{formatPrice(line.price)} / un.</p>
+                {line.underConsultation ? (
+                  <p className={styles.sobConsulta}>
+                    Negociado sob consulta. Remova daqui e use{" "}
+                    <Link href={`/produto/${line.slug}`}>Consultar Condições</Link> na página do
+                    ativo.
+                  </p>
+                ) : (
+                  <p className={styles.unit}>{formatPrice(line.price)} / un.</p>
+                )}
               </div>
 
               <div className={styles.controls}>

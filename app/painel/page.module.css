@@ -59,7 +59,7 @@
 
 .seloVenda {
   background: var(--pnl-accent-soft);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 /* Auto-fit em vez de 3 colunas fixas: o bloco Vender tem 3 indicadores e o
@@ -98,7 +98,7 @@
 
 .indLink {
   font-size: 11.5px;
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   text-decoration: none;
 }
 
@@ -139,7 +139,7 @@
 .verTudo {
   font-size: 12px;
   font-weight: 600;
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   text-decoration: none;
 }
 
@@ -169,7 +169,7 @@
 }
 
 .atividades a:hover .atividadeTitulo {
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .check {

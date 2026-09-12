@@ -37,7 +37,7 @@
   border: 1px solid var(--pnl-line);
   border-radius: 50%;
   background: var(--pnl-surface);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   cursor: pointer;
   transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
@@ -127,7 +127,7 @@
 .rodape a {
   font-size: 12.5px;
   font-weight: 600;
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
   text-decoration: none;
 }
 

@@ -21,11 +21,11 @@
   margin: 0;
   padding: 12px 14px;
   border-radius: 10px;
-  background: var(--pnl-surface-2);
-  border-left: 3px solid var(--pnl-accent);
+  border: 1px solid var(--pnl-note-line);
+  background: var(--pnl-note-soft);
+  color: var(--pnl-note);
   font-size: 12.5px;
   line-height: 1.55;
-  color: var(--pnl-text-2);
 }
 
 .erro {
@@ -35,8 +35,9 @@
   margin: 0;
   padding: 10px 12px;
   border-radius: 9px;
-  background: rgba(192, 0, 0, 0.09);
-  color: #c00000;
+  border: 1px solid color-mix(in srgb, var(--pnl-danger) 30%, var(--pnl-line));
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger);
   font-size: 12.5px;
   line-height: 1.5;
 }

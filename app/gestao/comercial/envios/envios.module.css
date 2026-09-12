@@ -79,7 +79,7 @@
 .abrir:hover {
   background: var(--pnl-accent-soft);
   border-color: var(--pnl-accent);
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 @media (max-width: 1200px) {

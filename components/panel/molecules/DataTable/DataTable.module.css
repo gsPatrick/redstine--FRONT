@@ -86,7 +86,7 @@
 
 .setaAtiva {
   opacity: 1;
-  color: var(--pnl-accent);
+  color: var(--pnl-accent-text);
 }
 
 .rodape {
@@ -138,8 +138,8 @@
 }
 
 .pgAtiva {
-  background: var(--pnl-accent);
-  border-color: var(--pnl-accent);
+  background: var(--pnl-accent-on-solid);
+  border-color: var(--pnl-accent-on-solid);
   color: #fff;
 }
 
