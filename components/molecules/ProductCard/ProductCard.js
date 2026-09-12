@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { formatPrice } from "@/lib/products";
+import ViewCount from "./ViewCount";
 import styles from "./ProductCard.module.css";
 
 export default function ProductCard({ product }) {
@@ -25,6 +26,20 @@ export default function ProductCard({ product }) {
         </Link>
 
         {product.condition ? <span className={styles.badge}>{product.condition}</span> : null}
+
+        {/*
+          Visualizações (revisão do cliente, item 33).
+
+          Sobre a imagem, no canto oposto à condição, e não numa linha nova: o
+          card tem altura fixa e alinhamento acordado com o cliente ("títulos e
+          elementos começando na mesma linha"). Uma linha extra empurraria preço
+          e botão para alturas diferentes nos cards que têm contagem e nos que
+          ainda não têm — e o `ViewCount` não renderiza nada quando é zero,
+          portanto o desalinhamento seria intermitente, que é pior.
+
+          O número já vem no payload do catálogo: não há chamada por card.
+        */}
+        <ViewCount views={product.views} className={styles.viewsBadge} compacto />
       </div>
 
       {category ? <span className={styles.category}>{category.name}</span> : null}

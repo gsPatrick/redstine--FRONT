@@ -1,5 +1,6 @@
 import Section from "@/components/atoms/Section/Section";
 import Breadcrumb from "@/components/molecules/Breadcrumb/Breadcrumb";
+import VisualizacoesDoAtivo from "@/components/molecules/ProductCard/VisualizacoesDoAtivo";
 import AcoesDoAtivo from "./AcoesDoAtivo";
 import ProductGallery from "@/components/molecules/ProductGallery/ProductGallery";
 import Accordion from "@/components/molecules/Accordion/Accordion";
@@ -81,6 +82,10 @@ export default function ProductDetail({ product }) {
             ) : null}
             {product.brand ? <li className={styles.metaItem}>Marca: {product.brand}</li> : null}
           </ul>
+
+          {/* Ilha cliente: registra a visualizacao e mostra o total. A pagina
+              segue renderizando no servidor. */}
+          <VisualizacoesDoAtivo assetId={product.id} views={product.views} />
 
           {/* Sob consulta nao tem preco a exibir: o valor sai da cotacao. Mostrar
               um numero aqui e prometer um preco que nao vale. */}

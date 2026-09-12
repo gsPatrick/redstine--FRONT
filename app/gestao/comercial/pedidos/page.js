@@ -11,8 +11,15 @@ import PanelModal from "@/components/panel/molecules/PanelModal/PanelModal";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
 import { useLista, comFiltros } from "@/lib/painel/api-cliente";
 import { moeda, data as fmtData } from "@/lib/painel/formato";
-import { ROTULO_PEDIDO, ROTULO_PAGAMENTO, ROTULO_RETIRADA } from "@/lib/painel/pedidos";
+import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
+import {
+  ROTULO_PEDIDO,
+  ROTULO_PAGAMENTO,
+  ROTULO_RETIRADA,
+  ROTULO_CANAL,
+} from "@/lib/painel/pedidos";
 import Pedido from "./Pedido";
+import VendaExterna from "./VendaExterna";
 import styles from "./pedidos.module.css";
 
 /**
@@ -29,10 +36,16 @@ import styles from "./pedidos.module.css";
  */
 export default function PedidosPage() {
   const [status, setStatus] = useState("");
+  const [canal, setCanal] = useState("");
   const [aberto, setAberto] = useState(null);
+  const [registrando, setRegistrando] = useState(false);
 
   const { linhas, meta, carregando, erro, recarregar } = useLista(
-    comFiltros("/orders", { perPage: 100, status: status || undefined })
+    comFiltros("/orders", {
+      perPage: 100,
+      status: status || undefined,
+      channel: canal || undefined,
+    })
   );
 
   const pedidos = linhas || [];
@@ -53,6 +66,26 @@ export default function PedidosPage() {
       largura: 120,
       valor: (l) => new Date(l.createdAt).getTime(),
       render: (l) => fmtData(l.createdAt),
+    },
+    /**
+     * Procedência (revisão do cliente, item 11).
+     *
+     * A venda de WhatsApp entra nos mesmos números do site — é o mesmo pedido.
+     * Sem esta coluna ela ficava indistinguível, e "quanto vendemos pelo site"
+     * voltava a ser uma contagem à mão.
+     */
+    {
+      chave: "channel",
+      titulo: "Canal",
+      ordenavel: true,
+      largura: 110,
+      render: (l) => (
+        <StatusPill
+          status={ROTULO_CANAL[l.channel] || l.channel}
+          tone={l.channel === "site" ? "neutral" : "info"}
+          size="sm"
+        />
+      ),
     },
     {
       chave: "buyerName",
@@ -132,8 +165,13 @@ export default function PedidosPage() {
     <>
       <PageHeader
         titulo="Pedidos"
-        descricao="Compras feitas no site, do pagamento à retirada."
+        descricao="Vendas do site e as fechadas por WhatsApp ou telefone, do pagamento à retirada."
         trilha={[{ label: "Comercial" }, { label: "Pedidos" }]}
+        acoes={
+          <PanelButton icon="plus" size="sm" onClick={() => setRegistrando(true)}>
+            Registrar venda externa
+          </PanelButton>
+        }
       />
 
       <div className={styles.kpis}>
@@ -182,6 +220,18 @@ export default function PedidosPage() {
             ]}
             className={styles.filtro}
           />
+          <PanelField
+            label="Canal"
+            name="canal"
+            as="select"
+            value={canal}
+            onChange={(e) => setCanal(e.target.value)}
+            opcoes={[
+              { valor: "", label: "Todos os canais" },
+              ...Object.entries(ROTULO_CANAL).map(([valor, label]) => ({ valor, label })),
+            ]}
+            className={styles.filtro}
+          />
         </div>
 
         <EstadoDaTela
@@ -189,7 +239,7 @@ export default function PedidosPage() {
           erro={erro}
           onTentarNovamente={recarregar}
           esqueleto="tabela"
-          colunas={9}
+          colunas={10}
         >
           <DataTable
             colunas={colunas}
@@ -205,6 +255,31 @@ export default function PedidosPage() {
           />
         </EstadoDaTela>
       </PanelCard>
+
+      {/*
+        Registrar a venda e, logo a seguir, abrir o pedido criado. A venda já
+        nasce confirmada, mas a CONCLUSÃO — que é o que libera o repasse — é uma
+        verificação e continua a acontecer na tela do pedido. Fechar o
+        formulário e deixar o operador procurar a venda na lista era como a
+        venda ficava registada e nunca concluída.
+      */}
+      <PanelModal
+        aberto={registrando}
+        aoFechar={() => setRegistrando(false)}
+        titulo="Registrar venda fechada fora do site"
+        descricao="A venda entra como qualquer outra: baixa o estoque e gera o repasse ao fornecedor."
+        largura={720}
+      >
+        {registrando && (
+          <VendaExterna
+            aoRegistrar={(pedido) => {
+              setRegistrando(false);
+              recarregar();
+              if (pedido?.id) setAberto(pedido.id);
+            }}
+          />
+        )}
+      </PanelModal>
 
       <PanelModal
         aberto={Boolean(aberto)}

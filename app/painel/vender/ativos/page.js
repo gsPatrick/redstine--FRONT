@@ -14,6 +14,7 @@ import PanelIcon from "@/components/panel/atoms/PanelIcon/PanelIcon";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
 import PanelModal from "@/components/panel/molecules/PanelModal/PanelModal";
 import AprovarPreco from "./AprovarPreco";
+import DetalheAtivo from "./DetalheAtivo";
 import { useLista, comFiltros } from "@/lib/painel/api-cliente";
 import { moeda, percentual } from "@/lib/painel/formato";
 import styles from "./ativos.module.css";
@@ -35,6 +36,7 @@ const ABAS = [
 
 export default function MeusAtivosPage() {
   const [aprovando, setAprovando] = useState(null);
+  const [detalhando, setDetalhando] = useState(null);
   const [aba, setAba] = useState("todos");
   const [busca, setBusca] = useState("");
 
@@ -106,6 +108,37 @@ export default function MeusAtivosPage() {
       largura: 140,
       render: (l) => <StatusPill status={l.status} />,
     },
+    /**
+     * Detalhes (revisão do cliente, item 9).
+     *
+     * "Falta uma coluna com a opção de ver mais detalhes sobre o ativo dele."
+     *
+     * Coluna própria, separada de "Ação": Ação é o que o ativo EXIGE do
+     * fornecedor agora (aprovar), e Detalhes é o que ele pode consultar sempre.
+     * Juntas na mesma célula, o botão de aprovar — que é a decisão que trava a
+     * publicação — passava a competir com um botão de leitura.
+     */
+    {
+      chave: "detalhes",
+      titulo: "Detalhes",
+      alinhar: "centro",
+      largura: 104,
+      render: (l) => (
+        <button
+          type="button"
+          className={styles.btnDetalhes}
+          onClick={() => setDetalhando(l)}
+          title={`Ver detalhes de ${l.nome}`}
+          // O rótulo visível é só "Ver" para a coluna não estourar; o nome
+          // acessível diz de QUAL ativo, senão a tabela fica com vinte botões
+          // idênticos para quem navega por leitor de tela.
+          aria-label={`Ver detalhes de ${l.nome}`}
+        >
+          <PanelIcon name="search" size={14} />
+          Ver
+        </button>
+      ),
+    },
     {
       chave: "acao",
       titulo: "Ação",
@@ -172,7 +205,7 @@ export default function MeusAtivosPage() {
           />
         </div>
 
-        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="tabela" colunas={8}>
+        <EstadoDaTela carregando={carregando} erro={erro} onTentarNovamente={recarregar} esqueleto="tabela" colunas={9}>
         <DataTable
           colunas={colunas}
           linhas={linhas}
@@ -186,6 +219,29 @@ export default function MeusAtivosPage() {
         />
         </EstadoDaTela>
       </PanelCard>
+
+      {/*
+        Detalhe em diálogo, não em rota `/painel/vender/ativos/[id]`.
+        A decisão é deliberada: o fornecedor abre o detalhe para CONFERIR e
+        volta à lista — uma rota própria obrigaria a recarregar a listagem (com
+        a busca e a aba que ele tinha escolhido) a cada volta. O diálogo também
+        deixa a aprovação no mesmo lugar em que ela já estava, em vez de
+        existirem dois caminhos diferentes para o mesmo botão.
+      */}
+      <PanelModal
+        aberto={Boolean(detalhando)}
+        aoFechar={() => setDetalhando(null)}
+        titulo="Detalhes do ativo"
+        descricao="Tudo o que a RED publicou sobre o seu ativo, e a aprovação quando ela falta."
+        largura={860}
+      >
+        {detalhando && (
+          <DetalheAtivo
+            id={detalhando.id}
+            aoAprovar={recarregar}
+          />
+        )}
+      </PanelModal>
 
       <PanelModal
         aberto={Boolean(aprovando)}

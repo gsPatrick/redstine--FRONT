@@ -6,7 +6,12 @@ const nextConfig = {
    * `next build` e `next dev` disputavam o mesmo `.next` e o build matava o
    * servidor de desenvolvimento no meio de uma sessão. Separar resolve.
    */
-  distDir: process.env.NODE_ENV === "production" ? ".next-build" : ".next",
+  /**
+   * `NEXT_DIST_DIR` permite um build paralelo num diretório próprio — é o que
+   * deixa conferir uma alteração num segundo servidor sem derrubar o que já
+   * está a servir a partir de `.next-build`.
+   */
+  distDir: process.env.NEXT_DIST_DIR || (process.env.NODE_ENV === "production" ? ".next-build" : ".next"),
 
   /**
    * Saída standalone para o contêiner.

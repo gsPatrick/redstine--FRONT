@@ -41,6 +41,26 @@ export default function VendasGestaoPage() {
       render: (l) => fmtData(l.data),
     },
     { chave: "cliente", titulo: "Cliente", ordenavel: true, largura: 165 },
+    /**
+     * Canal (revisão do cliente, item 11).
+     *
+     * A venda registrada por WhatsApp entra nestes números como qualquer outra
+     * — é o mesmo pedido. A coluna existe para a gestão poder distinguir a
+     * origem sem ter de abrir cada venda.
+     */
+    {
+      chave: "canal",
+      titulo: "Canal",
+      ordenavel: true,
+      largura: 106,
+      render: (l) => (
+        <StatusPill
+          status={l.canal || "—"}
+          tone={l.canalChave === "site" ? "neutral" : "info"}
+          size="sm"
+        />
+      ),
+    },
     { chave: "fornecedor", titulo: "Fornecedor", ordenavel: true, largura: 165 },
     { chave: "ativo", titulo: "Ativo", ordenavel: true },
     {
@@ -138,7 +158,7 @@ export default function VendasGestaoPage() {
       </EstadoDaTela>
 
       <PanelCard padding="none">
-        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={10}>
+        <EstadoDaTela carregando={lista.carregando} erro={lista.erro} onTentarNovamente={lista.recarregar} esqueleto="tabela" colunas={11}>
         <DataTable
           colunas={colunas}
           linhas={movimentacoes}
