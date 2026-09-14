@@ -1,16 +1,24 @@
 /**
  * Menu do Painel de Gestao.
  *
- * Tres areas — Visao Geral, Comercial, Financeiro — porque e assim que o acesso
- * e recortado: um utilizador Comercial nao ve Financeiro, e um Financeiro nao
- * administra consultas. O menu abaixo e montado a partir das CAPACIDADES do
- * utilizador, nao do papel: esconder o item e cortesia, o bloqueio real esta na
- * API (que recusa mesmo com token valido de outro perfil).
+ * Quatro areas — Visao Geral, Comercial, Operacao, Financeiro — porque e assim
+ * que o acesso e recortado: um utilizador Comercial nao ve Financeiro, um
+ * Financeiro nao administra consultas, e um de Operacao ve inventario e fluxo
+ * fisico mas nenhum valor de receita ou repasse. O menu abaixo e montado a
+ * partir das CAPACIDADES do utilizador, nao do papel: esconder o item e
+ * cortesia, o bloqueio real esta na API (que recusa mesmo com token valido de
+ * outro perfil).
+ *
+ * A Visao Geral aparece para QUALQUER capacidade de gestao, nao so para a
+ * comercial: ela e a leitura de saude global, e o que muda por perfil sao os
+ * blocos que a API devolve la dentro — nao o direito de abrir a tela. Enquanto
+ * a entrada exigia `commercial_read`, o perfil Financeiro entrava na gestao
+ * sem ter primeira pagina nenhuma.
  */
 const TODOS = [
   {
     rotulo: "",
-    capacidade: "commercial_read",
+    capacidades: ["commercial_read", "operation_read", "financial_read"],
     itens: [{ label: "Visão Geral", href: "/gestao", icone: "overview", exato: true }],
   },
   {
@@ -29,6 +37,13 @@ const TODOS = [
         ],
       },
     ],
+  },
+  {
+    rotulo: "Operação",
+    capacidade: "operation_read",
+    // Item raso, sem submenu: a area tem uma tela. Um acordeao para abrir um
+    // unico filho e um clique a mais para chegar ao mesmo lugar.
+    itens: [{ label: "Inventário", href: "/gestao/operacao", icone: "truck", exato: true }],
   },
   {
     rotulo: "Financeiro",
@@ -57,8 +72,20 @@ const TODOS = [
   },
 ];
 
+/**
+ * `capacidade` exige aquela; `capacidades` aceita qualquer uma da lista.
+ *
+ * As duas formas existem porque as perguntas sao diferentes: a area de
+ * Operacao pertence a uma capacidade so, e a Visao Geral pertence a todas.
+ * Sem a segunda, ou a Visao Geral ficava presa ao comercial (como estava) ou
+ * era preciso repetir o grupo tres vezes no menu.
+ */
 export function gruposPara(capacidades = []) {
-  return TODOS.filter((g) => !g.capacidade || capacidades.includes(g.capacidade));
+  return TODOS.filter((g) => {
+    if (g.capacidade) return capacidades.includes(g.capacidade);
+    if (g.capacidades) return g.capacidades.some((c) => capacidades.includes(c));
+    return true;
+  });
 }
 
 export const atalhosDeConta = [

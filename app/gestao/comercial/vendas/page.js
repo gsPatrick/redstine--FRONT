@@ -123,7 +123,7 @@ export default function VendasGestaoPage() {
 
       <EstadoDaTela carregando={resumo.carregando} erro={resumo.erro} onTentarNovamente={resumo.recarregar} esqueleto="cards" quantidade={4}>
       {r && (
-      <div className={styles.kpis4}>
+      <div className={styles.kpis3}>
         <StatCard
           rotulo="Vendas realizadas"
           valor={numero(r.vendasRealizadas)}
@@ -145,14 +145,16 @@ export default function VendasGestaoPage() {
           tone="accent"
           nota="No período"
         />
-        <StatCard
-          rotulo="Aguardando retirada"
-          valor={numero(r.aguardandoRetirada)}
-          icone="truck"
-          tone="warn"
-          nota="Pendência operacional"
-          destaque={r.aguardandoRetirada > 0}
-        />
+        {/*
+          "Aguardando retirada" saiu daqui e passou a viver em Operação.
+
+          Era o mesmo indicador em duas áreas — e a rigor duas versões dele: aqui
+          contava PEDIDOS, e o de Operação conta ITENS com valor parado e
+          retiradas atrasadas. Duas contagens com o mesmo nome em duas telas
+          divergem no dia em que um pedido tem dois itens, e ninguém sabe qual
+          está certa. A pergunta é de fluxo físico ("a venda está feita, a carga
+          não saiu"), então ficou com quem responde por movimento de ativo.
+        */}
       </div>
       )}
       </EstadoDaTela>

@@ -10,6 +10,7 @@ const ROTULO_PAPEL = {
   admin: "Administrador",
   curador: "Curadoria",
   comercial: "Comercial",
+  operacao: "Operação",
   financeiro: "Financeiro",
 };
 
@@ -17,8 +18,8 @@ const ROTULO_PAPEL = {
  * Painel de Gestão.
  *
  * O menu é montado a partir das CAPACIDADES da sessão: quem é comercial não vê
- * Financeiro. Isso é conveniência — quem bloqueia de verdade é a API, que
- * recusa por URL mesmo com token válido de outro perfil.
+ * Financeiro nem Operação. Isso é conveniência — quem bloqueia de verdade é a
+ * API, que recusa por URL mesmo com token válido de outro perfil.
  *
  * Tema escuro porque é ambiente de operação contínua; a Área do Cliente fica
  * clara, porque o cliente entra, resolve e sai.
@@ -33,7 +34,10 @@ export default function GestaoLayout({ children }) {
   };
 
   return (
-    <AuthGuard capacidade="commercial_read" alternativas={["financial_read", "admin_read"]}>
+    <AuthGuard
+      capacidade="commercial_read"
+      alternativas={["operation_read", "financial_read", "admin_read"]}
+    >
       <PanelShell
         tema="escuro"
         tituloMenu="Painel de Gestão RED"

@@ -76,8 +76,43 @@
   background-color: var(--gray-940);
 }
 
-.added {
+/* A confirmação tem de vencer o hover. `.dark:hover` (classe + pseudo-classe)
+   tem especificidade maior que `.added` (classe), e como o rato fica sobre o
+   botão logo depois do clique, era justamente nesse momento que o verde
+   perdia para o vermelho do hover — o utilizador clicava e não via confirmação
+   nenhuma. Repetir o seletor no hover resolve sem recorrer a !important. */
+.added,
+.added:hover,
+.added:focus-visible {
   background-color: #08ad21;
   color: var(--color-white);
   border-color: #08ad21;
+  transform: none;
+}
+
+/* Segunda intenção: quem já decidiu fecha aqui. Peso menor que o primário
+   para não competir com ele — são alternativas, não dois botões iguais. */
+.irAgora {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22px;
+  min-height: 48px;
+  border: 1.5px solid var(--gray-940);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-940);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out);
+}
+
+.irAgora:hover {
+  background-color: var(--gray-940);
+  color: var(--color-white);
 }

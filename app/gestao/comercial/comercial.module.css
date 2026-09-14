@@ -12,6 +12,17 @@
   margin-bottom: var(--pnl-gap);
 }
 
+/* Tres colunas depois de Ativos e Vendas cederem um indicador cada a Operacao
+   ("valor total publicado" e "aguardando retirada"). Manter a grelha de quatro
+   deixava um buraco do tamanho de um cartao, que se le como cartao que falhou
+   a carregar. */
+.kpis3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
 .filtroSelect {
   width: 178px;
 }
@@ -73,7 +84,8 @@
 }
 
 @media (max-width: 1100px) {
-  .kpis4 {
+  .kpis4,
+  .kpis3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

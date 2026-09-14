@@ -24,6 +24,16 @@ export default function DataTable({
   porPagina = 8,
   vazio,
   rodape,
+  /**
+   * Tabela densa: menos respiro horizontal nas celulas.
+   *
+   * Existe porque uma tabela de dez colunas nao cabe com 16px de cada lado de
+   * cada celula — sao 320px so de padding, e o que sobra e a coluna sem largura
+   * declarada, que colapsa e parte o nome do ativo em oito linhas. Reduzir o
+   * padding nesta tabela e melhor do que tirar uma coluna que o utilizador
+   * pediu.
+   */
+  compacta = false,
   className = "",
 }) {
   const [ordem, setOrdem] = useState(null);
@@ -70,7 +80,7 @@ export default function DataTable({
   return (
     <div className={`${styles.wrap} ${className}`}>
       <div className={styles.scroll}>
-        <table className={styles.tabela}>
+        <table className={`${styles.tabela} ${compacta ? styles.compacta : ""}`}>
           <thead>
             <tr>
               {colunas.map((col) => (

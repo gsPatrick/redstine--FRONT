@@ -49,6 +49,23 @@
   background: var(--pnl-surface-2);
 }
 
+/* Ver a prop `compacta`: dez colunas nao cabem com o respiro normal. */
+.tabela.compacta th,
+.tabela.compacta td {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+
+.tabela.compacta th:first-child,
+.tabela.compacta td:first-child {
+  padding-left: 16px;
+}
+
+.tabela.compacta th:last-child,
+.tabela.compacta td:last-child {
+  padding-right: 16px;
+}
+
 .direita {
   text-align: right;
 }

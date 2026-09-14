@@ -1,0 +1,331 @@
+/* Oito indicadores em quatro colunas fecham duas linhas cheias. Em três
+   sobrava uma linha de 3 + 3 + 2 com dois buracos ao lado do último. */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
+/* Os filtros de DIMENSÃO ficam acima dos indicadores porque recortam os
+   indicadores também; os de LISTA (busca e status) ficam na barra da tabela,
+   porque só a tabela responde a eles. Misturar os dois grupos numa barra só
+   faria o utilizador esperar que tudo mudasse junto. */
+.barraDimensao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: var(--pnl-gap);
+}
+
+.filtroSelect {
+  width: 200px;
+}
+
+.blocos {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: var(--pnl-gap);
+  margin-bottom: var(--pnl-gap);
+}
+
+.tabela {
+  margin-bottom: 4px;
+}
+
+.barraFiltros {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--pnl-line);
+}
+
+.busca {
+  flex: 1 1 240px;
+  min-width: 190px;
+}
+
+/* ------------------------------------------------------------- pendências */
+
+.pendencias {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pendencias li + li {
+  border-top: 1px solid var(--pnl-line-soft);
+}
+
+.pendClicavel,
+.pendEstatica {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 10px 2px;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.pendClicavel {
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.pendClicavel:hover .pendTexto strong {
+  color: var(--pnl-accent-text);
+}
+
+.pendTexto {
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pendTexto strong {
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.pendTexto span {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--pnl-text-3);
+}
+
+.pendValor {
+  flex: 0 0 auto;
+  min-width: 34px;
+  padding: 3px 8px;
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-neutral-soft);
+  color: var(--pnl-text-2);
+  font-size: 12.5px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* Zero não é alarme: só a pendência que existe recebe cor. */
+.pendAtiva {
+  background: var(--pnl-warn-soft);
+  color: var(--pnl-warn-text);
+}
+
+.tag {
+  padding: 4px 9px;
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  font-size: 11.5px;
+  color: var(--pnl-text-2);
+}
+
+/* ----------------------------------------------------------------- tabela */
+
+.celulaAtivo,
+.celulaNumero {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12.5px;
+}
+
+.celulaNumero {
+  align-items: flex-end;
+}
+
+.codigo {
+  font-size: 10.5px;
+  color: var(--pnl-text-3);
+}
+
+.semDado {
+  color: var(--pnl-text-3);
+  font-size: 11.5px;
+  font-style: italic;
+}
+
+/* A idade do inventário é lida pela cor antes de ser lida pelo número: o que
+   está há mais de 90 dias é o que interessa nesta coluna. */
+.dias {
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: var(--pnl-radius-sm);
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.dias.ok {
+  color: var(--pnl-text-2);
+}
+
+.dias.atencao {
+  background: var(--pnl-warn-soft);
+  color: var(--pnl-warn-text);
+}
+
+.dias.critico {
+  background: var(--pnl-danger-soft);
+  color: var(--pnl-danger-text);
+}
+
+.verBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 7px;
+  background: none;
+  color: var(--pnl-text-3);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+
+.verBtn:hover {
+  background: var(--pnl-accent-soft);
+  color: var(--pnl-accent-text);
+}
+
+.rodapeNota {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 18px 2px 0;
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--pnl-text-3);
+}
+
+.rodapeNota svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+}
+
+/* ---------------------------------------------------------------- detalhe */
+
+.detalhe {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detTopo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 20px;
+  margin: 0;
+}
+
+.campo dt {
+  margin-bottom: 3px;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--pnl-text-3);
+}
+
+.campo dd {
+  margin: 0;
+  font-size: 13px;
+  color: var(--pnl-text-1);
+}
+
+.contato {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--pnl-line);
+  border-radius: var(--pnl-radius-sm);
+  background: var(--pnl-surface-2);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.contato svg {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.subtitulo {
+  margin: 0;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.retiradas {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.retiradas li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 9px 2px;
+}
+
+.retiradas li + li {
+  border-top: 1px solid var(--pnl-line-soft);
+}
+
+/* A retirada atrasada é a única linha desta tela que pede ação imediata. */
+.retiradas li.atrasada .pendTexto strong {
+  color: var(--pnl-danger-text);
+}
+
+@media (max-width: 1300px) {
+  .kpis {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1100px) {
+  .kpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .blocos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .kpis {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .filtroSelect {
+    width: 100%;
+  }
+
+  .campos {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

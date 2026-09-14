@@ -138,7 +138,7 @@ export default function AtivosGestaoPage() {
         }
       />
 
-      <div className={styles.kpis4}>
+      <div className={styles.kpis3}>
         <StatCard
           rotulo="Ativos publicados"
           valor={numero(estadoGeral?.ativosPublicados ?? 0)}
@@ -146,13 +146,16 @@ export default function AtivosGestaoPage() {
           tone="ok"
           natureza="estado"
         />
-        <StatCard
-          rotulo="Valor total publicado"
-          valor={moeda(estadoGeral?.valorTotalPublicado ?? 0, { curta: true })}
-          icone="tag"
-          tone="accent"
-          natureza="estado"
-        />
+        {/*
+          "Valor total publicado" saiu daqui e passou a ser "Valor total dos
+          ativos" em Operação.
+
+          É a mesma soma (preço x saldo do que está anunciado) e era o mesmo
+          número em duas áreas. Valor de INVENTÁRIO é a pergunta de Operação —
+          quanto vale o que está parado — e não do Comercial, cuja leitura de
+          valor é o que foi vendido. A contagem de ativos publicados fica: essa
+          é o tamanho do catálogo, e isso é comercial.
+        */}
         <StatCard
           rotulo="Novos para avaliação"
           valor={numero(alertas?.enviosSemAvaliacao ?? 0)}

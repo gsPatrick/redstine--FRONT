@@ -1,23 +1,55 @@
-/* Sao seis indicadores: em quatro colunas sobrava uma linha de 4 + 2 com dois
-   buracos ao lado. Tres colunas fecham duas linhas cheias. */
-.kpis {
+/* Um bloco por area: cabecalho com a pergunta que a area responde e tres
+   cartoes. A Visao Geral deixou de ser uma grelha unica de indicadores porque
+   era exatamente isso que a fazia parecer uma quarta area — sem o agrupamento,
+   "Receita RED" ao lado de "Ativos publicados" nao diz de quem e cada numero. */
+.area {
+  margin-bottom: var(--pnl-gap);
+}
+
+.areaHead {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.areaHead h2 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.areaHead p {
+  flex: 1 1 auto;
+  margin: 0;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.areaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex: 0 0 auto;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: var(--pnl-accent-text);
+  text-decoration: none;
+}
+
+.areaLink:hover {
+  text-decoration: underline;
+}
+
+/* Tres colunas fixas: o cliente pediu "2 ou 3 KPIs criticos de cada area", e
+   deixar a grelha auto-ajustar convidaria a acrescentar um quarto. */
+.areaKpis {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--pnl-gap);
-  margin-bottom: var(--pnl-gap);
-}
-
-/* Quatro pendencias ocupam a primeira coluna larga; as notificacoes ficam ao
-   lado, porque sao a leitura complementar do mesmo "o que precisa de atencao". */
-.pendencias {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: var(--pnl-gap);
-  margin-bottom: var(--pnl-gap);
-}
-
-.avisos {
-  grid-column: span 4;
 }
 
 .listaAvisos {
@@ -80,10 +112,24 @@
   color: var(--pnl-text-3);
 }
 
+/* O grafico e mais largo do que a lista de avisos porque a serie precisa de
+   largura para ser lida; a lista precisa de altura. */
 .graficos {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: var(--pnl-gap);
+}
+
+/* Estado vazio de cartao: serie com um ponto so, ou lista sem linha nenhuma.
+   Ocupa altura para o cartao nao colapsar e desalinhar a fila ao lado. */
+.semSerie {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 96px;
+  margin: 0;
+  font-size: 12px;
+  color: var(--pnl-text-3);
 }
 
 .tagPeriodo {
@@ -106,31 +152,23 @@
 
 .rodapeNota svg {
   flex: 0 0 auto;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 @media (max-width: 1200px) {
-  .kpis,
-  .pendencias {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .avisos {
-    grid-column: span 2;
-  }
-
   .graficos {
     grid-template-columns: minmax(0, 1fr);
   }
 }
 
-@media (max-width: 560px) {
-  .kpis,
-  .pendencias {
-    grid-template-columns: minmax(0, 1fr);
+@media (max-width: 900px) {
+  .areaKpis {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+}
 
-  .avisos {
-    grid-column: auto;
+@media (max-width: 560px) {
+  .areaKpis {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

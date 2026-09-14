@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Button from "@/components/atoms/Button/Button";
 import Icon from "@/components/atoms/Icon/Icon";
 import AddToCart from "@/components/molecules/AddToCart/AddToCart";
 import WishButton from "@/components/molecules/WishButton/WishButton";
@@ -47,10 +46,10 @@ export default function AcoesDoAtivo({ product, whatsapp }) {
           </button>
         ) : (
           <>
-            <AddToCart product={product} withQuantity />
-            <Button href="/cart" variant="outline" size="sm">
-              Ver Carrinho
-            </Button>
+            {/* Duas intencoes na mesma linha, como o cliente pediu no item 7:
+                adicionar e continuar, ou adicionar e fechar. "Ver Carrinho"
+                continua acessivel pelo icone do cabecalho, com o contador. */}
+            <AddToCart product={product} withQuantity comIrParaCarrinho />
           </>
         )}
       </div>

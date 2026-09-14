@@ -47,6 +47,18 @@ const TOM = {
   inativo: "neutral",
   rascunho: "neutral",
 
+  // operacional (area de Operacao). "Em guarda da RED" e "No fornecedor" nao
+  // sao bom nem mau — sao localizacoes — e por isso nao herdam o cinza de
+  // "sem carga": azul/verde porque estao em ordem. A tela tambem passa o tom
+  // explicitamente, e este mapa e a rede de seguranca para quem so tem o texto.
+  "em guarda da red": "ok",
+  "no fornecedor": "info",
+  "pronto para publicar": "warn",
+  "sem saldo disponível": "danger",
+  reservado: "info",
+  "saiu do inventário": "neutral",
+  atrasada: "danger",
+
   // financeiro
   "venda realizada": "info",
   "a receber": "warn",

@@ -12,6 +12,7 @@ const PERFIS = [
   { valor: "admin", label: "Master — acesso completo" },
   { valor: "curador", label: "Curadoria — avalia envios e administra ativos" },
   { valor: "comercial", label: "Comercial — ativos, consultas e vendas" },
+  { valor: "operacao", label: "Operação — inventário, guarda e retiradas" },
   { valor: "financeiro", label: "Financeiro — cálculos, repasses e pagamentos" },
   { valor: "fornecedor", label: "Fornecedor" },
   { valor: "comprador", label: "Comprador" },

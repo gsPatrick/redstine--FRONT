@@ -19,6 +19,7 @@ const ROTULO_PERFIL = {
   admin: "Master",
   curador: "Curadoria",
   comercial: "Comercial",
+  operacao: "Operação",
   financeiro: "Financeiro",
   fornecedor: "Fornecedor",
   comprador: "Comprador",
