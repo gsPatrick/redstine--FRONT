@@ -26,11 +26,13 @@ export default async function CategoryPage({ params }) {
     <>
       <ShopHero
         /* Categoria e pagina SECUNDARIA: sem isto herdava a capa de 800px,
-           porque o default do ShopHero e a capa da pagina Comprar. */
+           porque o default do ShopHero e a capa da pagina Comprar. E sem CTA,
+           que o cliente corrigiu depois de ver: "nas paginas de subcategorias
+           tem o botao de CTA no banner de capa; nesse padrao, as paginas
+           internas e subcategorias nao tem botao CTA". */
         size="sm"
         title={category.name}
         subtitle={meta?.description}
-        actions={[{ label: "Ver ativos", href: "#comprar", variant: "solid" }]}
       />
 
       <Catalog

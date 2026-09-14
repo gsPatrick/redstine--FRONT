@@ -131,3 +131,39 @@
     font-size: 16px;
   }
 }
+
+/* ------------------------------------------------- limite de linhas por nível
+
+   O cliente definiu quantas linhas cabem em cada nível, e não é preferência
+   estética: é o que faz a altura ser um padrão em vez de uma sugestão. Um
+   subtítulo que passa do limite empurra o banner para além do token e a página
+   deixa de casar com as irmãs.
+
+     interna principal  título até 2 linhas, apoio até 2 linhas
+     secundária         título 1 linha,      apoio 1 linha
+
+   Cortar com reticências é deliberado: o texto completo pertence ao corpo da
+   página, não à capa. Se ficar cortado, o texto é que está longo demais para o
+   lugar. ------------------------------------------------------------------ */
+
+.main .title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.main .subtitle {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.sub .title,
+.sub .subtitle {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
