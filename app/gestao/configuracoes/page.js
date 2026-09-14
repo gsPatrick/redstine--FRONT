@@ -92,6 +92,20 @@ export default function ConfiguracoesPage() {
               defaultValue={v["split.catalogo.fornecedor"]}
               dica="O fornecedor mantém a guarda; a RED conduz a comercialização."
             />
+            {/* O terceiro modelo aparece aqui como INFORMAÇÃO e não como
+                campo: no Ativo Próprio não existe fornecedor a repassar, então
+                o zero não é um parâmetro a calibrar, é a definição do modelo.
+                Um campo editável seria a ferramenta para furar a regra rígida
+                que o cliente pediu. Mas precisava estar visível: a dúvida de
+                "onde vejo que o ativo próprio fica 100% com a RED" já chegou
+                da operação. */}
+            <p className={styles.fixo}>
+              <strong>Ativo Próprio RED</strong>
+              <span>
+                0% fornecedor · 100% RED. Ativo da própria RED não tem repasse,
+                por isso não há percentual a definir.
+              </span>
+            </p>
           </div>
 
           <p className={styles.avisoForte}>

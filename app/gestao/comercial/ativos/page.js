@@ -13,6 +13,7 @@ import PanelButton from "@/components/panel/atoms/PanelButton/PanelButton";
 import EstadoDaTela from "@/components/panel/molecules/EstadoDaTela/EstadoDaTela";
 import { useLista, useRecurso, comFiltros } from "@/lib/painel/api-cliente";
 import { moeda, numero, percentual } from "@/lib/painel/formato";
+import { MODELOS_COMERCIAIS } from "@/lib/painel/ativos";
 import styles from "../comercial.module.css";
 
 /**
@@ -202,10 +203,11 @@ export default function AtivosGestaoPage() {
             value={modelo}
             onChange={(e) => setModelo(e.target.value)}
             className={styles.filtroSelect}
+            // Da lista central: um modelo novo aparecia no cadastro e sumia do
+            // filtro, e o ativo virava invisivel na propria tela que o lista.
             opcoes={[
               { valor: "", label: "Todos os modelos" },
-              { valor: "catalogo", label: "RED Catálogo" },
-              { valor: "estoque", label: "RED Estoque" },
+              ...MODELOS_COMERCIAIS.map((m) => ({ valor: m.valor, label: m.label })),
             ]}
           />
           <PanelField

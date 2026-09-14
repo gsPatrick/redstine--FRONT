@@ -275,3 +275,27 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* Valor que não se configura, mas precisa ser visto. Fica na mesma grade dos
+   campos para o leitor entender que é o terceiro modelo, e não um aviso solto. */
+.fixo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px dashed var(--pnl-line);
+  border-radius: 9px;
+  background: var(--pnl-surface-2);
+}
+
+.fixo strong {
+  font-size: 13px;
+  color: var(--pnl-text);
+}
+
+.fixo span {
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--pnl-text-3);
+}
