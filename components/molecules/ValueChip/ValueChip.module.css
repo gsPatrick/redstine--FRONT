@@ -1,10 +1,17 @@
 /**
  * Destaque em contorno, não em fundo cheio.
  *
- * Estes não são CTAs — são informação de apoio. Com fundo vermelho chapado
- * disputavam atenção com os botões de ação da página, que são os elementos que
- * de fato levam a algum lugar. O contorno mantém o destaque sem a hierarquia
- * de um botão.
+ * Estes não são CTAs — são informação de apoio.
+ *
+ * O contorno era VERMELHO. Funcionava enquanto o botão primário do site era
+ * preto; com o padrão novo (seção 2 do PADROES.md: vazado vermelho), o chip
+ * ficou pixel a pixel igual ao botão "Entenda a Curadoria" que aparece ao lado
+ * dele no mesmo bloco — mesma pílula, mesma borda vermelha, mesmo texto
+ * vermelho, e só um dos dois é clicável.
+ *
+ * O contorno passa a ser neutro. Isso devolve o vermelho ao papel que a seção
+ * 1 lhe dá — "marca / ação" — e deixa o único elemento vermelho do bloco ser o
+ * que de fato leva a algum lugar.
  */
 .chip {
   display: flex;
@@ -12,7 +19,7 @@
   justify-content: center;
   width: 100%;
   padding: 15px 14px;
-  border: 1.5px solid var(--color-accent);
+  border: 1.5px solid var(--gray-350);
   background-color: transparent;
   transition:
     transform var(--dur-base) var(--ease-out),
@@ -21,12 +28,13 @@
 
 .chip:hover {
   transform: translateY(-3px);
-  background-color: color-mix(in srgb, var(--color-accent) 7%, transparent);
+  border-color: var(--gray-500);
+  background-color: rgba(26, 27, 27, 0.04);
 }
 
 .deep,
 .bright {
-  border-color: var(--color-accent);
+  border-color: var(--gray-350);
 }
 
 .left {
@@ -42,7 +50,7 @@
   font-weight: 500;
   line-height: 1.4;
   text-align: center;
-  color: var(--color-accent);
+  color: var(--gray-940);
 }
 
 @media (max-width: 767px) {

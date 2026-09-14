@@ -21,7 +21,10 @@
 .models {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
+  /* Mesmo gap dos blocos irmaos da Home: eram 24px fixos contra o clamp de
+     la, e dois blocos do mesmo formato em paginas diferentes nao podem ter
+     respiro diferente. */
+  gap: clamp(14px, 1.6vw, 22px);
 }
 
 .models > * {

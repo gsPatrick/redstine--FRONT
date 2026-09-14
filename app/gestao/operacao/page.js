@@ -38,9 +38,15 @@ import styles from "./operacao.module.css";
  * que o ativo entrou no inventário, e por isso ela nasce em "todo o período":
  * um estoque não é um mês.
  *
- * Dois indicadores pedidos pelo cliente não estão aqui, à espera de decisão:
- * Localizações (ver a nota sobre localização no rodapé) e Aguardando entrada.
- * Onde entrariam está marcado no código, em vez de meio construído na tela.
+ * LOCALIZAÇÕES já está aqui. Esteve em espera enquanto `assets.location` era
+ * texto livre — "Rio de Janeiro/RJ" e "Rio de Janeiro — RJ" eram o mesmo lugar
+ * em dois registos, e a distribuição saía errada com cara de certa. Com a
+ * lista fechada (decisão do cliente, 12/09) o cartão e o filtro existem, e
+ * contam por localização, não por texto.
+ *
+ * Um indicador pedido pelo cliente continua fora, à espera de decisão dele:
+ * Aguardando entrada. Onde entraria está marcado no código, em vez de meio
+ * construído na tela.
  *
  * A casca do painel deixa entrar quem tem QUALQUER capacidade de gestão, e por
  * isso a área precisa do seu próprio porteiro: sem ele, um perfil Comercial que
@@ -60,6 +66,7 @@ function Inventario() {
   const [periodo, setPeriodo] = useState("tudo");
   const [modelo, setModelo] = useState("");
   const [categoria, setCategoria] = useState("");
+  const [local, setLocal] = useState("");
   const [status, setStatus] = useState("");
   const [busca, setBusca] = useState("");
   const [abertoId, setAbertoId] = useState(null);
@@ -67,8 +74,15 @@ function Inventario() {
   // As categorias vêm do catálogo, não de uma lista escrita à mão: uma
   // categoria nova aparecia no sistema e não no filtro.
   const { linhas: categorias } = useLista("/catalog/categories");
+  // A lista fechada de localizações, pela mesma razão das categorias: a RED
+  // cria a terceira cidade em Configurações e ela aparece aqui sem deploy.
+  const { dados: localizacoes } = useRecurso("/locations");
 
-  const dimensao = { commercialModel: modelo || undefined, category: categoria || undefined };
+  const dimensao = {
+    commercialModel: modelo || undefined,
+    category: categoria || undefined,
+    location: local || undefined,
+  };
 
   const painel = useRecurso(comFiltros("/management/operation", dimensao));
 
@@ -89,6 +103,12 @@ function Inventario() {
   const catalogo = porModelo("catalogo");
   const proprio = porModelo("proprio");
   const tempo = d?.tempoEmEstoque;
+  // A linha de id nulo é "Sem localização" — separada das outras porque conta
+  // uma coisa diferente: não é um lugar, é a ausência de um.
+  const semLocalizacao = (d?.localizacoes || []).find((l) => l.id === null);
+  const localizacoesComAcervo = (d?.localizacoes || []).filter(
+    (l) => l.id !== null && l.ativos > 0
+  );
 
   const colunas = [
     {
@@ -141,8 +161,8 @@ function Inventario() {
       titulo: "Localização",
       ordenavel: true,
       largura: 110,
-      // Texto livre, exatamente como está na base. O vazio é mostrado como
-      // vazio e não como "—": é uma pendência operacional, não um traço.
+      // Um rótulo da lista fechada, ou nada. O vazio é mostrado como vazio e
+      // não como "—": é uma pendência operacional, não um traço.
       render: (l) =>
         l.local || <span className={styles.semDado}>não registrada</span>,
     },
@@ -253,16 +273,22 @@ function Inventario() {
             ...(categorias || []).map((c) => ({ valor: c.slug, label: c.name })),
           ]}
         />
-        {/*
-          Falta aqui o filtro por LOCALIZAÇÃO, e é o lugar dele: terceiro select,
-          ao lado de Categoria. Está em espera porque `assets.location` é texto
-          livre e inconsistente ("Rio de Janeiro/RJ" e "Rio de Janeiro — RJ" são
-          o mesmo lugar em dois registos) e mais da metade dos ativos tem o campo
-          vazio — um select montado em cima disso ofereceria duas opções para o
-          mesmo local e esconderia metade do acervo em qualquer escolha. Depende
-          de a localização virar lista fechada. A busca abaixo cobre o caso
-          urgente, porque busca por texto não promete exatidão.
-        */}
+        {/* Filtro por LOCALIZAÇÃO — o que estava em espera. "Sem localização"
+            é uma opção de propósito: é o recorte que o gestor quer ver depois
+            de olhar para a pendência, e a única forma de chegar à lista dos
+            ativos que o número conta. */}
+        <PanelField
+          name="local"
+          as="select"
+          value={local}
+          onChange={(e) => setLocal(e.target.value)}
+          className={styles.filtroSelect}
+          opcoes={[
+            { valor: "", label: "Todas as localizações" },
+            ...(localizacoes || []).map((l) => ({ valor: l.id, label: l.name })),
+            { valor: "sem", label: "Sem localização" },
+          ]}
+        />
       </div>
 
       <EstadoDaTela
@@ -342,15 +368,24 @@ function Inventario() {
                   tempo?.mediaDias === null ? "—" : `${numero(tempo.mediaDias)} d`
                 }`}
               />
+              {/* LOCALIZAÇÕES: o cartão mostra o número de localizações em que
+                  há acervo — não o tamanho da lista fechada. Uma cidade onde a
+                  RED ainda não pôs nada não é uma localização "em operação". A
+                  distribuição completa, com a barra de "sem localização", está
+                  no bloco abaixo. */}
+              <StatCard
+                rotulo="Localizações"
+                valor={numero(localizacoesComAcervo.length)}
+                icone="pin"
+                tone="neutral"
+                nota={
+                  semLocalizacao
+                    ? `${numero(semLocalizacao.ativos)} ativos sem localização`
+                    : "Todos os ativos localizados"
+                }
+              />
               {/*
-                Faltam aqui, e é o lugar deles, dois cartões que o cliente pediu:
-
-                  LOCALIZAÇÕES (distribuição por local) — depende de
-                  `assets.location` virar lista fechada. Hoje são {d.pendencias.semLocalizacao}
-                  ativos sem localização registada e dois textos diferentes para
-                  o mesmo lugar; a distribuição sairia errada com cara de certa.
-                  Enquanto isso, o tamanho do problema está na lista de
-                  pendências abaixo, que é a informação acionável que existe.
+                Falta aqui, e é o lugar dele, um cartão que o cliente pediu:
 
                   AGUARDANDO ENTRADA (ativos destinados ao RED Estoque ainda não
                   recebidos) — não existe no ciclo de vida o registo de
@@ -380,8 +415,12 @@ function Inventario() {
                   />
                   <Pendencia
                     rotulo="Sem localização registada"
-                    detalhe="Impede saber onde o ativo está — e bloqueia o indicador de Localizações"
+                    detalhe="Impede saber onde o ativo está, e quem tem de o mover"
                     valor={d.pendencias.semLocalizacao}
+                    // Agora clicável: a localização virou lista fechada, então
+                    // existe um filtro que mostra exatamente estes ativos. Era
+                    // a única pendência da lista sem ação por trás do número.
+                    aoClicar={() => setLocal("sem")}
                   />
                   <Pendencia
                     rotulo="Publicados sem saldo"
@@ -396,6 +435,52 @@ function Inventario() {
                     })} de inventário sem girar`}
                     valor={tempo?.acimaDoLimite?.registros ?? 0}
                   />
+                </ul>
+              </PanelCard>
+
+              {/* Distribuição por localização — o indicador que estava
+                  bloqueado. Barras e não rosca: "Sem localização" não é uma
+                  fatia do bolo a competir com as outras, é uma falha a mostrar
+                  ao lado delas, e uma rosca com uma fatia chamada "sem" lê-se
+                  como se fosse um lugar. */}
+              <PanelCard
+                titulo="Ativos por localização"
+                descricao="Onde está o inventário — e quanto dele ninguém localizou."
+                acao={<span className={styles.tag}>Situação atual</span>}
+              >
+                <ul className={styles.localizacoes}>
+                  {(d.localizacoes || []).map((l) => (
+                    <li key={l.id || "sem"}>
+                      <button
+                        type="button"
+                        className={styles.barraLocal}
+                        onClick={() => setLocal(l.id || "sem")}
+                        title={`Filtrar por ${l.rotulo}`}
+                      >
+                        <span className={styles.localTopo}>
+                          <strong className={l.id ? undefined : styles.semDado}>
+                            {l.rotulo}
+                          </strong>
+                          <span>
+                            {numero(l.ativos)}{" "}
+                            <em>{numero(l.unidades)} un.</em>
+                          </span>
+                        </span>
+                        <span className={styles.localTrilho}>
+                          <span
+                            className={l.id ? styles.localPreenche : styles.localPreencheVazio}
+                            style={{
+                              width: `${
+                                d.inventario.registros
+                                  ? (l.ativos / d.inventario.registros) * 100
+                                  : 0
+                              }%`,
+                            }}
+                          />
+                        </span>
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </PanelCard>
 
@@ -462,8 +547,9 @@ function Inventario() {
         <span>
           Os indicadores acima são a fotografia de agora e não respondem ao filtro de período — o
           período recorta apenas a tabela, pela data de entrada do ativo no inventário.{" "}
-          <strong>Dias em estoque:</strong> {CRITERIO_DIAS_EM_ESTOQUE} A localização é texto livre
-          na base e está incompleta; por isso não há aqui indicador nem filtro por localização.
+          <strong>Dias em estoque:</strong> {CRITERIO_DIAS_EM_ESTOQUE} A localização é lista
+          fechada, gerida em Configurações &gt; Localizações; o que aparece como sem localização é
+          ativo por localizar, não cidade em falta na lista.
         </span>
       </p>
 

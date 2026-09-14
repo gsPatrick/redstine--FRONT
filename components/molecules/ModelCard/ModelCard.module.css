@@ -1,35 +1,48 @@
+/* Estrutura e tipografia idênticas às de Participation/CommercialModels — ver
+   `atoms/Section/bannerTokens.module.css` para os tokens e o porquê. */
 .card {
+  composes: tokens from "../../atoms/Section/bannerTokens.module.css";
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 400px;
+  justify-content: flex-end;
+  min-height: var(--banner-h-duo);
   height: 100%;
-  padding: 30px;
-  border-radius: var(--radius-card);
+  padding: clamp(24px, 2.6vw, 36px);
+  border-radius: var(--radius-banner);
   background-color: var(--gray-940);
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
   overflow: hidden;
   isolation: isolate;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.card:hover {
-  transform: translateY(-5px);
 }
 
 .veil {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background-color: rgba(2, 1, 1, 0.65);
+  background: linear-gradient(
+    to top,
+    rgba(2, 1, 1, 0.9) 0%,
+    rgba(2, 1, 1, 0.62) 46%,
+    rgba(2, 1, 1, 0.34) 100%
+  );
   transition: background-color var(--dur-slow) var(--ease-out);
 }
 
-.card:hover .veil {
-  background-color: rgba(2, 1, 1, 0.74);
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background-color: rgba(2, 1, 1, 0);
+  transition: background-color var(--dur-slow) var(--ease-out);
+  pointer-events: none;
+}
+
+.card:hover::after {
+  background-color: rgba(2, 1, 1, 0.18);
 }
 
 .body {
@@ -39,39 +52,43 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  max-width: 40ch;
+}
+
+.index {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: var(--duo-fs-index);
+  letter-spacing: 0.04em;
+  color: #ff4b4b;
+  /* O número fica na parte alta do painel, onde o véu é mais fraco; sobre uma
+     foto de fundo claro o vermelho sozinho some. A sombra é o que o segura sem
+     trocar a cor que o cliente autorizou. */
+  text-shadow: 0 1px 8px rgba(2, 1, 1, 0.75);
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 500;
-  line-height: 1.3;
+  font-size: var(--duo-fs-title);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.03em;
   color: var(--color-white);
 }
 
 .description {
-  max-width: 48ch;
-  font-size: 17px;
-  font-weight: 500;
-  line-height: 1.6;
-  color: var(--color-white);
+  min-height: calc(var(--duo-text-lines) * var(--duo-lh-text) * 1em);
+  font-size: var(--duo-fs-text);
+  font-weight: 400;
+  line-height: var(--duo-lh-text);
+  color: rgba(255, 255, 255, 0.84);
   text-wrap: pretty;
 }
 
 .action {
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 @media (max-width: 767px) {
   .card {
-    min-height: 350px;
-    padding: 24px;
-  }
-
-  .title {
-    font-size: 23px;
-  }
-
-  .description {
-    font-size: 16px;
+    min-height: var(--banner-h-duo-mobile);
   }
 }

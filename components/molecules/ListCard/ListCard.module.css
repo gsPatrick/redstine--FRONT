@@ -1,4 +1,15 @@
+/**
+ * CARD DE LISTA — um dos formatos de card do site (seção 6 do PADROES.md:
+ * "todo card de um mesmo formato tem a mesma altura e a mesma tipografia").
+ *
+ * Em /entenda-os-modelos há quatro deles, dois por modelo comercial. MEDIDOS
+ * antes: 389, 389, 323, 323 — iguais dentro de cada par e diferentes entre os
+ * pares, porque a altura vinha do número de itens da lista. Lidos na mesma
+ * rolagem, os dois pares desalinham. O piso de 390px (a altura do par mais
+ * cheio, que é o que o conteúdo realmente exige) iguala os quatro.
+ */
 .card {
+  min-height: 390px;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -58,6 +69,7 @@
 
 @media (max-width: 767px) {
   .card {
+    min-height: 0;
     padding: 26px 22px;
   }
 }

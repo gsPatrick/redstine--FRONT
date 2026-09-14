@@ -4,7 +4,7 @@ import ListColumns from "@/components/organisms/ListColumns/ListColumns";
 import Section from "@/components/atoms/Section/Section";
 import SectionTitle from "@/components/atoms/SectionTitle/SectionTitle";
 import Reveal from "@/components/atoms/Reveal/Reveal";
-import Button from "@/components/atoms/Button/Button";
+import ModelCard from "@/components/molecules/ModelCard/ModelCard";
 import Faq from "@/components/organisms/Faq/Faq";
 import CtaBand from "@/components/organisms/CtaBand/CtaBand";
 import { comoFunciona } from "@/lib/pages";
@@ -40,16 +40,11 @@ export default function ComoFuncionaPage() {
         <SectionTitle title={comoFunciona.bridgeTitle} />
         <div className={styles.bridge}>
           {comoFunciona.bridge.map((side, index) => (
+            /* Era o ultimo bloco de duas colunas com formato proprio: 214px
+               contra os 330px do mesmo formato nas outras paginas. Passa a
+               usar o ModelCard, que e o painel padrao (PADROES.md, secao 5). */
             <Reveal key={side.kicker} animation="fadeInUp" delay={index * 140}>
-              <article className={styles.card}>
-                <h3 className={styles.kicker}>{side.kicker}</h3>
-                <p className={styles.flow}>{side.flow}</p>
-                <div className={styles.action}>
-                  <Button href={side.href} variant="dark" size="sm">
-                    {side.cta}
-                  </Button>
-                </div>
-              </article>
+              <ModelCard {...side} />
             </Reveal>
           ))}
         </div>

@@ -23,8 +23,11 @@ export default function Participation() {
               <span className={styles.index}>{String(i + 1).padStart(2, "0")}.</span>
               <h3 className={styles.panelTitle}>{card.kicker}</h3>
               <p className={styles.text}>{card.description}</p>
+              {/* `ghost` (vazado branco): o preenchido está reservado ao CTA
+                  de maior peso da página, um por página (seção 2 do
+                  PADROES.md) — e este bloco tem dois botões irmãos. */}
               <div className={styles.action}>
-                <Button href={card.href} variant="solid" size="sm">
+                <Button href={card.href} variant="ghost" size="sm">
                   {card.cta}
                 </Button>
               </div>

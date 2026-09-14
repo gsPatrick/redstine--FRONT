@@ -23,6 +23,25 @@ const nextConfig = {
   output: "standalone",
 
   /**
+   * Duas rotas do site anterior que deixaram de existir como página.
+   *
+   * `/my-account` e `/teste-dashboard` eram páginas cujo corpo inteiro era um
+   * `redirect("/painel")` — um bundle de rota e uma renderização de servidor
+   * para fazer o que o próprio Next faz aqui, de graça, com um 308 que os
+   * motores de busca entendem como mudança definitiva.
+   *
+   * Não foram apenas apagadas porque `/my-account` é a URL de conta do site
+   * WordPress antigo e ainda há links a apontar para ela; apagar sem mais
+   * trocaria um redirecionamento por um 404.
+   */
+  async redirects() {
+    return [
+      { source: "/my-account", destination: "/painel", permanent: true },
+      { source: "/teste-dashboard", destination: "/painel", permanent: true },
+    ];
+  },
+
+  /**
    * Hosts de onde as imagens podem vir.
    *
    * `next/image` recusa qualquer host nao declarado e responde 500 — nao um

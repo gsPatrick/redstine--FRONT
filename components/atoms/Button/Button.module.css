@@ -51,87 +51,39 @@
   z-index: 1;
 }
 
-.solid {
-  background-color: var(--color-white);
-  color: var(--color-black);
-  border-color: var(--color-white);
-}
+/* =========================================================================
+   VARIANTES — o que cada nome PINTA. A regra de uso está em Button.js.
+   Padrão do site: VAZADO VERMELHO sobre fundo claro, VAZADO BRANCO sobre
+   fundo escuro. O preto virou secundário.
+   ========================================================================= */
 
-.solid::before {
-  background-color: var(--gray-200);
-}
-
-.solid:hover::before {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.ghost {
-  background-color: rgba(0, 0, 0, 0.25);
-  color: var(--color-white);
-  border-color: var(--color-white);
-  backdrop-filter: blur(2px);
-}
-
-.ghost::before {
-  background-color: var(--color-white);
-}
-
-.ghost:hover {
-  color: var(--color-black);
-}
-
-.ghost:hover::before {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.dark {
-  background-color: var(--gray-880);
-  color: var(--gray-50);
-  border-color: var(--gray-880);
-}
-
-.dark::before {
-  background-color: var(--color-accent);
-}
-
-.dark:hover {
-  border-color: var(--color-accent);
-}
-
-.dark:hover::before {
-  opacity: 1;
-  transform: scale(1);
-}
-
-/**
- * CTA principal, na cor da marca.
- *
- * O cliente pediu que os botões de ação usassem as cores da marca — a página
- * inteira era preto, vermelho e cinza, e os CTAs ficavam no preto. O vermelho
- * é a cor dominante da marca e passa a ser a cor de AÇÃO; preto e cinza ficam
- * para ações secundárias.
- */
+/* PRIMÁRIO — vazado vermelho. Preferência declarada do cliente.
+   Só sobre fundo CLARO: #c40404 sobre branco = 5,7:1 (AA), sobre o preto do
+   site = 2,7:1 (reprova). */
+.dark,
 .accent {
-  background-color: var(--color-accent);
-  color: var(--color-white);
+  background-color: transparent;
+  color: var(--color-accent);
   border-color: var(--color-accent);
 }
 
+.dark::before,
 .accent::before {
-  background-color: var(--gray-980);
+  background-color: var(--color-accent);
 }
 
+.dark:hover,
 .accent:hover {
-  border-color: var(--gray-980);
+  color: var(--color-white);
 }
 
+.dark:hover::before,
 .accent:hover::before {
   opacity: 1;
   transform: scale(1);
 }
 
+/* SECUNDÁRIO — vazado neutro preto, para fundo claro. */
 .outline {
   background-color: transparent;
   color: var(--gray-940);
@@ -147,6 +99,46 @@
 }
 
 .outline:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* SOBRE IMAGEM ESCURA, secundário — vazado branco (~17:1 sobre o preto do
+   site). A borda é branca cheia, não translúcida: sobre foto uma borda a 60%
+   some nos trechos claros. */
+.ghost {
+  background-color: transparent;
+  color: var(--color-white);
+  border-color: var(--color-white);
+}
+
+.ghost::before {
+  background-color: var(--color-white);
+}
+
+.ghost:hover {
+  color: var(--gray-980);
+}
+
+.ghost:hover::before {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* SOBRE IMAGEM ESCURA, principal — único preenchido do padrão. Branco cheio
+   com texto preto: é o que separa o par principal/secundário sobre foto, onde
+   dois vazados brancos ficariam indistinguíveis. */
+.solid {
+  background-color: var(--color-white);
+  color: var(--gray-980);
+  border-color: var(--color-white);
+}
+
+.solid::before {
+  background-color: var(--gray-200);
+}
+
+.solid:hover::before {
   opacity: 1;
   transform: scale(1);
 }

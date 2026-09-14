@@ -136,6 +136,19 @@ manter a fonte, já me acostumei com o RED"*.
 - **Localização** é lista fechada. Hoje com duas opções: `Rio de Janeiro - RJ` e
   `São Paulo - SP`. Era texto livre e gerava "Rio de Janeiro/RJ" e
   "Rio de Janeiro — RJ" como lugares diferentes.
+
+  Implementada como **tabela** (`locations`), não como enum nem como chave em
+  settings, porque a pergunta que decide é *quem adiciona a terceira cidade*: a
+  RED, em **Configurações > Localizações**, sem migração e sem deploy. O ativo
+  aponta a localização por `location_id`; o rótulo de texto continua na coluna
+  `location` como cópia escrita só pelo serviço de localizações — renomear uma
+  localização reetiqueta os ativos dela.
+
+  **Sem localização é um estado válido**, e é diferente de "cidade em falta na
+  lista": significa ativo por localizar. Aparece como pendência operacional e
+  como a última barra do indicador de Localizações. Não se preenche por
+  adivinhação — na migração dos dados antigos, "Belo Horizonte", "Curitiba" e
+  "Salvador" ficaram vazios em vez de virarem cidade nova.
 - **"Aguardando entrada"** foi descartado: não existe registro de recebimento
   físico e o cliente decidiu não criar agora.
 - **Percentual por ativo** não existe: o percentual vem do modelo comercial e é

@@ -65,6 +65,7 @@ const TODOS = [
     capacidade: "admin_read",
     itens: [
       { label: "Categorias", href: "/gestao/configuracoes/categorias", icone: "box" },
+      { label: "Localizações", href: "/gestao/configuracoes/localizacoes", icone: "pin" },
       { label: "Usuários", href: "/gestao/configuracoes/usuarios", icone: "users" },
       { label: "Permissões", href: "/gestao/configuracoes/permissoes", icone: "shield" },
       { label: "Configurações", href: "/gestao/configuracoes", icone: "settings", exato: true },

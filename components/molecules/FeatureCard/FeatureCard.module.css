@@ -1,4 +1,20 @@
+/**
+ * CARD DE ATRIBUTO — sem moldura, só texto (e opcionalmente um ícone).
+ *
+ * São DOIS formatos no mesmo componente, distinguidos pelo ícone: com `image`
+ * (usado pelo StepsGrid, MEDIDO em 245px) e sem (usado em /vender e
+ * /entenda-os-modelos, MEDIDOS em 154px e 127px). Dentro de cada grade já
+ * ficavam iguais por causa do `height: 100%`; o que divergia era a mesma
+ * variante entre páginas diferentes.
+ *
+ * Cada variante ganha um piso igual à MAIOR ocorrência medida em 1440x900 —
+ * 182px sem ícone, 326px com ícone. Assim as duas ficam com uma altura só em
+ * todo o site, em vez de uma por página. A variante com ícone tem piso
+ * próprio porque o glifo de 72px já a coloca noutra escala; são dois formatos
+ * de card, não um com duas alturas.
+ */
 .card {
+  min-height: 182px;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -15,6 +31,10 @@
 .center {
   align-items: center;
   text-align: center;
+}
+
+.card:has(.glyph) {
+  min-height: 326px;
 }
 
 .glyph {
@@ -51,7 +71,12 @@
   background-color: var(--color-accent);
 }
 
+/* Duas linhas reservadas. Numa grade de quatro, um título quebra em duas
+   linhas e os outros não — e as descrições ao lado começam em alturas
+   diferentes. Reservar a segunda linha alinha o início do texto em todos os
+   cards da fileira, que é o que a seção 8 do PADROES.md pede. */
 .title {
+  min-height: 2.7em;
   font-size: 20px;
   font-weight: 500;
   line-height: 1.35;
@@ -63,4 +88,17 @@
   font-weight: 400;
   line-height: 1.7;
   color: var(--gray-870);
+}
+
+/* No mobile as grades viram uma coluna: o piso deixa de alinhar nada e só
+   abre buraco entre um card e o seguinte. */
+@media (max-width: 767px) {
+  .card,
+  .card:has(.glyph) {
+    min-height: 0;
+  }
+
+  .title {
+    min-height: 0;
+  }
 }

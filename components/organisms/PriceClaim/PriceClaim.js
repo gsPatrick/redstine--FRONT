@@ -20,7 +20,10 @@ export default function PriceClaim() {
 
         <div className={styles.aside}>
           <p className={styles.support}>{priceClaim.support}</p>
-          <Button href={priceClaim.cta.href} variant="solid" className={styles.cta}>
+          {/* Painel escuro: o vazado vermelho do padrão reprova em contraste
+              aqui, então o CTA é o `solid` (branco cheio) do fundo escuro.
+              `lg` porque é CTA de banner. */}
+          <Button href={priceClaim.cta.href} variant="solid" size="lg">
             {priceClaim.cta.label}
           </Button>
         </div>

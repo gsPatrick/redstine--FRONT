@@ -27,8 +27,11 @@ export default function CommercialModels() {
               <span className={styles.index}>{String(i + 1).padStart(2, "0")}.</span>
               <h3 className={styles.panelTitle}>{model.title}</h3>
               <p className={styles.text}>{model.description}</p>
+              {/* `ghost` (vazado branco): o preenchido está reservado ao CTA
+                  de maior peso da página, um por página (seção 2 do
+                  PADROES.md) — e este bloco tem dois botões irmãos. */}
               <div className={styles.action}>
-                <Button href={model.href} variant="solid" size="sm">
+                <Button href={model.href} variant="ghost" size="sm">
                   {model.cta}
                 </Button>
               </div>

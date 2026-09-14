@@ -45,6 +45,9 @@ export default function AtivoGestaoPage() {
   const { id } = useParams();
   const { dados: ativo, carregando, erro, recarregar } = useRecurso(`/assets/admin/${id}`);
   const { dados: categorias } = useRecurso("/catalog/categories");
+  // Localização é LISTA FECHADA (decisão do cliente, 12/09) — ver
+  // Configurações > Localizações, que é onde a RED gere esta lista.
+  const { dados: localizacoes } = useRecurso("/locations");
 
   const [categoria, setCategoria] = useState(null);
   const [gravando, setGravando] = useState(false);
@@ -87,7 +90,10 @@ export default function AtivoGestaoPage() {
         categoryId: texto("categoryId"),
         subcategoryId: texto("subcategoryId"),
         condition: texto("condition"),
-        location: texto("location"),
+        // `texto()` devolve undefined para vazio, e undefined não limparia a
+        // localização — o PATCH ignoraria o campo e o ativo ficaria com o
+        // local antigo depois de o utilizador escolher "Sem localização".
+        locationId: f.get("locationId")?.toString() || null,
         brand: texto("brand"),
         material: texto("material"),
         color: texto("color"),
@@ -213,8 +219,11 @@ export default function AtivoGestaoPage() {
                       <PanelField label="Código (SKU)" name="sku" defaultValue={ativo.sku || ""} />
                       <PanelField
                         label="Localização"
-                        name="location"
-                        defaultValue={ativo.location || ""}
+                        name="locationId"
+                        as="select"
+                        defaultValue={ativo.locationId || ""}
+                        opcoes={opcoesDeLocalizacao(localizacoes, ativo)}
+                        dica="Lista fechada. Sem localização aparece como pendência na Operação."
                       />
                       <PanelField
                         label="Categoria"
@@ -484,4 +493,27 @@ function Dado({ rotulo, valor }) {
       <dd>{valor}</dd>
     </div>
   );
+}
+
+/**
+ * As localizações oferecidas neste ativo.
+ *
+ * A API devolve só as ATIVAS — é o que se quer num cadastro novo. Mas um ativo
+ * já cadastrado pode estar numa localização entretanto desativada, e nesse
+ * caso o select não a teria: abrir a tela e gravar qualquer outro campo
+ * mudaria a localização do ativo em silêncio. Por isso a atual entra sempre na
+ * lista, marcada, mesmo que já não esteja em uso.
+ */
+function opcoesDeLocalizacao(localizacoes, ativo) {
+  const lista = localizacoes || [];
+  const atualForaDaLista =
+    ativo.locationId && !lista.some((l) => l.id === ativo.locationId);
+
+  return [
+    { valor: "", label: "Sem localização definida" },
+    ...lista.map((l) => ({ valor: l.id, label: l.name })),
+    ...(atualForaDaLista
+      ? [{ valor: ativo.locationId, label: `${ativo.location} (inativa)` }]
+      : []),
+  ];
 }

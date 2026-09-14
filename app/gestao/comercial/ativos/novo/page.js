@@ -37,6 +37,10 @@ const TIPOS = ["image/jpeg", "image/png", "image/webp", "image/avif"];
 export default function NovoAtivoPage() {
   const router = useRouter();
   const { dados: categorias, carregando, erro, recarregar } = useRecurso("/catalog/categories");
+  // Localização é LISTA FECHADA (decisão do cliente, 12/09). A lista vem da
+  // API em vez de estar escrita aqui: quando a RED criar a terceira cidade em
+  // Configurações > Localizações, este campo passa a oferecê-la sem deploy.
+  const { dados: localizacoes } = useRecurso("/locations");
   // Só admin tem ADMIN_READ; um curador recebe 403 aqui. Nesse caso o campo de
   // fornecedor simplesmente não aparece, em vez de mostrar um erro que não é
   // dele resolver.
@@ -102,7 +106,7 @@ export default function NovoAtivoPage() {
         subcategoryId: texto("subcategoryId"),
         supplierId: texto("supplierId"),
         condition: texto("condition"),
-        location: texto("location"),
+        locationId: texto("locationId"),
         brand: texto("brand"),
         material: texto("material"),
         color: texto("color"),
@@ -187,7 +191,16 @@ export default function NovoAtivoPage() {
                 name="sku"
                 dica="Deixe vazio para a RED gerar."
               />
-              <PanelField label="Localização" name="location" placeholder="Cidade — UF" />
+              <PanelField
+                label="Localização"
+                name="locationId"
+                as="select"
+                opcoes={[
+                  { valor: "", label: "Sem localização definida" },
+                  ...(localizacoes || []).map((l) => ({ valor: l.id, label: l.name })),
+                ]}
+                dica="Lista fechada. Sem localização é um estado válido — aparece como pendência na Operação."
+              />
               <PanelField
                 label="Categoria"
                 name="categoryId"

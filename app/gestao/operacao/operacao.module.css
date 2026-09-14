@@ -23,9 +23,12 @@
   width: 200px;
 }
 
+/* Três blocos: pendências (a mais larga, é uma lista), localizações e
+   categorias. Antes eram dois; a terceira coluna entrou com o indicador de
+   Localizações, que deixou de estar bloqueado. */
 .blocos {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--pnl-gap);
   margin-bottom: var(--pnl-gap);
 }
@@ -306,6 +309,12 @@
   }
 }
 
+@media (max-width: 1300px) {
+  .blocos {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 1100px) {
   .kpis {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -328,4 +337,85 @@
   .campos {
     grid-template-columns: minmax(0, 1fr);
   }
+}
+
+/* ------------------------------------------------- ativos por localização */
+
+/* Barras horizontais, e não rosca: "Sem localização" não é uma fatia a
+   competir com as cidades, é uma falha a mostrar ao lado delas. Numa rosca
+   ela leria-se como se fosse um lugar. */
+.localizacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.barraLocal {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.localTopo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12.5px;
+  color: var(--pnl-text-2);
+}
+
+.localTopo strong {
+  font-size: 13px;
+  color: var(--pnl-text);
+}
+
+.localTopo em {
+  font-style: normal;
+  font-size: 11.5px;
+  color: var(--pnl-text-3);
+}
+
+.localTrilho {
+  display: block;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--pnl-surface-2);
+  overflow: hidden;
+}
+
+.localPreenche,
+.localPreencheVazio {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+  transition: width var(--dur-base, 240ms) var(--ease-out);
+}
+
+.localPreenche {
+  background: var(--pnl-accent);
+}
+
+/* O que não tem localização não ganha a cor da marca: é pendência, não
+   inventário arrumado. */
+.localPreencheVazio {
+  background: repeating-linear-gradient(
+    45deg,
+    var(--pnl-text-3) 0 3px,
+    transparent 3px 6px
+  );
+  opacity: 0.55;
+}
+
+.barraLocal:hover .localTopo strong {
+  color: var(--pnl-accent-text);
 }

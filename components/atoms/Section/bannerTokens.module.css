@@ -1,0 +1,68 @@
+/* =========================================================================
+   TOKENS DOS BANNERS HORIZONTAIS — seções 4 e 5 do PADROES.md
+   =========================================================================
+   Complementa `organisms/PageHero/bannerHeights.module.css`, que cuida das
+   CAPAS (seção 3). Aqui ficam os dois formatos horizontais de dentro da
+   página. Vive em `atoms/` porque é consumido por moléculas (ModelCard) e por
+   organismos (CtaBand, Participation, CommercialModels, BuyingModes) — um
+   token em `organisms/` obrigaria uma molécula a compor de cima para baixo.
+
+   ---------------------------------------------------------------------
+   1 COLUNA — `--banner-h-band`
+   ---------------------------------------------------------------------
+   Citação (seção 4): "esse banner de baixo, do encerramento, ainda tá meio
+   alto... deixar sempre o texto à esquerda e colocar um ou dois botões de CTA
+   à direita. Desse jeito ele pode ser mais baixo. Se esse banner puder ter a
+   mesma altura do banner de 50%, eu acho ideal."
+
+   O "banner de 50%" é o PriceClaim ("Ativos por até 50% do preço de
+   mercado"), o único banner horizontal de largura inteira da Home com essa
+   diagramação. MEDIDO com playwright em 1440x900 antes desta mudança: 331px.
+   O CtaBand media 340px — e com os CTAs empilhados ABAIXO do texto, que é
+   exatamente o que o cliente pediu para mudar.
+
+   Adotado 330px: é o valor do PriceClaim arredondado, e passa a ser fixo nos
+   dois em vez de emergir do padding. Fica 10px abaixo do banner de capa
+   interna (340px), o que mantém a hierarquia: o encerramento não pode ler
+   como uma segunda capa.
+
+   ---------------------------------------------------------------------
+   2 COLUNAS — `--banner-h-duo`
+   ---------------------------------------------------------------------
+   Citação (seção 5): "Altura de referência: a da Home", que o cliente
+   aprovou. MEDIDO na Home em 1440x900: Participation (Quer Comprar / Quer
+   Vender) e CommercialModels (RED Estoque / RED Catálogo) = 330px os dois.
+   Os demais usos estavam fora: ModelCard em /vender = 400px (o "alto demais"
+   do cliente), BuyingModes em /shop = 230px, bridge em /como-funciona =
+   214px.
+
+   330px é adotado como piso único. Coincide com o banner de 1 coluna, e isso
+   é bom: os dois formatos empilham na mesma página e uma diferença de 10 ou
+   20px entre eles seria lida como erro de alinhamento, não como hierarquia.
+   Com a largura do container (1140px), cada bloco de 2 colunas fica em
+   ~560x330 — o "retângulo próximo do quadrado" da seção 5 dentro do que o
+   conteúdo permite.
+
+   ---------------------------------------------------------------------
+   TIPOGRAFIA DO BLOCO DE 2 COLUNAS
+   ---------------------------------------------------------------------
+   "Tipografia idêntica entre todos os usos. O número do bloco pode ser
+   vermelho." Os três tokens abaixo são a fonte única: quem desenha um bloco
+   de 2 colunas usa estes valores e não inventa os seus.
+   ========================================================================= */
+.tokens {
+  --banner-h-band: 330px;
+  --banner-h-band-mobile: 280px;
+
+  --banner-h-duo: 330px;
+  --banner-h-duo-mobile: 260px;
+
+  /* Tipografia do bloco de 2 colunas */
+  --duo-fs-index: 12px;
+  --duo-fs-title: var(--fs-card-title);
+  --duo-fs-text: clamp(0.95rem, 1.2vw, 1.08rem);
+  --duo-lh-text: 1.55;
+  /* Três linhas de descrição reservadas nos dois blocos: as descrições têm
+     comprimentos diferentes e sem isso o par desalinha título e botão. */
+  --duo-text-lines: 3;
+}

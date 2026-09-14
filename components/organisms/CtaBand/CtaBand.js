@@ -49,11 +49,12 @@ export default function CtaBand({ tone = "tinted", title, text, actions = [], im
             {actions.map((action, i) => (
               /* Hierarquia de CTA fixa no padrão: o primeiro é a ação
                  principal (vermelho da marca) e os seguintes são secundários.
-                 Os `variant` que as páginas passam ("dark", "outline") foram
-                 pensados para a faixa cinza antiga e ficariam ilegíveis sobre
-                 a foto — por isso são normalizados aqui, sem exigir edição das
-                 páginas. O par solid/ghost é o do item 26 para fundo escuro ou
-                 imagem, e CTA de banner é size "lg". */
+                 Os `variant` que as páginas passam ("dark", "outline", "accent")
+                 valem para fundo CLARO: o vazado vermelho do padrão cai para
+                 2,7:1 sobre a foto escura deste painel e ficaria ilegível.
+                 Por isso são normalizados aqui, sem exigir edição das páginas.
+                 O par solid/ghost é o do fundo escuro (seção 2 do PADROES.md),
+                 e CTA de banner é size "lg" (seção 2, tamanhos). */
               <Button
                 key={action.label}
                 href={action.href}

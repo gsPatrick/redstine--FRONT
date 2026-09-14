@@ -3,7 +3,19 @@
   padding-block: clamp(32px, 3.8vw, 52px);
 }
 
+/**
+ * "BANNER DE 50%" — o banner horizontal de 1 coluna que o cliente usou como
+ * referência de altura na seção 4 do PADROES.md ("se esse banner puder ter a
+ * mesma altura do banner de 50%, eu acho ideal").
+ *
+ * Media 331px por acaso, como resultado do padding. Agora a altura é o token
+ * `--banner-h-band` (330px), o mesmo do CtaBand: o valor deixa de ser um
+ * acidente e os dois não podem mais divergir por edição de padding.
+ */
 .inner {
+  composes: tokens from "../../atoms/Section/bannerTokens.module.css";
+  min-height: var(--banner-h-band);
+  align-content: center;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: clamp(32px, 4.5vw, 76px);
@@ -11,7 +23,7 @@
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding: clamp(44px, 5vw, 72px) clamp(32px, 3.8vw, 56px);
+  padding: 40px clamp(32px, 3.8vw, 56px);
   border-radius: var(--radius-banner);
   background-color: var(--gray-940);
   color: var(--color-white);
@@ -89,6 +101,7 @@
   .inner {
     grid-template-columns: minmax(0, 1fr);
     gap: 28px;
+    min-height: var(--banner-h-band-mobile);
   }
 
   .aside {
@@ -96,7 +109,4 @@
   }
 }
 
-.cta {
-  font-size: clamp(1rem, 1.25vw, 1.12rem);
-  padding: 18px 42px;
-}
+

@@ -2,27 +2,28 @@
   padding-inline: 20px;
 }
 
-/* Estrutura única do encerramento: painel com foto de fundo, véu escuro da
-   esquerda para a direita, texto alinhado à esquerda e CTAs abaixo.
-   Copiada do antigo FinalCta da Home, que é o padrão eleito pelo cliente. */
+/**
+ * BANNER HORIZONTAL DE 1 COLUNA — seção 4 do PADROES.md.
+ *
+ * Estrutura FIXA: texto à esquerda, um ou dois CTAs à direita. Era uma coluna
+ * (título, apoio e botões empilhados), e era justamente isso que fazia o
+ * cliente chamá-lo de "meio alto": três blocos empilhados exigem altura.
+ * Passando os CTAs para a direita, a altura vira função só do texto.
+ *
+ * Altura: `--banner-h-band` (330px), a altura MEDIDA do "banner de 50%"
+ * (PriceClaim), que é o que o cliente pediu como ideal. Ver
+ * `atoms/Section/bannerTokens.module.css`.
+ */
 .panel {
-  composes: tokens from "../PageHero/bannerHeights.module.css";
+  composes: tokens from "../../atoms/Section/bannerTokens.module.css";
   position: relative;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 26px;
-  /* Mesma altura da interna principal (340px, medida em /sobre-a-red): o
-     encerramento é um banner e entra na mesma escala dos banners de topo,
-     em vez de ter um valor próprio (o FinalCta tinha 420px). */
-  min-height: var(--banner-h-main);
-  /* 46px (não 56) para que o conteúdo mais alto do site — título em 2 linhas
-     + apoio em 2 linhas, caso da Home e de /entenda-o-processo — ainda caiba
-     nos 340px. Com 56px esses dois estouravam para 359px e o "padrão" deixava
-     de ser um padrão. Ajustado de 46 para 42px quando o CTA passou a size
-     "lg" e voltou a estourar para 345px. */
-  padding: 42px 52px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(28px, 4vw, 64px);
+  min-height: var(--banner-h-band);
+  padding: 40px clamp(32px, 3.8vw, 52px);
   border-radius: var(--radius-banner);
   background-color: var(--gray-940);
   background-size: cover;
@@ -36,11 +37,16 @@
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* O véu ia de 0,72 a 0,30 da esquerda para a direita porque os CTAs ficavam
+     embaixo, do lado escuro. Com eles à direita (a estrutura da seção 4), o
+     vazado BRANCO caía sobre a parte clara da foto e sumia. O piso subiu para
+     0,55: o texto continua com mais peso à esquerda e a borda branca do botão
+     passa a ter fundo para se apoiar em qualquer foto. */
   background: linear-gradient(
     to right,
-    rgba(2, 1, 1, 0.72) 0%,
-    rgba(2, 1, 1, 0.46) 46%,
-    rgba(2, 1, 1, 0.3) 100%
+    rgba(2, 1, 1, 0.74) 0%,
+    rgba(2, 1, 1, 0.6) 46%,
+    rgba(2, 1, 1, 0.55) 100%
   );
 }
 
@@ -50,45 +56,65 @@
   display: flex;
   flex-direction: column;
   gap: 14px;
+  /* Sem isto a coluna de texto empurraria os botões para fora quando o título
+     é longo; com o flex base o par de CTAs fica sempre na mesma margem
+     direita, página a página. */
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .title {
-  max-width: 24ch;
-  font-size: 40px;
+  max-width: 22ch;
+  font-size: clamp(1.7rem, 2.9vw, 2.35rem);
   font-weight: 600;
-  line-height: 1.25;
-  letter-spacing: -0.015em;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   color: var(--color-white);
   text-wrap: balance;
 }
 
 .text {
-  max-width: 46ch;
-  font-size: 18px;
+  max-width: 44ch;
+  font-size: clamp(1rem, 1.25vw, 1.1rem);
   font-weight: 500;
-  line-height: 1.65;
-  color: var(--color-white);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.86);
   text-wrap: pretty;
 }
 
+/* Coluna direita. Empilhada, e não em linha: com dois CTAs em linha o banner
+   precisaria de largura que o texto já tomou, e o par quebraria de forma
+   diferente em cada página — o oposto de "mesma estrutura em todos os usos". */
 .actions {
   position: relative;
   z-index: 1;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 14px;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  gap: 12px;
+  flex: 0 0 auto;
+}
+
+@media (max-width: 900px) {
+  .panel {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 26px;
+    min-height: var(--banner-h-band-mobile);
+    padding: 40px 24px;
+  }
+
+  .actions {
+    align-items: flex-start;
+    width: 100%;
+  }
 }
 
 @media (max-width: 767px) {
-  .panel {
-    min-height: var(--banner-h-main-mobile);
-    padding: 44px 24px;
-  }
-
   .title {
-    font-size: 30px;
+    font-size: 28px;
   }
 
   .text {
