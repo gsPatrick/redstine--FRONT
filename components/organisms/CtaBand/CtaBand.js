@@ -24,7 +24,19 @@ const DEFAULT_IMAGE = "/images/2026/07/distribuidora-de-material-de-construcao-1
  * mas é deliberadamente IGNORADO no painel: o encerramento não pode variar de
  * cor de página para página. Só o enquadramento da Section responde ao tom.
  */
-export default function CtaBand({ tone = "tinted", title, text, actions = [], image }) {
+export default function CtaBand({
+  tone = "tinted",
+  title,
+  text,
+  actions = [],
+  image,
+  reservado = false,
+}) {
+  // Bloco com texto provisório não vai ao ar: o cliente veria o texto de
+  // espera achando que é a versão dele. O espaço fica reservado no código,
+  // pronto para receber o conteúdo — que é o que ele pediu no item 35.
+  if (reservado) return null;
+
   return (
     <Section tone={tone} innerClassName={styles.inner}>
       <div

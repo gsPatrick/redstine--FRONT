@@ -154,7 +154,21 @@ manter a fonte, já me acostumei com o RED"*.
 - **Percentual por ativo** não existe: o percentual vem do modelo comercial e é
   rígido. Fica para uma expansão futura, quando houver participação negociada.
 
-## 12. Limpeza
+## 12. Blocos reservados
+
+O item 35 (banners "para quem compra", "para quem vende" e curadoria) está
+**aguardando o texto do cliente**: *"estou trabalhando nisso, se você puder
+deixar o espaço reservado para esse elemento te passo tudo depois"*.
+
+O espaço existe em `lib/home.js → bannersReservados`, no formato do banner
+horizontal de 1 coluna (seção 4). Enquanto `reservado: true`, o bloco **não
+renderiza**: texto de espera no ar é pior do que bloco a menos, porque o
+cliente leria o provisório achando que é a versão dele.
+
+Para publicar: substituir `title` e `text` pelo texto definitivo e apagar a
+linha `reservado: true`.
+
+## 13. Limpeza
 
 > *"pode apagar e limpar tudo que não faça parte do site atual, quanto mais
 > limpo, leve e otimizado melhor"*.
