@@ -1,0 +1,46 @@
+.faixa {
+  display: grid;
+  /* Uma coluna por item: a grade com número fixo deixava coluna vazia quando a
+     faixa tem três itens, e o cliente é explícito sobre isso na padronização. */
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px 24px;
+  padding: 26px 0;
+  border-top: 1px solid var(--gray-250);
+  border-bottom: 1px solid var(--gray-250);
+}
+
+.item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.icone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--color-accent);
+  background-color: var(--gray-100);
+}
+
+.corpo {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.titulo {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.texto {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--gray-600);
+}

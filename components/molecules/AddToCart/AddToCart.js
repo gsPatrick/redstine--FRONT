@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Icon from "@/components/atoms/Icon/Icon";
+import QuantidadeSeletor, {
+  minimaDe,
+} from "@/components/molecules/QuantidadeSeletor/QuantidadeSeletor";
 import { useStore } from "@/lib/StoreContext";
 import styles from "./AddToCart.module.css";
 
@@ -20,6 +23,9 @@ import styles from "./AddToCart.module.css";
  * perdia para a do hover. E ela sumia em 1,8s. O resultado é que o utilizador
  * clicava, nada parecia mudar, e ele clicava de novo (foi o que aconteceu: o
  * carrinho pulou de 1 para 3). Agora a confirmação vence o hover e dura mais.
+ *
+ * A quantidade começa na VENDA MÍNIMA do ativo e não desce dela — a regra vive
+ * no `QuantidadeSeletor`, que é o mesmo seletor do carrinho.
  */
 export default function AddToCart({
   product,
@@ -29,7 +35,9 @@ export default function AddToCart({
 }) {
   const { addToCart } = useStore();
   const router = useRouter();
-  const [quantity, setQuantity] = useState(1);
+  const minima = minimaDe(product);
+  const saldo = Number.isFinite(Number(product.quantity)) ? Number(product.quantity) : null;
+  const [quantity, setQuantity] = useState(minima);
   const [added, setAdded] = useState(false);
   const timer = useRef(null);
 
@@ -37,46 +45,38 @@ export default function AddToCart({
   // sobre componente desmontado.
   useEffect(() => () => window.clearTimeout(timer.current), []);
 
+  // O campo aceita vazio durante a digitação; o que vai ao carrinho nunca é.
+  const efetiva = Math.max(minima, Number(quantity) || minima);
+
   const submit = () => {
-    addToCart(product, quantity);
+    addToCart(product, efetiva);
     setAdded(true);
     window.clearTimeout(timer.current);
     timer.current = window.setTimeout(() => setAdded(false), 2600);
   };
 
   const submitEIr = () => {
-    addToCart(product, quantity);
+    addToCart(product, efetiva);
     router.push("/cart");
   };
 
   return (
     <div className={styles.wrap}>
       {withQuantity ? (
-        <div className={styles.stepper}>
-          <button
-            type="button"
-            className={styles.step}
-            onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-            aria-label="Diminuir quantidade"
-          >
-            −
-          </button>
-          <input
-            type="number"
-            min="1"
-            className={styles.quantity}
-            value={quantity}
-            onChange={(event) => setQuantity(Math.max(1, Number(event.target.value) || 1))}
-            aria-label="Quantidade"
+        <div className={styles.quantidade}>
+          <QuantidadeSeletor
+            valor={quantity}
+            minimo={minima}
+            maximo={saldo && saldo > 0 ? saldo : null}
+            aoMudar={setQuantity}
+            styles={styles}
           />
-          <button
-            type="button"
-            className={styles.step}
-            onClick={() => setQuantity((q) => q + 1)}
-            aria-label="Aumentar quantidade"
-          >
-            +
-          </button>
+          {minima > 1 ? (
+            <p className={styles.minima}>
+              Venda mínima: {minima} {product.unit || "unidade"}
+              {minima > 1 ? "s" : ""}
+            </p>
+          ) : null}
         </div>
       ) : null}
 
@@ -87,7 +87,7 @@ export default function AddToCart({
         aria-live="polite"
       >
         <Icon name="cart" size={15} />
-        {added ? "Adicionado ao carrinho" : "Adicionar"}
+        {added ? "Adicionado ao carrinho" : "Adicionar ao carrinho"}
       </button>
 
       {comIrParaCarrinho ? (

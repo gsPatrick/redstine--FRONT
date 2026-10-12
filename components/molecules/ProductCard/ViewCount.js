@@ -17,9 +17,18 @@ import styles from "./ViewCount.module.css";
  * Sem estado e sem `use client`: é texto. Um componente de cliente aqui
  * arrastaria a listagem inteira para o browser por causa de uma contagem.
  */
-export default function ViewCount({ views, className = "", size = "sm", compacto = false }) {
+export default function ViewCount({
+  views,
+  className = "",
+  size = "sm",
+  compacto = false,
+  sempre = false,
+}) {
   const total = Number(views) || 0;
-  if (total < 1) return null;
+  // `sempre` é para o cartão de ação da página do produto, onde o olho já está
+  // desenhado ao lado: ali o zero tem de aparecer, porque um ícone de olho sem
+  // número nenhum não se lê como "ainda sem visitas", lê-se como defeito.
+  if (total < 1 && !sempre) return null;
 
   const numero = total.toLocaleString("pt-BR");
   const palavra = total === 1 ? "visualização" : "visualizações";

@@ -24,6 +24,15 @@ usar só vermelho, preto e cinza"*.
 O verde e o roxo do logotipo antigo **saem de tudo**, inclusive dos cards de
 categoria, que os usavam para diferenciar Construção, Equipamentos e Mobiliário.
 
+> **Conflito resolvido a favor desta seção.** Os descritivos do carrinho (seção
+> 27) e de finalizar compra (seção 4) pedem **azul-marinho nos títulos**. Eles
+> são anteriores à decisão acima, de 11 e 12/09, e foram implementados em
+> vermelho/preto/cinza. Se o cliente quiser mesmo o azul, é esta seção que muda
+> primeiro — não as páginas, uma a uma.
+
+O **verde do WhatsApp** é a única cor fora da paleta, e fica: é a cor do canal,
+reconhecida, e nunca é o CTA principal de uma página.
+
 ## 2. Botões
 
 Citação: *"eu particularmente gosto de botão vazado (só as linhas, outline e cta
@@ -175,3 +184,126 @@ linha `reservado: true`.
 
 Página, componente ou rota sem uso é para remover, não para guardar "por
 garantia".
+
+## 14. Página do produto
+
+Estrutura decidida no descritivo **"Descritivo Página de Produto REDestine —
+ATUALIZADO"** (outubro/2026). Duas colunas: galeria à esquerda, com as
+miniaturas EM COLUNA e zoom na imagem; informação à direita.
+
+A **ordem dos blocos da coluna direita é a sequência em que o comprador
+decide**, e não se reorganiza por conveniência de layout:
+
+1. categoria (caixa alta pequena)
+2. título — **nunca em CAIXA ALTA**, mesmo quando o fornecedor cadastrou assim
+3. **código do produto sozinho**, sem a marca ao lado (a marca está na ficha)
+4. texto curto, no máximo **3 linhas**
+5. preço, ou "Sob consulta" **no mesmo lugar do preço**
+6. estoque e localização
+7. botões principais (CTA da modalidade + WhatsApp verde)
+8. ações secundárias: **cartões só de ícone** — coração, compartilhar, olho com
+   a contagem de visualizações. Mesma altura e mesma moldura nos três.
+9. três acordeões: Características, Condições comerciais, Retirada e transporte
+10. três abas: Sobre o produto, Aplicações, Especificações
+
+Os acordeões **nascem fechados** e são mutuamente exclusivos: *"quando um abre o
+outro fecha"*.
+
+As abas são três e **não existem "Avaliações" nem "Perguntas e Respostas"** — o
+documento é explícito. Num acervo de peça única as duas ficariam
+permanentemente vazias, e aba vazia num marketplace lê-se como "ninguém
+comprou".
+
+## 15. Venda mínima
+
+Propriedade **do ativo** (`assets.min_order_quantity`, default 1), editável em
+Gestão > Comercial > Ativos.
+
+> *"A venda mínima é uma propriedade do produto e deve controlar o seletor de
+> quantidade."* Exemplo do cliente: mínima 5 com 15 em estoque permite de 5 a 15.
+
+Regras, nos três lugares em que ela vale:
+
+- o seletor **começa na mínima** e anda de 1 em 1;
+- o "−" fica **desativado** na mínima (desativado, não escondido: botão que
+  some move os irmãos de lugar);
+- o "+" para no **estoque**;
+- o **carrinho aplica a mesma regra** — a linha vive no `localStorage` e pode ter
+  sido gravada antes de a mínima subir;
+- a **API recusa** pedido abaixo da mínima (`BELOW_MIN_ORDER`). O seletor é
+  conveniência; a regra é do servidor.
+
+Mínima acima do estoque é recusada no cadastro (`MIN_ORDER_ABOVE_STOCK`):
+produziria um ativo que ninguém consegue comprar.
+
+A venda externa escapa da regra, pela mesma razão que pode informar preço — o
+negócio foi fechado no atendimento e o operador está a registrar o que
+aconteceu.
+
+## 16. Indicador de oportunidade (sob consulta)
+
+Campo de **texto** do ativo (`assets.consultation_note`), editável na gestão.
+Exemplo do cliente: *"Até 30% abaixo do preço de mercado"*.
+
+Ocupa o lugar do preço no ativo sob consulta, em vermelho, **pequeno e
+secundário** — maior do que isso compete com o preço, que é o número que decide.
+
+**Não é calculado.** No sob consulta o preço ainda não foi fechado, logo não há
+percentual a derivar de `price`/`marketPrice`: calcular seria anunciar um
+desconto sobre um valor que ninguém autorizou. Por isso é a gestão que escreve a
+frase, e por isso ela só acompanha o ativo sob consulta — na compra direta o
+preço está à vista e a frase seria uma segunda afirmação sobre o mesmo valor.
+
+## 17. Carrinho
+
+Descritivo **"Descritivo Página de Carrinho REDestine"**. Duas colunas: linhas à
+esquerda, resumo do pedido à direita (pegajoso).
+
+Cada linha é um **cartão horizontal** que repete o que a página do produto
+mostrava — categoria, nome, código, condição, localização, estado de estoque,
+preço unitário e total — porque o carrinho é a última tela antes do compromisso,
+e voltar ao produto para conferir o código é onde a compra se perde.
+
+Cada linha tem **"Salvar para depois"** e **"Excluir"**, como ações de texto, não
+botões: o cartão já tem o seletor de quantidade, e três botões desenhados não
+têm principal. Salvar move o item para uma **lista separada** — item salvo que
+continuasse no carrinho somaria ao subtotal o que o comprador tirou do pedido.
+
+Antes de "Você também pode se interessar" há um **respiro grande, deliberado**
+(90px): sem ele a faixa encosta no carrinho e lê-se como parte do pedido. São
+**3 produtos da mesma categoria**, com "Ver mais produtos →" no topo direito.
+
+Estado vazio: *"Seu carrinho está vazio"* + **"Começar a comprar"**.
+
+## 18. Finalizar compra e pedido concluído
+
+Descritivo **"REDestine — Descrição Páginas Finalizar Compra e Pedido
+Concluído"**. **Dois passos, e só dois**: "Dados e forma de pagamento" e "Pedido
+concluído". **Sem passo intermediário de pagamento ou de confirmação.**
+
+A razão é do negócio: a RED **não cobra no ato**. O pedido entra em análise, a
+equipe confirma disponibilidade, preço e retirada, e só então se paga. Um passo
+de pagamento no meio prometeria uma cobrança que não acontece.
+
+Por isso o "pedido concluído" **não é rota própria**: é o mesmo endereço do
+checkout depois de o pedido existir. Uma rota `/pedido/[ref]` seria recarregável
+e linkável, e mostraria "pedido registrado" a quem não registrou nada.
+
+Campos obrigatórios: nome, CPF/CNPJ, e-mail, telefone/WhatsApp, CEP, cidade,
+estado, endereço, bairro. **Opcionais:** empresa, inscrição estadual,
+observações — pessoa física não tem inscrição estadual, e exigi-la barraria o
+comprador certo.
+
+Pagamento: **Pix (recomendado, pré-selecionado)**, cartão de crédito e boleto,
+mais o **aceite obrigatório** dos termos e "← Voltar para o carrinho".
+
+O **"Confirmar pedido" é vermelho PREENCHIDO** — é a exceção que a seção 2
+prevê (sólido reservado ao CTA de maior peso, um por página). Aqui ele se
+justifica porque "Editar carrinho" e "Voltar para o carrinho" estão por perto, e
+um vazado vermelho no meio deles não se distinguiria da navegação. O mesmo vale
+para "Adicionar ao carrinho" na página do produto e "Faça sua consulta" no ativo
+sob consulta: um sólido por página, e é esse.
+
+A tela de conclusão diz o que é verdade hoje: o pedido foi **registrado** e está
+em análise. Não diz "pagamento aprovado" — não há cobrança automática enquanto o
+gateway não estiver ligado.

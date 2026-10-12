@@ -21,7 +21,14 @@ import { registrarVisualizacao } from "@/lib/visualizacoes";
  * se ela contou. Não contando (mesmo visitante a recarregar), o número fica
  * como estava, que é precisamente o comportamento pedido.
  */
-export default function VisualizacoesDoAtivo({ assetId, views = 0, size = "md", className = "" }) {
+export default function VisualizacoesDoAtivo({
+  assetId,
+  views = 0,
+  size = "md",
+  className = "",
+  compacto = false,
+  sempre = false,
+}) {
   const [total, setTotal] = useState(Number(views) || 0);
 
   useEffect(() => {
@@ -36,5 +43,13 @@ export default function VisualizacoesDoAtivo({ assetId, views = 0, size = "md", 
     };
   }, [assetId]);
 
-  return <ViewCount views={total} size={size} className={className} />;
+  return (
+    <ViewCount
+      views={total}
+      size={size}
+      className={className}
+      compacto={compacto}
+      sempre={sempre}
+    />
+  );
 }

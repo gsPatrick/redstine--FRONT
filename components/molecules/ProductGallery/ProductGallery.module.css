@@ -65,3 +65,67 @@
   height: 100%;
   object-fit: cover;
 }
+
+/* ---------------------------------------------------------------- vertical
+
+   Miniaturas em coluna à esquerda do palco, como o descritivo novo pede. A
+   ordem no HTML é miniaturas-depois-palco para o leitor de ecrã encontrar a
+   lista junto do que ela controla; aqui o palco é reordenado visualmente. */
+.galleryVertical {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.galleryVertical .stage {
+  flex: 1;
+  min-width: 0;
+}
+
+.thumbsVertical {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  width: 76px;
+  flex-shrink: 0;
+  /* Mais do que isto numa coluna ultrapassa a altura do palco; o acervo tem
+     lotes com 8 fotos. */
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.thumbsVertical .thumb {
+  width: 100%;
+}
+
+/* No telemóvel a coluna rouba largura da imagem, que é o que interessa ver:
+   as miniaturas voltam para baixo, em linha. */
+@media (max-width: 680px) {
+  .galleryVertical {
+    flex-direction: column;
+  }
+
+  .thumbsVertical {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    order: 2;
+  }
+
+  .galleryVertical .stage {
+    order: 1;
+    width: 100%;
+  }
+}
+
+/* ------------------------------------------------------------------- zoom */
+.stageZoom {
+  cursor: zoom-in;
+}
+
+.mainZoom {
+  transform: scale(2);
+  /* Sem transição: a ampliação acompanha o cursor, e interpolar faz a imagem
+     perseguir o rato com atraso. */
+  transition: none;
+  animation: none;
+}

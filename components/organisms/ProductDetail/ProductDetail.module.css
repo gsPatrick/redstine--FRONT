@@ -14,7 +14,10 @@
 .info {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  /* Espaçamento pequeno e uniforme: a sequência do descritivo (categoria,
+     título, código, resumo, preço, estoque) é um bloco só, e o respiro grande
+     entre cada linha fazia cada uma parecer uma seção. */
+  gap: 10px;
 }
 
 .category {
@@ -32,6 +35,51 @@
   letter-spacing: -0.015em;
   color: var(--gray-940);
   text-wrap: balance;
+}
+
+/* Código do produto, sozinho. A marca NÃO entra aqui — ela está na ficha. */
+.codigo {
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  color: var(--gray-500);
+}
+
+/* Preço e, debaixo dele, o indicador de oportunidade. Os dois juntos num bloco
+   para o indicador não herdar o espaçamento da lista de meta. */
+.precoBloco {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-top: 6px;
+}
+
+/* Indicador de oportunidade — "pequeno e secundário", como o descritivo pede.
+   Vermelho, mas em 12.5px: maior do que isto compete com o preço, que é o
+   número que decide. */
+.oportunidade {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-accent);
+}
+
+/*
+  Texto curto: no máximo TRÊS linhas, por recorte visual.
+
+  O corte é em CSS e não na string porque o resumo foi escrito inteiro pelo
+  fornecedor: cortar em JavaScript gravaria a perda, enquanto aqui o texto
+  completo continua no HTML, disponível para o leitor de tela e para a busca.
+*/
+.summary {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.metaEsgotado {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
 }
 
 .meta {
@@ -55,17 +103,31 @@
 }
 
 .summary {
-  font-size: 16px;
-  line-height: 1.75;
+  font-size: 15.5px;
+  line-height: 1.7;
   color: var(--gray-870);
   text-wrap: pretty;
 }
 
+/* Faixa das ações principais: o CTA da modalidade e, ao lado, o WhatsApp. */
 .actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: flex-start;
   gap: 12px;
-  margin: 6px 0 14px;
+  margin: 14px 0 12px;
+}
+
+.consultaBloco {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Linha de apoio do CTA de consulta: diz o que acontece depois do clique. */
+.consultarApoio {
+  font-size: 12px;
+  color: var(--gray-500);
 }
 
 .whatsapp {
@@ -111,6 +173,14 @@
   flex: 1;
   margin: 0;
   color: var(--gray-600);
+}
+
+/* Nota de rodapé dentro do acordeão: a regra, depois do dado. */
+.acordeaoNota {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray-500);
 }
 
 .about {
@@ -182,15 +252,60 @@
   }
 }
 
-/* Segunda linha de ações: coração, WhatsApp e compartilhar, nessa ordem. O
-   WhatsApp fica no meio porque é a ação com texto — os dois ícones iguais nas
-   pontas dão simetria, que é o que o cliente pediu ao padronizar. */
+/*
+  Faixa das ações secundárias: cartões SÓ DE ÍCONE.
+
+  Favoritar, compartilhar e visualizações, os três na mesma moldura e na mesma
+  altura. O WhatsApp saiu desta faixa e subiu para as ações principais, onde o
+  descritivo o coloca — aqui ele era o único com texto e desequilibrava a linha.
+*/
 .actionsSecundarias {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
-  margin: 0 0 18px;
+  gap: 8px;
+  margin: 4px 0 20px;
+}
+
+.cartaoAcao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  color: var(--gray-600);
+  background-color: var(--color-white);
+  transition: border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+
+.cartaoAcao:hover {
+  border-color: var(--gray-400);
+  color: var(--gray-920);
+}
+
+/* O cartão de visualizações tem ícone e número; os outros dois só o ícone. */
+.cartaoViews {
+  gap: 7px;
+  font-size: 12.5px;
+  cursor: default;
+}
+
+/* O botão dentro do cartão não carrega moldura própria: a moldura é do cartão,
+   e duas bordas concêntricas é o que fazia os três parecerem de tamanhos
+   diferentes. */
+.cartaoAcao > button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: none;
+  padding: 0;
 }
 
 /* Sob consulta não tem preço: o rótulo ocupa o lugar do número, então precisa

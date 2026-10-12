@@ -21,8 +21,15 @@
   transition: background-color var(--dur-fast) var(--ease-out);
 }
 
-.step:hover {
+.step:hover:not(:disabled) {
   background-color: var(--gray-100);
+}
+
+/* No mínimo da venda mínima o "−" fica desativado e precisa de PARECER
+   desativado: sem isto o utilizador clica e conclui que o botão está quebrado. */
+.step:disabled {
+  color: var(--gray-350);
+  cursor: not-allowed;
 }
 
 .quantity {
@@ -47,6 +54,9 @@
   align-items: center;
   gap: 9px;
   padding: 10px 26px;
+  /* Mesma altura do "Adicionar e ir ao carrinho" ao lado: dois botões irmãos
+     com alturas diferentes é exatamente a assimetria que o cliente aponta. */
+  min-height: 48px;
   border-radius: 30px;
   font-size: 15px;
   font-weight: 500;
@@ -56,13 +66,23 @@
     transform var(--dur-fast) var(--ease-out);
 }
 
+/*
+  "Adicionar ao carrinho" — o CTA de maior peso da página do produto.
+
+  Era PRETO preenchido, e preto saiu: o cliente é explícito ("não gosto de botão
+  preto") e a paleta ficou em vermelho, preto e cinza com o vermelho como cor de
+  ação. É este o botão que o padrão autoriza a ser sólido — um por página
+  (PADROES.md, seção 2) —, e aqui ele é o único: "Adicionar e ir ao carrinho"
+  abaixo é vazado e o WhatsApp é a cor do canal.
+*/
 .dark {
   color: var(--color-white);
-  background-color: var(--gray-940);
+  background-color: var(--color-accent);
+  border: 1px solid var(--color-accent);
 }
 
 .dark:hover {
-  background-color: var(--color-accent);
+  filter: brightness(1.08);
   transform: translateY(-1px);
 }
 
@@ -88,6 +108,9 @@
   color: var(--color-white);
   border-color: #08ad21;
   transform: none;
+  /* `.dark:hover` clareia com `filter`, e sem isto a confirmação verde era
+     clareada junto. */
+  filter: none;
 }
 
 /* Segunda intenção: quem já decidiu fecha aqui. Peso menor que o primário
@@ -115,4 +138,18 @@
 .irAgora:hover {
   background-color: var(--gray-940);
   color: var(--color-white);
+}
+
+/* Coluna: o seletor e, debaixo dele, a venda mínima escrita. O aviso ao lado
+   empurrava os botões para a linha de baixo em telas médias. */
+.quantidade {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.minima {
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--gray-600);
 }

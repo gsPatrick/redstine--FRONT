@@ -113,6 +113,8 @@ export default function NovoAtivoPage() {
         size: texto("size"),
         quantity: numero("quantity"),
         unit: texto("unit"),
+        minOrderQuantity: numero("minOrderQuantity"),
+        consultationNote: texto("consultationNote"),
         price: numero("price"),
         marketPrice: numero("marketPrice"),
         saleMode: texto("saleMode"),
@@ -345,6 +347,14 @@ export default function NovoAtivoPage() {
               <PanelField label="Quantidade" name="quantity" type="number" min="0" />
               <PanelField label="Unidade" name="unit" placeholder="unidade, m², caixa…" />
               <PanelField
+                label="Venda mínima"
+                name="minOrderQuantity"
+                type="number"
+                min="1"
+                placeholder="1"
+                dica="Menor quantidade que o site aceita vender. O seletor do comprador começa aqui."
+              />
+              <PanelField
                 label="Modelo comercial"
                 name="commercialModel"
                 as="select"
@@ -363,6 +373,12 @@ export default function NovoAtivoPage() {
                   ...MODALIDADES.map((m) => ({ valor: m.valor, label: m.label })),
                 ]}
                 dica="Sob consulta não gera pedido direto: gera cotação."
+              />
+              <PanelField
+                label="Indicador de oportunidade"
+                name="consultationNote"
+                placeholder="Até 30% abaixo do preço de mercado"
+                dica="Só aparece no ativo sob consulta, no lugar do preço."
               />
               <PanelField
                 label="Forma de venda"

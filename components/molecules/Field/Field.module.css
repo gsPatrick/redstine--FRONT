@@ -8,6 +8,14 @@
   grid-column: span 2;
 }
 
+/* Span 3 serve a grade de três colunas do checkout: o campo de observações
+   ocupa a linha inteira, e sem isto ele ficava com um terço da largura para um
+   texto de vários parágrafos. `-1` em vez de `span 3` para a regra valer também
+   onde a grade tem menos colunas. */
+.field[data-span="3"] {
+  grid-column: 1 / -1;
+}
+
 .label {
   font-size: 13px;
   font-weight: 600;
@@ -46,7 +54,8 @@
 }
 
 @media (max-width: 767px) {
-  .field[data-span="2"] {
+  .field[data-span="2"],
+  .field[data-span="3"] {
     grid-column: span 1;
   }
 }

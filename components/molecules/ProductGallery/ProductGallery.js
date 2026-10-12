@@ -1,32 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import styles from "./ProductGallery.module.css";
 
-export default function ProductGallery({ images, name }) {
+/**
+ * Galeria do ativo.
+ *
+ * O descritivo novo da página de produto pede as miniaturas EM COLUNA, à
+ * esquerda da imagem principal, e zoom na imagem. As duas coisas são opcionais
+ * (`orientacao`, `zoom`) porque a mesma galeria serve a página do produto e os
+ * lugares onde as miniaturas em linha continuam certas.
+ *
+ * O zoom é por `transform-origin` seguindo o cursor, e não lupa em painel
+ * flutuante: a lupa precisa de uma segunda cópia da imagem numa resolução que
+ * o acervo não tem — boa parte das fotos vem do fornecedor, em 1254px. Ampliar
+ * o que existe é honesto; prometer detalhe que o ficheiro não contém, não.
+ *
+ * No toque não há cursor, e o zoom simplesmente não acontece: `onMouseMove`
+ * não dispara. Melhor do que um zoom que fica preso onde o dedo tocou.
+ */
+export default function ProductGallery({ images, name, orientacao = "horizontal", zoom = false }) {
   const [active, setActive] = useState(0);
+  const [origem, setOrigem] = useState(null);
+  const palco = useRef(null);
+
   if (!images.length) return null;
 
   const current = images[active];
+  const vertical = orientacao === "vertical";
+
+  const seguirCursor = (event) => {
+    if (!zoom || !palco.current) return;
+    const r = palco.current.getBoundingClientRect();
+    const x = ((event.clientX - r.left) / r.width) * 100;
+    const y = ((event.clientY - r.top) / r.height) * 100;
+    setOrigem(`${x}% ${y}%`);
+  };
 
   return (
-    <div className={styles.gallery}>
-      <div className={styles.stage}>
-        <Image
-          key={current.src}
-          src={current.src}
-          alt={current.alt || name}
-          width={current.width}
-          height={current.height}
-          priority
-          sizes="(max-width: 1024px) 100vw, 50vw"
-          className={styles.main}
-        />
-      </div>
-
+    <div className={`${styles.gallery} ${vertical ? styles.galleryVertical : ""}`}>
       {images.length > 1 ? (
-        <ul className={styles.thumbs}>
+        <ul className={`${styles.thumbs} ${vertical ? styles.thumbsVertical : ""}`}>
           {images.map((image, index) => (
             /* A chave inclui o índice porque o mesmo ficheiro pode aparecer
                duas vezes no ativo — o catálogo importado tem lotes com a foto
@@ -51,6 +66,25 @@ export default function ProductGallery({ images, name }) {
           ))}
         </ul>
       ) : null}
+
+      <div
+        ref={palco}
+        className={`${styles.stage} ${zoom ? styles.stageZoom : ""}`}
+        onMouseMove={seguirCursor}
+        onMouseLeave={() => setOrigem(null)}
+      >
+        <Image
+          key={current.src}
+          src={current.src}
+          alt={current.alt || name}
+          width={current.width}
+          height={current.height}
+          priority
+          sizes="(max-width: 1024px) 100vw, 50vw"
+          className={`${styles.main} ${origem ? styles.mainZoom : ""}`}
+          style={origem ? { transformOrigin: origem } : undefined}
+        />
+      </div>
     </div>
   );
 }

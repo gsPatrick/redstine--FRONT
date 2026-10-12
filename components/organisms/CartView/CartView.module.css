@@ -1,44 +1,72 @@
-.loading,
-.emptyAction {
-  display: flex;
-  justify-content: center;
-  padding: 40px 0;
+.loading {
+  font-size: 15px;
   color: var(--gray-600);
 }
 
+.emptyAction {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+}
+
+/*
+  Duas colunas, com o resumo à direita e PEGAJOSO.
+
+  O resumo acompanha a rolagem porque um carrinho de seis lotes empurra o total
+  e o "Finalizar compra" para fora da tela, e o comprador tem de rolar de volta
+  para cima para fechar. `align-items: start` existe para o `sticky` do aside
+  funcionar: em `stretch` ele estica até o fim da grade e não tem para onde
+  colar.
+*/
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 340px;
-  gap: 34px;
+  gap: 36px;
   align-items: start;
+  margin-top: 26px;
 }
 
 .lines {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
+.contagem {
+  font-size: 13px;
+  color: var(--gray-500);
+}
+
+/* ------------------------------------------------------------ linha (cartão)
+
+   Cartão HORIZONTAL: foto, corpo e controles. As três colunas são fixas nas
+   pontas e fluidas no meio, para o preço e o seletor ficarem alinhados entre
+   linhas de nomes de comprimentos diferentes — que é a simetria que o cliente
+   pede na padronização. */
 .line {
   display: grid;
-  grid-template-columns: 110px minmax(0, 1fr) auto;
+  grid-template-columns: 140px minmax(0, 1fr) 170px;
   gap: 20px;
-  align-items: center;
   padding: 18px;
   border: 1px solid var(--gray-250);
   border-radius: var(--radius-card);
   background-color: var(--color-white);
-  transition: border-color var(--dur-base) var(--ease-out);
+  transition: border-color var(--dur-fast) var(--ease-out);
 }
 
 .line:hover {
   border-color: var(--gray-350);
 }
 
+.lineSalva {
+  grid-template-columns: 110px minmax(0, 1fr) 170px;
+  background-color: var(--gray-50);
+}
+
 .media {
   display: block;
   overflow: hidden;
-  border-radius: 14px;
+  border-radius: var(--radius-card);
   background-color: var(--gray-100);
   aspect-ratio: 1 / 1;
 }
@@ -47,11 +75,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--dur-slow) var(--ease-out);
-}
-
-.media:hover .image {
-  transform: scale(1.05);
 }
 
 .body {
@@ -61,35 +84,113 @@
   min-width: 0;
 }
 
+.categoria {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
 .name {
   font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  color: var(--gray-920);
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--gray-940);
 }
 
 .name a:hover {
   color: var(--color-accent);
 }
 
-.meta {
-  font-size: 13px;
+.codigo {
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  color: var(--gray-500);
+}
+
+.metaLinha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  margin-top: 3px;
+  font-size: 12.5px;
   color: var(--gray-600);
 }
 
-.unit {
-  margin-top: 4px;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--gray-940);
+.comEstoque {
+  color: #08811d;
+}
+
+.semEstoque {
+  color: var(--color-accent);
+}
+
+.sobConsulta {
+  margin-top: 6px;
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--color-accent);
+}
+
+.sobConsulta a {
+  text-decoration: underline;
+}
+
+.acoesLinha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+/* "Salvar para depois" e "Excluir" são AÇÕES DE TEXTO, não botões: num cartão
+   que já tem o seletor de quantidade, três botões desenhados competem entre si
+   e nenhum é o principal. */
+.linkAcao {
+  padding: 0;
+  font-size: 12.5px;
+  color: var(--gray-600);
+  background: none;
+  border: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.linkAcao:hover {
+  color: var(--color-accent);
 }
 
 .controls {
   display: flex;
-  align-items: center;
-  gap: 16px;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
 }
 
+.lineTotal {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.unit {
+  font-size: 12px;
+  color: var(--gray-500);
+}
+
+.minima {
+  font-size: 11.5px;
+  color: var(--gray-500);
+}
+
+/* --------------------------------------------------------------- seletor
+
+   Mesmas classes que o `QuantidadeSeletor` espera (`stepper`, `step`,
+   `quantity`), para o componente servir carrinho e página do produto sem
+   carregar estilo próprio. */
 .stepper {
   display: flex;
   align-items: center;
@@ -100,21 +201,26 @@
 
 .step {
   width: 34px;
-  height: 38px;
+  height: 36px;
   font-size: 16px;
   color: var(--gray-920);
   transition: background-color var(--dur-fast) var(--ease-out);
 }
 
-.step:hover {
+.step:hover:not(:disabled) {
   background-color: var(--gray-100);
 }
 
+.step:disabled {
+  color: var(--gray-350);
+  cursor: not-allowed;
+}
+
 .quantity {
-  width: 42px;
-  height: 38px;
+  width: 44px;
+  height: 36px;
   text-align: center;
-  font-size: 15px;
+  font-size: 14px;
   border: none;
   outline: none;
   background: none;
@@ -127,60 +233,53 @@
   margin: 0;
 }
 
-.lineTotal {
-  min-width: 92px;
-  text-align: right;
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--gray-940);
-}
-
-.remove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  color: var(--gray-600);
-  background-color: var(--gray-100);
-  transition:
-    background-color var(--dur-fast) var(--ease-out),
-    color var(--dur-fast) var(--ease-out);
-}
-
-.remove:hover {
-  background-color: var(--color-accent);
-  color: var(--color-white);
-}
-
 .clear {
   align-self: flex-start;
   margin-top: 4px;
-  font-size: 14px;
-  color: var(--gray-600);
+  padding: 0;
+  font-size: 12.5px;
+  color: var(--gray-500);
+  background: none;
+  border: none;
   text-decoration: underline;
-  transition: color var(--dur-fast) var(--ease-out);
+  text-underline-offset: 3px;
 }
 
 .clear:hover {
   color: var(--color-accent);
 }
 
-.summary {
-  position: sticky;
-  top: 120px;
+/* ---------------------------------------------------------- salvos depois */
+.salvos {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  padding: 28px 26px;
+  gap: 12px;
+  margin-top: 30px;
+  padding-top: 26px;
+  border-top: 1px solid var(--gray-250);
+}
+
+.salvosTitulo {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+/* ------------------------------------------------------------------ resumo */
+.summary {
+  position: sticky;
+  top: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 24px;
   border: 1px solid var(--gray-250);
   border-radius: var(--radius-card);
-  background-color: var(--gray-50);
+  background-color: var(--color-white);
 }
 
 .summaryTitle {
-  font-size: 19px;
+  font-size: 17px;
   font-weight: 600;
   color: var(--gray-940);
 }
@@ -188,45 +287,36 @@
 .rows {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 9px;
 }
 
 .row {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  font-size: 15px;
-  color: var(--gray-600);
-}
-
-.row dd {
-  margin: 0;
-  color: var(--gray-920);
+  gap: 12px;
+  font-size: 14px;
+  color: var(--gray-700);
 }
 
 .muted {
-  color: var(--gray-500) !important;
+  color: var(--gray-500);
 }
 
 .total {
   display: flex;
-  align-items: baseline;
   justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
   padding-top: 14px;
   border-top: 1px solid var(--gray-250);
-  font-size: 16px;
-  color: var(--gray-600);
+  font-size: 14px;
+  color: var(--gray-700);
 }
 
 .total strong {
-  font-size: 24px;
+  font-size: 23px;
+  font-weight: 600;
   color: var(--gray-940);
-}
-
-.note {
-  font-size: 13px;
-  line-height: 1.65;
-  color: var(--gray-600);
 }
 
 .summaryActions {
@@ -235,10 +325,96 @@
   gap: 10px;
 }
 
-.summaryActions > * {
-  width: 100%;
+.semItens {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--gray-600);
 }
 
+.cartaoInfo {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 14px;
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
+}
+
+.cartaoIcone {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: var(--color-accent);
+  background-color: var(--color-white);
+}
+
+.cartaoInfo strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.cartaoInfo p {
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--gray-600);
+}
+
+/* --------------------------------------------------------------- sugestões
+
+   O respiro grande é PEDIDO no descritivo, e não sobra de layout: sem ele a
+   faixa encosta no carrinho e lê-se como parte do pedido. */
+.sugestoes {
+  margin-top: 90px;
+}
+
+.sugestoesTopo {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 22px;
+}
+
+.sugestoesTitulo {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.verMais {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.verMais:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sugestoesGrade {
+  display: grid;
+  /* Três colunas porque são três produtos: grade de quatro com três itens
+     deixa a coluna vazia que o cliente reclama na padronização. */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.beneficios {
+  margin-top: 70px;
+}
+
+/* ------------------------------------------------------------- responsivo */
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
@@ -250,28 +426,26 @@
 }
 
 @media (max-width: 767px) {
-  .line {
-    grid-template-columns: 84px minmax(0, 1fr);
-    gap: 14px;
+  /* A coluna de controles passa para baixo do corpo e alinha à esquerda: à
+     direita, em 360px de largura, o seletor ficava contra a borda. */
+  .line,
+  .lineSalva {
+    grid-template-columns: 96px minmax(0, 1fr);
   }
 
   .controls {
-    grid-column: span 2;
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
-}
 
-/* Item sob consulta preso no carrinho: diz por que não dá para comprar e para
-   onde ir. Não some sozinho porque remover item do utilizador sem ele pedir é
-   pior do que explicar. */
-.sobConsulta {
-  margin: 4px 0 0;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--color-accent);
-}
+  .sugestoesGrade {
+    grid-template-columns: minmax(0, 1fr);
+  }
 
-.sobConsulta a {
-  font-weight: 700;
-  text-decoration: underline;
+  .sugestoes {
+    margin-top: 60px;
+  }
 }

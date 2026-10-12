@@ -1,0 +1,75 @@
+.abas {
+  margin-top: 56px;
+}
+
+.lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  border-bottom: 1px solid var(--gray-250);
+}
+
+.aba {
+  padding: 13px 22px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--gray-600);
+  /* A borda existe nos dois estados, transparente quando inativa: trocar a
+     espessura no estado ativo movia o rótulo um pixel ao passar o rato. */
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out);
+}
+
+.aba:hover {
+  color: var(--gray-920);
+}
+
+.abaAtiva,
+.abaAtiva:hover {
+  color: var(--brand-red);
+  border-bottom-color: var(--brand-red);
+}
+
+.painel {
+  padding-top: 28px;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--gray-700);
+}
+
+.painel p + p {
+  margin-top: 14px;
+}
+
+.painel ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.painel li {
+  padding-left: 16px;
+  position: relative;
+}
+
+.painel li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 11px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background-color: var(--brand-red);
+}
+
+@media (max-width: 680px) {
+  .aba {
+    padding: 11px 14px;
+    font-size: 12px;
+  }
+}
