@@ -36,6 +36,22 @@ import styles from "./CartView.module.css";
  *     deliberado no documento: sem ele a faixa de sugestão encosta no carrinho
  *     e lê-se como parte do pedido.
  */
+/** Faixa inferior, com os textos exatos da seção 23 do descritivo. */
+const BENEFICIOS_DO_CARRINHO = [
+  {
+    icone: "headset",
+    titulo: "Atendimento especializado",
+    texto: "Tire suas dúvidas com a nossa equipe",
+  },
+  { icone: "shield", titulo: "Compra segura", texto: "Seus dados protegidos" },
+  {
+    icone: "creditCard",
+    titulo: "Diversas formas de pagamento",
+    texto: "Pagamento facilitado",
+  },
+  { icone: "cube", titulo: "Produtos de qualidade", texto: "Equipamentos verificados" },
+];
+
 export default function CartView() {
   const {
     cart,
@@ -63,7 +79,11 @@ export default function CartView() {
       <Section tone="light">
         {/* Estado vazio: o texto e a unica coisa na tela, e encosta-lo na
             borda parece defeito. Centralizar aqui e deliberado. */}
-        <SectionTitle title="Seu carrinho está vazio" align="center" />
+        <SectionTitle
+          title="Seu carrinho está vazio"
+          subtitle="Encontre equipamentos, materiais e produtos disponíveis na REDestine."
+          align="center"
+        />
         <div className={styles.emptyAction}>
           <Button href="/shop" variant="dark">
             Começar a comprar
@@ -77,19 +97,32 @@ export default function CartView() {
   // frequente de propósito — um carrinho de dois itens de categorias
   // diferentes não tem "a mais frequente", e o primeiro é o que o comprador
   // escolheu primeiro.
-  const categoriaRef = cart.find((l) => l.categorySlug)?.categorySlug || null;
+  const linhaRef = cart.find((l) => l.categorySlug);
+  const categoriaRef = linhaRef?.categorySlug || null;
+  const categoriaNome = linhaRef?.category || null;
   const idsNoCarrinho = cart.map((l) => l.id);
   const totalItens = cart.reduce((n, l) => n + l.quantity, 0);
 
   return (
     <Section tone="light">
-      <SectionTitle title="Carrinho" align="start" />
+      <header className={styles.topo}>
+        <div>
+          <SectionTitle title="Carrinho de compras" align="start" />
+          <p className={styles.contagem}>
+            {totalItens} {totalItens === 1 ? "item" : "itens"} no seu carrinho
+          </p>
+        </div>
+
+        {/* "← Continuar comprando" no topo direito, como o descritivo pede. O
+            botão do resumo continua existindo: este é o atalho de quem ainda
+            está a montar o pedido, aquele é o de quem já olhou o total. */}
+        <Link href="/shop" className={styles.voltarTopo}>
+          ← Continuar comprando
+        </Link>
+      </header>
 
       <div className={styles.layout}>
         <div className={styles.lines}>
-          <p className={styles.contagem}>
-            {totalItens} {totalItens === 1 ? "item" : "itens"} no carrinho
-          </p>
 
           {cart.map((line) => (
             <Linha
@@ -164,7 +197,9 @@ export default function CartView() {
 
           <dl className={styles.rows}>
             <div className={styles.row}>
-              <dt>Subtotal</dt>
+              <dt>
+                Subtotal ({totalItens} {totalItens === 1 ? "item" : "itens"})
+              </dt>
               <dd>{formatPrice(cartTotal)}</dd>
             </div>
             <div className={styles.row}>
@@ -206,9 +241,7 @@ export default function CartView() {
             </span>
             <div>
               <strong>Compra segura</strong>
-              <p>
-                O pedido é registrado e acompanhado pela equipe da RED até a conclusão.
-              </p>
+              <p>Seu pedido será confirmado pela nossa equipe antes da retirada.</p>
             </div>
           </div>
 
@@ -219,8 +252,8 @@ export default function CartView() {
             <div>
               <strong>Retirada e transporte</strong>
               <p>
-                Custos e responsabilidades de retirada, carregamento e transporte são
-                confirmados antes da conclusão da compra.
+                A retirada, carregamento e transporte são de responsabilidade do comprador e
+                devem ser combinados com a nossa equipe após a conclusão da compra.
               </p>
             </div>
           </div>
@@ -228,9 +261,14 @@ export default function CartView() {
       </div>
 
       {/* O respiro grande daqui para baixo é pedido no documento. */}
-      <Sugestoes categorySlug={categoriaRef} excluir={idsNoCarrinho} />
+      <Sugestoes
+        categorySlug={categoriaRef}
+        categoria={categoriaNome}
+        excluir={idsNoCarrinho}
+      />
 
-      <FaixaBeneficios className={styles.beneficios} />
+      {/* Textos e ordem da seção 23 do descritivo. */}
+      <FaixaBeneficios className={styles.beneficios} itens={BENEFICIOS_DO_CARRINHO} />
     </Section>
   );
 }
@@ -326,7 +364,17 @@ function Linha({ line, setQuantity, removeFromCart, saveForLater }) {
           styles={styles}
         />
 
-        {minima > 1 ? <p className={styles.minima}>Mínimo: {minima}</p> : null}
+        {/* Abaixo do controle: quantidade disponível (descritivo, seção 9) e o
+            mínimo quando ele existe. */}
+        {saldo ? (
+          <p className={styles.minima}>
+            {saldo} {line.unit || "unidade"}
+            {saldo > 1 ? "s" : ""} {saldo > 1 ? "disponíveis" : "disponível"}
+            {minima > 1 ? ` · mínimo ${minima}` : ""}
+          </p>
+        ) : minima > 1 ? (
+          <p className={styles.minima}>Mínimo: {minima}</p>
+        ) : null}
       </div>
     </article>
   );

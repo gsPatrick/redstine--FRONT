@@ -53,6 +53,15 @@
   margin-top: 6px;
 }
 
+/* Sob consulta: o indicador fica ao LADO, alinhado pela base do rótulo, e
+   quebra para baixo quando não couber. */
+.precoLinha {
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+}
+
 /* Indicador de oportunidade — "pequeno e secundário", como o descritivo pede.
    Vermelho, mas em 12.5px: maior do que isto compete com o preço, que é o
    número que decide. */

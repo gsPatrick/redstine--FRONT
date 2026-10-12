@@ -80,6 +80,11 @@ export default function AtivoGestaoPage() {
       if (v) attributes[c.chave] = v;
       else delete attributes[c.chave];
     }
+    // Aplicações alimenta a aba de mesmo nome na página do produto. Apagar o
+    // campo tem de APAGAR a chave, senão o texto antigo fica no ar.
+    const aplicacoes = texto("aplicacoes");
+    if (aplicacoes) attributes.aplicacoes = aplicacoes;
+    else delete attributes.aplicacoes;
 
     try {
       await atualizarAtivo(id, {
@@ -295,6 +300,16 @@ export default function AtivoGestaoPage() {
                       <PanelField label="Cor" name="color" defaultValue={ativo.color || ""} />
                       <PanelField label="Tamanho" name="size" defaultValue={ativo.size || ""} />
                     </div>
+
+                    <PanelField
+                      label="Aplicações"
+                      name="aplicacoes"
+                      as="textarea"
+                      rows={3}
+                      defaultValue={ativo.attributes?.aplicacoes || ""}
+                      className={styles.largo}
+                      dica="Uma por linha, ou separadas por ponto e vírgula. Vira a aba Aplicações na página do produto."
+                    />
 
                     <details className={styles.tecnicos}>
                       <summary>Ficha técnica</summary>

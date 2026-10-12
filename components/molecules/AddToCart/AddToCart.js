@@ -71,11 +71,16 @@ export default function AddToCart({
             aoMudar={setQuantity}
             styles={styles}
           />
-          {minima > 1 ? (
+          {/* Abaixo do seletor, em texto pequeno: a quantidade disponível
+              (descritivo, seção 9) e a venda mínima quando ela existe. */}
+          {saldo > 0 ? (
             <p className={styles.minima}>
-              Venda mínima: {minima} {product.unit || "unidade"}
-              {minima > 1 ? "s" : ""}
+              {saldo} {product.unit || "unidade"}
+              {saldo > 1 ? "s" : ""} {saldo > 1 ? "disponíveis" : "disponível"}
+              {minima > 1 ? ` · mínimo ${minima}` : ""}
             </p>
+          ) : minima > 1 ? (
+            <p className={styles.minima}>Venda mínima: {minima}</p>
           ) : null}
         </div>
       ) : null}

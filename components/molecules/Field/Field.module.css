@@ -59,3 +59,11 @@
     grid-column: span 1;
   }
 }
+
+/* Dica abaixo do campo, ligada a ele por aria-describedby. Pequena e cinza:
+   explica, não compete com o rótulo. */
+.dica {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--gray-500);
+}

@@ -38,7 +38,15 @@ const dadosDoComprador = [
   { label: "Nome completo", name: "nome", required: true, span: 2 },
   { label: "CPF / CNPJ", name: "documento", required: true },
   { label: "E-mail", name: "email", type: "email", required: true },
-  { label: "Telefone / WhatsApp", name: "telefone", type: "tel", required: true },
+  {
+    label: "Telefone / WhatsApp",
+    name: "telefone",
+    type: "tel",
+    required: true,
+    // O PDF pede indicação visual do WhatsApp: é por ali que a RED confirma o
+    // pedido, e o comprador precisa de saber que o número será usado para isso.
+    dica: "É por este número que a nossa equipe entra em contato no WhatsApp.",
+  },
   { label: "Empresa", name: "empresa" },
   { label: "Inscrição estadual", name: "inscricaoEstadual" },
 ];
@@ -75,7 +83,7 @@ const paymentMethods = [
   {
     id: "cartao",
     label: "Cartão de crédito",
-    nota: "O link de pagamento é enviado depois da confirmação do pedido.",
+    nota: "Por maquininha ou link de pagamento, enviado depois da confirmação do pedido.",
   },
   {
     id: "boleto",
@@ -90,6 +98,7 @@ export default function CheckoutView() {
   // pagina do produto, mas carrinhos gravados antes disso podem ter um. Deixar
   // seguir geraria pedido com preco que nao foi negociado.
   const sobConsulta = cart.filter((l) => l.underConsultation);
+  const totalItens = cart.reduce((n, l) => n + l.quantity, 0);
   const [method, setMethod] = useState("pix");
   const [placed, setPlaced] = useState(null);
   const [sending, setSending] = useState(false);
@@ -178,7 +187,11 @@ export default function CheckoutView() {
 
   return (
     <Section tone="light">
-      <SectionTitle title="Finalizar compra" align="start" />
+      <SectionTitle
+        title="Finalizar compra"
+        subtitle="Preencha seus dados para concluir o pedido."
+        align="start"
+      />
 
       {/* Dois passos, mostrados como dois. O comprador vê onde está e que não
           existe uma etapa escondida de pagamento adiante. */}
@@ -195,17 +208,19 @@ export default function CheckoutView() {
 
       <form className={styles.layout} onSubmit={submit}>
         <div className={styles.main}>
+          {/* UM bloco, como o PDF organiza: dados do comprador e, dentro do
+              mesmo bloco, o endereço para faturamento como subtítulo interno.
+              Dois cards separados davam ao endereço o mesmo peso dos dados, e
+              o documento o trata como subdivisão. */}
           <fieldset className={styles.block}>
-            <legend className={styles.legend}>Seus dados</legend>
+            <legend className={styles.legend}>1. Dados do comprador</legend>
             <div className={styles.grid}>
               {dadosDoComprador.map((field) => (
                 <Field key={field.name} {...field} />
               ))}
             </div>
-          </fieldset>
 
-          <fieldset className={styles.block}>
-            <legend className={styles.legend}>Endereço de cobrança</legend>
+            <h3 className={styles.subtitulo}>Endereço para faturamento</h3>
             <div className={styles.grid}>
               {enderecoDeCobranca.map((field) => (
                 <Field key={field.name} {...field} />
@@ -214,7 +229,10 @@ export default function CheckoutView() {
           </fieldset>
 
           <fieldset className={styles.block}>
-            <legend className={styles.legend}>Forma de pagamento</legend>
+            <legend className={styles.legend}>2. Forma de pagamento</legend>
+            <p className={styles.apoioBloco}>
+              Escolha a melhor forma de pagamento para o seu pedido.
+            </p>
             <ul className={styles.methods}>
               {paymentMethods.map((option) => (
                 <li key={option.id}>
@@ -297,7 +315,9 @@ export default function CheckoutView() {
 
           <dl className={styles.rows}>
             <div className={styles.row}>
-              <dt>Subtotal</dt>
+              <dt>
+                Subtotal ({totalItens} {totalItens === 1 ? "item" : "itens"})
+              </dt>
               <dd>{formatPrice(cartTotal)}</dd>
             </div>
             <div className={styles.row}>
@@ -349,12 +369,13 @@ export default function CheckoutView() {
           </p>
 
           <CartaoInfo icone="truck" titulo="Retirada e transporte">
-            Custos e responsabilidades de retirada, carregamento e transporte são confirmados
-            antes da conclusão da compra.
+            A retirada, o carregamento e o transporte são de responsabilidade do comprador e
+            devem ser combinados com a nossa equipe após a conclusão.
           </CartaoInfo>
 
           <CartaoInfo icone="shield" titulo="Compra segura">
-            O pedido é registrado e acompanhado pela equipe da RED até a conclusão.
+            Seus dados são protegidos e o pedido é confirmado pela nossa equipe antes da
+            retirada.
           </CartaoInfo>
 
           <CartaoInfo icone="headset" titulo="Precisa de ajuda?">
@@ -372,15 +393,15 @@ export default function CheckoutView() {
           </CartaoInfo>
 
           <CartaoInfo icone="headset" titulo="Atendimento especializado">
-            Equipe que conhece o ativo e as condições de retirada.
+            Tire suas dúvidas com a nossa equipe.
           </CartaoInfo>
 
           <CartaoInfo icone="creditCard" titulo="Diversas formas de pagamento">
-            Pix, cartão de crédito ou boleto bancário.
+            Pix, cartão de crédito e boleto bancário.
           </CartaoInfo>
 
           <CartaoInfo icone="cube" titulo="Produtos de qualidade">
-            Cada ativo passa pela curadoria da RED antes de ir ao catálogo.
+            Equipamentos verificados pela curadoria e prontos para uso.
           </CartaoInfo>
         </aside>
       </form>

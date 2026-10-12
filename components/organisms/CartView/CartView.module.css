@@ -32,9 +32,31 @@
   gap: 14px;
 }
 
+/* Título à esquerda, "← Continuar comprando" à direita, na mesma linha de base
+   — é a diagramação da seção 4 do descritivo. */
+.topo {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
 .contagem {
+  margin-top: 6px;
   font-size: 13px;
   color: var(--gray-500);
+}
+
+.voltarTopo {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--gray-600);
+  white-space: nowrap;
+}
+
+.voltarTopo:hover {
+  color: var(--color-accent);
 }
 
 /* ------------------------------------------------------------ linha (cartão)
@@ -386,6 +408,12 @@
   font-size: 22px;
   font-weight: 600;
   color: var(--gray-940);
+}
+
+.sugestoesApoio {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--gray-500);
 }
 
 .verMais {

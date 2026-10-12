@@ -70,6 +70,40 @@ function tituloLegivel(nome) {
     .join("");
 }
 
+/**
+ * Campos da ficha que NÃO pertencem ao card "Características".
+ *
+ * O descritivo (seção 5) é explícito: o card leva "somente informações próprias
+ * do produto". Localização é do card de retirada, e forma de venda,
+ * disponibilidade, quantidade, estoque e venda mínima são do card de condições
+ * comerciais. Despejar a ficha inteira nos três cards repetia a mesma linha em
+ * dois lugares, que é o que a seção 14 manda evitar.
+ */
+const FORA_DE_CARACTERISTICAS = new Set([
+  "Localização",
+  "Forma de venda",
+  "Disponibilidade",
+  "Quantidade disponível",
+  "Estoque",
+  "Venda mínima",
+]);
+
+/** Lista campo-à-esquerda / valor-à-direita, o formato que o documento pede. */
+function Lista({ linhas, styles: estilos }) {
+  const validas = linhas.filter(([, valor]) => valor !== null && valor !== undefined && valor !== "");
+  if (!validas.length) return null;
+  return (
+    <dl className={estilos.specs}>
+      {validas.map(([campo, valor]) => (
+        <div key={campo} className={estilos.specRow}>
+          <dt className={estilos.specKey}>{campo}</dt>
+          <dd className={estilos.specValue}>{valor}</dd>
+        </div>
+      ))}
+    </dl>
+  );
+}
+
 export default function ProductDetail({ product }) {
   const category = product.categories[0];
   const whatsapp = `https://wa.me/5521997469757?text=${encodeURIComponent(
@@ -81,58 +115,59 @@ export default function ProductDetail({ product }) {
   const minima = Math.max(1, Number(product.minOrderQuantity || 1));
   const saldo = Number(product.quantity || 0);
 
+  // Só o que é do PRÓPRIO produto: condição, tipo, material, cor, tamanho,
+  // marca e os campos técnicos. O resto da ficha pertence aos outros dois cards.
+  const caracteristicas = specs.filter((a) => !FORA_DE_CARACTERISTICAS.has(a.name));
+
+  const loteFechado = product.saleFormatLabel === "Lote";
+
   const accordionItems = [
     {
       // Nasce fechado, como os outros dois: o descritivo pede os três fechados
-      // na entrada, e quem quer a ficha técnica vai à aba Especificações.
+      // na entrada, e quem quer a ficha completa vai à aba Especificações.
       title: "Características",
-      content: specs.length ? (
-        <dl className={styles.specs}>
-          {specs.map((attribute) => (
-            <div key={attribute.name} className={styles.specRow}>
-              <dt className={styles.specKey}>{attribute.name}</dt>
-              <dd className={styles.specValue}>{attribute.values.join(", ")}</dd>
-            </div>
-          ))}
-        </dl>
+      content: caracteristicas.length ? (
+        <Lista
+          linhas={caracteristicas.map((a) => [a.name, a.values.join(", ")])}
+          styles={styles}
+        />
       ) : (
         <p>As características deste ativo são confirmadas pela RED no atendimento.</p>
       ),
     },
     {
+      // Campos do descritivo, seção 6. "Possibilidade de negociação", "Reserva"
+      // e "Garantia" são as mesmas regras para todo o acervo — não são campo do
+      // ativo, são a política da RED escrita onde o comprador pergunta.
       title: "Condições comerciais",
       content: (
         <>
-          <dl className={styles.specs}>
-            {product.saleFormatLabel ? (
-              <div className={styles.specRow}>
-                <dt className={styles.specKey}>Forma de venda</dt>
-                <dd className={styles.specValue}>{product.saleFormatLabel}</dd>
-              </div>
-            ) : null}
-            {minima > 1 ? (
-              <div className={styles.specRow}>
-                <dt className={styles.specKey}>Venda mínima</dt>
-                <dd className={styles.specValue}>
-                  {minima} {product.unit || "unidade"}
-                </dd>
-              </div>
-            ) : null}
-            {saldo > 0 ? (
-              <div className={styles.specRow}>
-                <dt className={styles.specKey}>Quantidade disponível</dt>
-                <dd className={styles.specValue}>
-                  {saldo} {product.unit || "unidade"}
-                </dd>
-              </div>
-            ) : null}
-            {product.availabilityLabel ? (
-              <div className={styles.specRow}>
-                <dt className={styles.specKey}>Disponibilidade</dt>
-                <dd className={styles.specValue}>{product.availabilityLabel}</dd>
-              </div>
-            ) : null}
-          </dl>
+          <Lista
+            linhas={[
+              ["Unidade de venda", product.saleFormatLabel || product.unit || "Unidade"],
+              [
+                "Venda mínima",
+                minima > 1 ? `${minima} ${product.unit || "unidade"}` : "1 unidade",
+              ],
+              // Lote fechado tem de ficar EXPLÍCITO (seção 7 do descritivo):
+              // quem compra um lote não escolhe a quantidade.
+              loteFechado
+                ? ["Lote fechado", "O lote é vendido inteiro, sem fracionamento."]
+                : null,
+              [
+                "Possibilidade de negociação",
+                "Entre em contato com nossa equipe e veja a possibilidade de negociação.",
+              ],
+              ["Reserva do produto", "Sujeito à disponibilidade em estoque."],
+              [
+                "Garantia",
+                product.conditionKey === "sem_uso"
+                  ? "Ativo sem uso. Eventual garantia de fábrica é confirmada no atendimento."
+                  : "Ativo usado, vendido no estado em que se encontra, sem garantia.",
+              ],
+            ].filter(Boolean)}
+            styles={styles}
+          />
           <p className={styles.acordeaoNota}>
             Disponibilidade, quantidade e condições comerciais são validadas pela RED antes da
             conclusão da compra.
@@ -141,18 +176,34 @@ export default function ProductDetail({ product }) {
       ),
     },
     {
+      // Campos do descritivo, seção 8. A RED não tem frete integrado, prazo de
+      // entrega nem transportadora própria, e o documento manda não apresentar
+      // nada disso — por isso aqui só há retirada.
       title: "Retirada e transporte",
       content: (
         <>
-          <p>
-            {product.location
-              ? `O ativo está em ${product.location} e a retirada é combinada com a equipe da RED.`
-              : "A localização do ativo e a retirada são combinadas com a equipe da RED."}
-          </p>
-          <p className={styles.acordeaoNota}>
-            Custos e responsabilidades de retirada, carregamento, transporte ou entrega devem ser
-            confirmados antes da conclusão da compra.
-          </p>
+          <Lista
+            linhas={[
+              [
+                "Local de retirada",
+                product.location
+                  ? `${product.location}. O endereço completo é confirmado após a compra.`
+                  : "Confirmado pela equipe da RED após a compra.",
+              ],
+              [
+                "Retirada no local",
+                "O comprador retira o ativo no local indicado, em data combinada com a equipe.",
+              ],
+              ["Transporte", "O transporte é de responsabilidade do comprador."],
+              [
+                "Carregamento",
+                "O apoio ao carregamento depende do local e é confirmado no agendamento.",
+              ],
+              ["Agendamento", "A retirada deve ser agendada previamente com a equipe da RED."],
+              ["Dúvidas", "Fale com a nossa equipe pelo WhatsApp antes de agendar."],
+            ]}
+            styles={styles}
+          />
         </>
       ),
     },
@@ -168,34 +219,24 @@ export default function ProductDetail({ product }) {
       ) : null,
     },
     {
-      // Aplicações não é campo próprio do ativo: vive em `attributes` quando a
-      // curadoria a escreve. Sem ela, a aba não é renderizada — é o `Abas` que
-      // descarta item sem conteúdo.
+      // Vem de `attributes.aplicacoes`, escrito na gestão. Sem ele a aba não é
+      // renderizada — é o `Abas` que descarta item sem conteúdo, e aba vazia é
+      // pior do que aba ausente.
       title: "Aplicações",
-      content: (() => {
-        const linha = specs.find((a) => a.name === "Aplicações");
-        if (!linha) return null;
-        const itens = linha.values.join(";").split(/[;\n]/).map((t) => t.trim()).filter(Boolean);
-        return (
-          <ul>
-            {itens.map((item) => (
-              <li key={item}>{item}</li>
-            ))}
-          </ul>
-        );
-      })(),
+      content: product.applications?.length ? (
+        <ul>
+          {product.applications.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ul>
+      ) : null,
     },
     {
+      // A ficha COMPLETA, incluindo o que o card "Características" deixou de
+      // fora: é aqui que o descritivo põe "as especificações detalhadas".
       title: "Especificações",
       content: specs.length ? (
-        <dl className={styles.specs}>
-          {specs.map((attribute) => (
-            <div key={attribute.name} className={styles.specRow}>
-              <dt className={styles.specKey}>{attribute.name}</dt>
-              <dd className={styles.specValue}>{attribute.values.join(", ")}</dd>
-            </div>
-          ))}
-        </dl>
+        <Lista linhas={specs.map((a) => [a.name, a.values.join(", ")])} styles={styles} />
       ) : null,
     },
   ];
@@ -240,7 +281,9 @@ export default function ProductDetail({ product }) {
               que não vale. O indicador de oportunidade abaixo é o que a gestão
               escreve, e é por isso que ele não é calculado. */}
           {sobConsulta ? (
-            <div className={styles.precoBloco}>
+            /* O indicador fica AO LADO de "Sob consulta", como o descritivo
+               pede (seção 10), e não abaixo: abaixo é onde mora o estoque. */
+            <div className={`${styles.precoBloco} ${styles.precoLinha}`}>
               <p className={`${styles.price} ${styles.priceConsulta}`}>Sob consulta</p>
               {product.consultationNote ? (
                 <p className={styles.oportunidade}>{product.consultationNote}</p>

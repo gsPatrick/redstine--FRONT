@@ -95,6 +95,12 @@ export default function NovoAtivoPage() {
       const v = texto(`tec_${c.chave}`);
       if (v) attributes[c.chave] = v;
     }
+    // Aplicações alimenta a aba de mesmo nome na página do produto. Fica em
+    // `attributes` e fora de CAMPOS_TECNICOS de propósito: a ficha técnica é
+    // campo-e-valor, e isto é prosa — na ficha apareceria no card
+    // "Características", que só pode ter informação própria do produto.
+    const aplicacoes = texto("aplicacoes");
+    if (aplicacoes) attributes.aplicacoes = aplicacoes;
 
     try {
       const ativo = await criarAtivo({

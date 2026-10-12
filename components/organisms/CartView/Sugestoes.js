@@ -22,7 +22,7 @@ import styles from "./CartView.module.css";
  * O que já está no carrinho é excluído — sugerir o item que a pessoa acabou de
  * adicionar é o erro clássico desta faixa.
  */
-export default function Sugestoes({ categorySlug, excluir = [] }) {
+export default function Sugestoes({ categorySlug, categoria, excluir = [] }) {
   const [itens, setItens] = useState([]);
 
   useEffect(() => {
@@ -58,7 +58,14 @@ export default function Sugestoes({ categorySlug, excluir = [] }) {
   return (
     <section className={styles.sugestoes}>
       <header className={styles.sugestoesTopo}>
-        <h2 className={styles.sugestoesTitulo}>Você também pode se interessar</h2>
+        <div>
+          <h2 className={styles.sugestoesTitulo}>Você também pode se interessar</h2>
+          {/* Texto de apoio do descritivo (seção 12), com a categoria dinâmica:
+              diz POR QUE estes três e não outros quaisquer. */}
+          {categoria ? (
+            <p className={styles.sugestoesApoio}>Mais itens de {categoria}</p>
+          ) : null}
+        </div>
         <Link href={`/categoria-produto/${categorySlug}`} className={styles.verMais}>
           Ver mais produtos
           <Icon name="arrowRight" size={12} />

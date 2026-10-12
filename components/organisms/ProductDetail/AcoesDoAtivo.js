@@ -68,7 +68,8 @@ export default function AcoesDoAtivo({ product, whatsapp }) {
           className={styles.whatsapp}
         >
           <Icon name="whatsapp" size={18} />
-          {sobConsulta ? "Falar no WhatsApp" : "Comprar pelo WhatsApp"}
+          {/* Rótulo do descritivo, igual nas duas modalidades. */}
+          Compre pelo WhatsApp
         </a>
       </div>
 

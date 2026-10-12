@@ -67,6 +67,21 @@
   color: var(--gray-940);
 }
 
+/* Subtítulo interno do bloco 1: o endereço de faturamento é subdivisão dos
+   dados do comprador, não um bloco irmão. */
+.subtitulo {
+  margin: 26px 0 14px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--gray-940);
+}
+
+.apoioBloco {
+  margin: -6px 0 16px;
+  font-size: 13px;
+  color: var(--gray-600);
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -532,6 +547,27 @@
   justify-content: center;
   gap: 12px;
   margin-top: 12px;
+}
+
+/* Vermelho preenchido, igual ao "Confirmar pedido": é o CTA principal desta
+   tela, e aqui não há outro sólido a disputar com ele. */
+.ctaPrincipal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 28px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-accent);
+  transition: filter var(--dur-base) var(--ease-out);
+}
+
+.ctaPrincipal:hover {
+  filter: brightness(1.08);
 }
 
 .concluidoAjuda {

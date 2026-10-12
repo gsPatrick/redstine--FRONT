@@ -20,6 +20,26 @@ import styles from "./CheckoutView.module.css";
  * e retirada antes de concluir. Prometer "pagamento aprovado" aqui seria
  * mentira enquanto o gateway não estiver ligado.
  */
+/** Informações complementares, com os textos da seção 2.3 do PDF. */
+const BENEFICIOS_DO_PEDIDO = [
+  {
+    icone: "headset",
+    titulo: "Atendimento especializado",
+    texto: "Tire suas dúvidas com a nossa equipe.",
+  },
+  { icone: "shield", titulo: "Compra segura", texto: "Seus dados estão protegidos." },
+  {
+    icone: "creditCard",
+    titulo: "Diversas formas de pagamento",
+    texto: "Pix, cartão de crédito e boleto bancário.",
+  },
+  {
+    icone: "cube",
+    titulo: "Produtos de qualidade",
+    texto: "Equipamentos verificados e prontos para uso.",
+  },
+];
+
 export default function PedidoConcluido({ pedido }) {
   const quando = pedido.criadoEm ? new Date(pedido.criadoEm) : new Date();
   const data = quando.toLocaleDateString("pt-BR");
@@ -34,14 +54,16 @@ export default function PedidoConcluido({ pedido }) {
 
         <h1 className={styles.concluidoTitulo}>Pedido registrado com sucesso!</h1>
 
+        {/* Os dois textos são os do PDF. A tela confirma o REGISTRO e nada
+            mais: não afirma que disponibilidade ou retirada já estão
+            confirmadas, porque não estão. */}
         <p className={styles.concluidoTexto}>
-          Seu pedido está em análise pela equipe da RED. Confirmamos a disponibilidade, as
-          condições comerciais e a retirada antes da conclusão da compra.
+          Seu pedido foi recebido e está em análise pela nossa equipe.
         </p>
 
         <p className={styles.concluidoTexto}>
-          O próximo passo é nosso: entramos em contato pelo e-mail e pelo telefone informados
-          para alinhar o pagamento e a retirada do ativo.
+          Em breve entraremos em contato para confirmar a disponibilidade, as condições
+          comerciais e a retirada.
         </p>
 
         <div className={styles.avisoEmail}>
@@ -49,8 +71,8 @@ export default function PedidoConcluido({ pedido }) {
             <Icon name="clock" size={15} />
           </span>
           <p>
-            Você vai receber um e-mail com o resumo deste pedido. Se ele não chegar em alguns
-            minutos, verifique a caixa de spam.
+            Você vai receber um e-mail com os detalhes deste pedido. Verifique a caixa de
+            entrada e também a de spam.
           </p>
         </div>
 
@@ -68,12 +90,12 @@ export default function PedidoConcluido({ pedido }) {
         </dl>
 
         <div className={styles.concluidoAcoes}>
-          {/* `dark` é o vazado VERMELHO (ver o mapa de variantes do Button):
-              fundo claro não leva vermelho cheio no padrão do cliente, e o
-              sólido da página já foi gasto no "Confirmar pedido" do passo 1. */}
-          <Button href="/shop" variant="dark">
+          {/* Vermelho PREENCHIDO: o PDF pede "botão vermelho principal", e
+              nesta tela ele é o único CTA de peso — o sólido por página que a
+              seção 2 do PADROES autoriza. */}
+          <Link href="/shop" className={styles.ctaPrincipal}>
             Continuar comprando
-          </Button>
+          </Link>
           <Button href="/painel" variant="outline">
             Minha conta
           </Button>
@@ -85,7 +107,8 @@ export default function PedidoConcluido({ pedido }) {
         </p>
       </div>
 
-      <FaixaBeneficios className={styles.beneficios} />
+      {/* Textos da seção 2.3 do PDF. */}
+      <FaixaBeneficios className={styles.beneficios} itens={BENEFICIOS_DO_PEDIDO} />
     </Section>
   );
 }

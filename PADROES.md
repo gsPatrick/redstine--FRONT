@@ -206,6 +206,23 @@ decide**, e não se reorganiza por conveniência de layout:
 9. três acordeões: Características, Condições comerciais, Retirada e transporte
 10. três abas: Sobre o produto, Aplicações, Especificações
 
+**Cada card leva o que é dele, e nada do vizinho** (seções 5, 6 e 8 do
+descritivo). Despejar a ficha inteira nos três repetia a mesma linha em dois
+lugares:
+
+| card | conteúdo |
+|---|---|
+| **Características** | só informação PRÓPRIA do produto: condição, tipo, material, cor, tamanho, marca e os campos técnicos. Localização, disponibilidade, quantidade e venda mínima **não entram** |
+| **Condições comerciais** | unidade de venda, venda mínima, lote fechado (explícito, quando for), possibilidade de negociação, reserva, garantia |
+| **Retirada e transporte** | local de retirada, retirada no local, transporte, carregamento, agendamento, dúvidas. **Nunca** frete integrado, prazo de entrega ou transportadora — a RED não tem nenhum dos três |
+
+A aba **Especificações** é que traz a ficha completa, incluindo o que o card
+deixou de fora.
+
+**Aplicações** é campo novo, em `attributes.aplicacoes`, escrito na gestão (uma
+por linha). Fica fora da ficha técnica de propósito: a ficha é campo-e-valor, e
+aplicações é prosa — na ficha apareceria dentro de "Características".
+
 Os acordeões **nascem fechados** e são mutuamente exclusivos: *"quando um abre o
 outro fecha"*.
 
@@ -307,3 +324,31 @@ sob consulta: um sólido por página, e é esse.
 A tela de conclusão diz o que é verdade hoje: o pedido foi **registrado** e está
 em análise. Não diz "pagamento aprovado" — não há cobrança automática enquanto o
 gateway não estiver ligado.
+
+## 19. Textos que vêm dos descritivos
+
+Os três descritivos trazem o **texto literal** de vários elementos, e esses
+textos são para usar como estão — não são exemplo:
+
+- carrinho: título "Carrinho de compras", contagem "N itens no seu carrinho",
+  "← Continuar comprando" no topo direito, "Subtotal (N itens)", "Mais itens de
+  [categoria]", e os textos dos cards de compra segura e retirada;
+- faixa de benefícios do carrinho: "Tire suas dúvidas com a nossa equipe",
+  "Seus dados protegidos", "Pagamento facilitado", "Equipamentos verificados";
+- carrinho vazio: "Encontre equipamentos, materiais e produtos disponíveis na
+  REDestine.";
+- checkout: "Preencha seus dados para concluir o pedido.", "1. Dados do
+  comprador" com "Endereço para faturamento" como **subtítulo interno do mesmo
+  bloco**, "2. Forma de pagamento" com "Escolha a melhor forma de pagamento
+  para o seu pedido.";
+- pedido concluído: "Pedido registrado com sucesso!", "Seu pedido foi recebido e
+  está em análise pela nossa equipe.", "Em breve entraremos em contato para
+  confirmar a disponibilidade, condições comerciais e retirada."
+
+Reescrevê-los "melhor" é o que faz o cliente pedir a mesma coisa duas vezes.
+
+**O que NÃO foi feito, de propósito:** o descritivo do carrinho (seção 13) pede
+que o card de produto recomendado diga "Ver produto" e mostre a localização. O
+`ProductCard` é o mesmo de todo o site e diz "Ver Ativo" — mudá-lo aqui mudaria
+a vitrine inteira, que ninguém pediu. Fica para quando o cliente decidir o
+rótulo do card em todo o site.
