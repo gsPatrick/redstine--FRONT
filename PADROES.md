@@ -325,7 +325,42 @@ A tela de conclusão diz o que é verdade hoje: o pedido foi **registrado** e es
 em análise. Não diz "pagamento aprovado" — não há cobrança automática enquanto o
 gateway não estiver ligado.
 
-## 19. Textos que vêm dos descritivos
+## 19. Protótipo visual da página de produto
+
+O cliente mandou o protótipo em 13/10, depois do descritivo em texto. Onde os
+dois divergem, **vence o texto**: o próprio documento diz que os protótipos são
+"referência visual" e manda "aplicar o padrão textual atualizado". Por isso o
+primeiro card continua a chamar-se **"Características"**, e não "Características
+e especificações" como aparece desenhado.
+
+O que o protótipo acrescenta, e que o texto não descrevia:
+
+- **Painel de compra.** Preço, indicador, estoque, localização, botões e ações
+  secundárias vivem num cartão só, de fundo cinza claro. Soltos na coluna, eles
+  tinham o mesmo peso visual do texto descritivo acima, e a área que decide a
+  compra não se distinguia da que explica o produto.
+- **Preço e indicador lado a lado**, separados por um divisor vertical, com o
+  indicador num selo redondo vermelho com "%".
+- **Estoque e localização como texto com ícone** — bolinha verde para "em
+  estoque", pin para o local. Não como pílulas: dentro do painel, três pílulas
+  pareciam etiquetas de filtro clicáveis.
+- **Dois CTAs em colunas iguais.** O de consulta é **vazado** sobre rosa claro,
+  com a linha de apoio DENTRO do botão; o WhatsApp é verde preenchido, da mesma
+  largura e altura. Dois preenchidos lado a lado dariam o mesmo volume a ambos
+  e nenhum seria o principal.
+- **Três cartões de ação secundária em colunas iguais**, ocupando a largura do
+  painel.
+- **Coração sobre a imagem** e a dica **"Passe o mouse para ampliar"** no canto
+  inferior da galeria — sem o aviso, ninguém descobre que o zoom existe.
+- **Ícone à esquerda de cada acordeão.**
+- Abas em **capitalização normal**, e a de "Sobre o produto" abre com o título
+  **"Descrição"**.
+
+A versão com preço usa exatamente o mesmo painel: muda o número no lugar de
+"Sob consulta" e o par de botões passa a ser "Adicionar ao carrinho" +
+WhatsApp, com "Adicionar e ir ao carrinho" abaixo.
+
+## 20. Textos que vêm dos descritivos
 
 Os três descritivos trazem o **texto literal** de vários elementos, e esses
 textos são para usar como estão — não são exemplo:

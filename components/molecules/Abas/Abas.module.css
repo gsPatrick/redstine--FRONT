@@ -9,12 +9,13 @@
   border-bottom: 1px solid var(--gray-250);
 }
 
+/* Capitalização normal, como o protótipo mostra — e coerente com a regra do
+   título do produto: o cliente não quer caixa alta na interface. */
 .aba {
   padding: 13px 22px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: var(--gray-600);
   /* A borda existe nos dois estados, transparente quando inativa: trocar a
      espessura no estado ativo movia o rótulo um pixel ao passar o rato. */

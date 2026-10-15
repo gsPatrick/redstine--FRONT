@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
+import Icon from "@/components/atoms/Icon/Icon";
 import styles from "./ProductGallery.module.css";
 
 /**
@@ -20,7 +21,13 @@ import styles from "./ProductGallery.module.css";
  * No toque não há cursor, e o zoom simplesmente não acontece: `onMouseMove`
  * não dispara. Melhor do que um zoom que fica preso onde o dedo tocou.
  */
-export default function ProductGallery({ images, name, orientacao = "horizontal", zoom = false }) {
+export default function ProductGallery({
+  images,
+  name,
+  orientacao = "horizontal",
+  zoom = false,
+  acaoCanto = null,
+}) {
   const [active, setActive] = useState(0);
   const [origem, setOrigem] = useState(null);
   const palco = useRef(null);
@@ -84,6 +91,26 @@ export default function ProductGallery({ images, name, orientacao = "horizontal"
           className={`${styles.main} ${origem ? styles.mainZoom : ""}`}
           style={origem ? { transformOrigin: origem } : undefined}
         />
+
+        {/* Ação de canto (o coração, na página do produto). Fica aqui dentro e
+            não no `ProductDetail` porque o enquadramento é do palco: posto
+            fora, ele colava na coluna de miniaturas. */}
+        {acaoCanto ? <div className={styles.canto}>{acaoCanto}</div> : null}
+
+        {/*
+          Dica do zoom.
+
+          O protótipo mostra-a, e ela resolve um problema real: a ampliação só
+          acontece com o cursor em cima, e sem aviso ninguém descobre que
+          existe. Some enquanto o zoom está ativo — ali ela estaria por cima
+          justamente do que se quer ver.
+        */}
+        {zoom ? (
+          <span className={`${styles.dicaZoom} ${origem ? styles.dicaZoomOculta : ""}`}>
+            <Icon name="magnifier" size={12} />
+            Passe o mouse para ampliar
+          </span>
+        ) : null}
       </div>
     </div>
   );

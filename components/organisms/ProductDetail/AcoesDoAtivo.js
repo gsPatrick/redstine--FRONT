@@ -35,43 +35,55 @@ import styles from "./ProductDetail.module.css";
  *     é uma faixa só e três formas diferentes lê-se como três importâncias
  *     diferentes.
  */
+/** Botão do WhatsApp — o mesmo nas duas modalidades, e por isso num lugar só. */
+function Whats({ href }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" className={styles.whatsapp}>
+      <Icon name="whatsapp" size={18} />
+      {/* Rótulo do descritivo, igual nas duas modalidades. */}
+      Compre pelo WhatsApp
+    </a>
+  );
+}
+
 export default function AcoesDoAtivo({ product, whatsapp }) {
   const [consultando, setConsultando] = useState(false);
   const sobConsulta = Boolean(product.underConsultation);
 
   return (
     <>
-      <div className={styles.actions}>
-        {sobConsulta ? (
-          <div className={styles.consultaBloco}>
-            <button
-              type="button"
-              className={styles.consultar}
-              onClick={() => setConsultando((v) => !v)}
-              aria-expanded={consultando}
-            >
-              {consultando ? "Fechar consulta" : "Faça sua consulta"}
-            </button>
-            {/* Linha de apoio do próprio CTA, como o descritivo pede: diz o que
-                acontece depois do clique, em vez de deixar o comprador supor
-                que está a comprar. */}
-            <p className={styles.consultarApoio}>Tire suas dúvidas com nossa equipe</p>
-          </div>
-        ) : (
-          <AddToCart product={product} withQuantity comIrParaCarrinho />
-        )}
+      {sobConsulta ? (
+        <div className={styles.actions}>
+          {/*
+            O CTA de consulta é VAZADO, com o título e a linha de apoio DENTRO
+            dele — é assim no protótipo, e a razão é de equilíbrio: ao lado do
+            WhatsApp verde preenchido, um vermelho também preenchido daria dois
+            botões a gritar o mesmo volume. O vazado sobre fundo rosa claro
+            mantém o vermelho como cor da ação sem disputar com o verde.
+          */}
+          <button
+            type="button"
+            className={styles.consultar}
+            onClick={() => setConsultando((v) => !v)}
+            aria-expanded={consultando}
+          >
+            <Icon name="comment" size={17} className={styles.consultarIcone} />
+            <span className={styles.consultarTexto}>
+              <span className={styles.consultarTitulo}>
+                {consultando ? "Fechar consulta" : "Faça sua consulta"}
+              </span>
+              <span className={styles.consultarApoio}>Tire suas dúvidas com nossa equipe</span>
+            </span>
+          </button>
 
-        <a
-          href={whatsapp}
-          target="_blank"
-          rel="noopener noreferrer"
-          className={styles.whatsapp}
-        >
-          <Icon name="whatsapp" size={18} />
-          {/* Rótulo do descritivo, igual nas duas modalidades. */}
-          Compre pelo WhatsApp
-        </a>
-      </div>
+          <Whats href={whatsapp} />
+        </div>
+      ) : (
+        /* Compra direta: seletor, os dois CTAs lado a lado, e "Adicionar e ir
+           ao carrinho" abaixo — a segunda intenção que o cliente pediu no item
+           7, e que não compete com o par de cima. */
+        <AddToCart product={product} withQuantity comIrParaCarrinho aoLado={<Whats href={whatsapp} />} />
+      )}
 
       {consultando && (
         <div className={styles.painelConsulta}>
@@ -94,9 +106,12 @@ export default function AcoesDoAtivo({ product, whatsapp }) {
 
         {/* Ilha que registra a visita e mostra o total. Fica na faixa das ações
             secundárias porque é informação sobre o ativo, não ação do
-            comprador — mas o descritivo pede os três no mesmo formato. */}
+            comprador — mas o descritivo pede os três no mesmo formato.
+
+            O olho vem do próprio `ViewCount`: desenhar um `Icon name="eye"`
+            aqui dava DOIS olhos lado a lado, porque o componente já traz o
+            seu. */}
         <div className={`${styles.cartaoAcao} ${styles.cartaoViews}`}>
-          <Icon name="eye" size={15} />
           <VisualizacoesDoAtivo assetId={product.id} views={product.views} compacto sempre />
         </div>
       </div>

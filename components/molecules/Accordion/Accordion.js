@@ -19,6 +19,11 @@ export default function Accordion({ items }) {
               onClick={() => setOpen(expanded ? -1 : index)}
               aria-expanded={expanded}
             >
+              {/* Ícone à esquerda do rótulo, como o protótipo mostra. É
+                  decorativo: quem lê por leitor de tela já tem o título. */}
+              {item.icone ? (
+                <Icon name={item.icone} size={15} className={styles.icone} />
+              ) : null}
               <span className={styles.label}>{item.title}</span>
               <Icon
                 name="chevron"

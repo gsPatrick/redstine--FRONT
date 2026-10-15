@@ -32,6 +32,7 @@ export default function AddToCart({
   withQuantity = false,
   variant = "dark",
   comIrParaCarrinho = false,
+  aoLado = null,
 }) {
   const { addToCart } = useStore();
   const router = useRouter();
@@ -61,7 +62,7 @@ export default function AddToCart({
   };
 
   return (
-    <div className={styles.wrap}>
+    <div className={`${styles.wrap} ${aoLado ? styles.wrapPainel : ""}`}>
       {withQuantity ? (
         <div className={styles.quantidade}>
           <QuantidadeSeletor
@@ -85,15 +86,23 @@ export default function AddToCart({
         </div>
       ) : null}
 
-      <button
-        type="button"
-        className={`${styles.button} ${styles[variant]} ${added ? styles.added : ""}`}
-        onClick={submit}
-        aria-live="polite"
-      >
-        <Icon name="cart" size={15} />
-        {added ? "Adicionado ao carrinho" : "Adicionar ao carrinho"}
-      </button>
+      {/* Os dois CTAs lado a lado, em colunas iguais — é a diagramação do
+          protótipo, e `aoLado` recebe o botão do WhatsApp porque a grade tem de
+          ser de um componente só: em dois irmãos separados, as colunas ficavam
+          com larguras diferentes. */}
+      <div className={aoLado ? styles.dupla : styles.solo}>
+        <button
+          type="button"
+          className={`${styles.button} ${styles[variant]} ${added ? styles.added : ""}`}
+          onClick={submit}
+          aria-live="polite"
+        >
+          <Icon name="cart" size={15} />
+          {added ? "Adicionado ao carrinho" : "Adicionar ao carrinho"}
+        </button>
+
+        {aoLado}
+      </div>
 
       {comIrParaCarrinho ? (
         <button type="button" className={styles.irAgora} onClick={submitEIr}>

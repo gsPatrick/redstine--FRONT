@@ -153,3 +153,52 @@
   letter-spacing: 0.02em;
   color: var(--gray-600);
 }
+
+/* ------------------------------------------------- modo painel do produto
+
+   Dentro do painel de compra, o bloco ocupa a largura inteira e empilha:
+   seletor, par de CTAs, e a segunda intenção abaixo. */
+.wrapPainel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+
+/* O seletor NÃO estica: `align-items: stretch` no pai levava-o à largura
+   inteira do painel, e um "− 5 +" de 700px de largura não se lê como
+   controle. Os botões abaixo é que ocupam a linha. */
+.wrapPainel .quantidade {
+  align-items: flex-start;
+}
+
+.wrapPainel .stepper {
+  align-self: flex-start;
+}
+
+/* Duas colunas IGUAIS — mesma razão do CTA de consulta: em flex, as larguras
+   seguiam o comprimento do rótulo e os botões saíam tortos. */
+.dupla {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.solo {
+  display: flex;
+}
+
+/* No painel, o "Adicionar ao carrinho" acompanha a altura do WhatsApp ao lado. */
+.wrapPainel .button {
+  justify-content: center;
+  min-height: 62px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.wrapPainel .irAgora {
+  width: 100%;
+  min-height: 46px;
+  border-radius: 14px;
+}

@@ -1,4 +1,6 @@
 import Section from "@/components/atoms/Section/Section";
+import Icon from "@/components/atoms/Icon/Icon";
+import WishButton from "@/components/molecules/WishButton/WishButton";
 import Breadcrumb from "@/components/molecules/Breadcrumb/Breadcrumb";
 import AcoesDoAtivo from "./AcoesDoAtivo";
 import ProductGallery from "@/components/molecules/ProductGallery/ProductGallery";
@@ -113,6 +115,20 @@ export default function ProductDetail({ product }) {
   const specs = product.attributes.filter((attribute) => attribute.values.length);
   const sobConsulta = Boolean(product.underConsultation);
   const minima = Math.max(1, Number(product.minOrderQuantity || 1));
+
+  /**
+   * Indicador de oportunidade.
+   *
+   * No sob consulta é o texto que a gestão escreve — não há preço fechado de
+   * onde derivar percentual. Na compra direta o desconto é CALCULÁVEL, porque
+   * existem os dois números (preço e referência de mercado), e aí o número é
+   * verificável em vez de alegado.
+   */
+  const indicador = product.underConsultation
+    ? product.consultationNote
+    : product.onSale && product.discountPercent
+      ? `Até ${product.discountPercent}% abaixo do preço de mercado`
+      : null;
   const saldo = Number(product.quantity || 0);
 
   // Só o que é do PRÓPRIO produto: condição, tipo, material, cor, tamanho,
@@ -126,6 +142,7 @@ export default function ProductDetail({ product }) {
       // Nasce fechado, como os outros dois: o descritivo pede os três fechados
       // na entrada, e quem quer a ficha completa vai à aba Especificações.
       title: "Características",
+      icone: "list",
       content: caracteristicas.length ? (
         <Lista
           linhas={caracteristicas.map((a) => [a.name, a.values.join(", ")])}
@@ -140,6 +157,7 @@ export default function ProductDetail({ product }) {
       // e "Garantia" são as mesmas regras para todo o acervo — não são campo do
       // ativo, são a política da RED escrita onde o comprador pergunta.
       title: "Condições comerciais",
+      icone: "tag",
       content: (
         <>
           <Lista
@@ -180,6 +198,7 @@ export default function ProductDetail({ product }) {
       // entrega nem transportadora própria, e o documento manda não apresentar
       // nada disso — por isso aqui só há retirada.
       title: "Retirada e transporte",
+      icone: "truck",
       content: (
         <>
           <Lista
@@ -213,7 +232,15 @@ export default function ProductDetail({ product }) {
     {
       title: "Sobre o produto",
       content: product.description ? (
-        <div dangerouslySetInnerHTML={{ __html: product.description }} />
+        <>
+          {/* O protótipo abre a aba com este título. Ele existe porque a aba
+              já se chama "Sobre o produto" e o texto que vem a seguir é a
+              descrição propriamente dita, muitas vezes com subtítulos
+              próprios — sem uma âncora, o primeiro subtítulo do fornecedor
+              passava por título da aba. */}
+          <h3 className={styles.abaTitulo}>Descrição</h3>
+          <div dangerouslySetInnerHTML={{ __html: product.description }} />
+        </>
       ) : product.shortDescription ? (
         <p>{product.shortDescription}</p>
       ) : null,
@@ -261,6 +288,7 @@ export default function ProductDetail({ product }) {
             name={product.name}
             orientacao="vertical"
             zoom
+            acaoCanto={<WishButton product={product} size={16} floating />}
           />
         </div>
 
@@ -276,49 +304,60 @@ export default function ProductDetail({ product }) {
             <p className={styles.summary}>{product.shortDescription}</p>
           ) : null}
 
-          {/* Sob consulta ocupa o MESMO lugar do preço — não há valor a exibir
-              porque ele sai da cotação, e um número aqui prometeria um preço
-              que não vale. O indicador de oportunidade abaixo é o que a gestão
-              escreve, e é por isso que ele não é calculado. */}
-          {sobConsulta ? (
-            /* O indicador fica AO LADO de "Sob consulta", como o descritivo
-               pede (seção 10), e não abaixo: abaixo é onde mora o estoque. */
-            <div className={`${styles.precoBloco} ${styles.precoLinha}`}>
-              <p className={`${styles.price} ${styles.priceConsulta}`}>Sob consulta</p>
-              {product.consultationNote ? (
-                <p className={styles.oportunidade}>{product.consultationNote}</p>
-              ) : null}
-            </div>
-          ) : (
+          {/*
+            Painel de compra.
+
+            Preço, estoque, localização e botões vivem num cartão só, como o
+            protótipo desenha. Não é enfeite: soltos na coluna, eles tinham o
+            mesmo peso visual do texto descritivo acima, e a área que decide a
+            compra não se distinguia da que explica o produto.
+          */}
+          <div className={styles.painelCompra}>
+            {/* Sob consulta ocupa o MESMO lugar do preço — não há valor a
+                exibir porque ele sai da cotação, e um número aqui prometeria
+                um preço que não vale. O indicador fica à direita, separado por
+                um divisor, e é escrito pela gestão: no sob consulta não há
+                preço fechado de onde derivar percentual nenhum. */}
             <div className={styles.precoBloco}>
-              <p className={styles.price}>{formatPrice(product.price)}</p>
-              {product.onSale && product.regularPrice > 0 ? (
+              {sobConsulta ? (
+                <p className={`${styles.price} ${styles.priceConsulta}`}>Sob consulta</p>
+              ) : (
+                <p className={styles.price}>{formatPrice(product.price)}</p>
+              )}
+
+              {indicador ? (
                 <p className={styles.oportunidade}>
-                  {product.discountPercent ? `${product.discountPercent}% ` : ""}abaixo do preço de
-                  mercado ({formatPrice(product.regularPrice)})
+                  <span className={styles.selo} aria-hidden="true">
+                    %
+                  </span>
+                  <span>{indicador}</span>
                 </p>
               ) : null}
             </div>
-          )}
 
-          <ul className={styles.meta}>
-            {saldo > 0 ? (
+            <ul className={styles.meta}>
               <li className={styles.metaItem}>
-                <strong>{saldo}</strong> {product.unit || "unidade"}
-                {saldo > 1 ? "s" : ""} em estoque
+                <span
+                  className={`${styles.bolinha} ${saldo > 0 ? styles.bolinhaOk : styles.bolinhaFora}`}
+                  aria-hidden="true"
+                />
+                {saldo > 0
+                  ? `Em estoque${saldo > 1 ? ` · ${saldo} ${product.unit || "unidade"}s` : ""}`
+                  : "Esgotado"}
               </li>
-            ) : (
-              <li className={`${styles.metaItem} ${styles.metaEsgotado}`}>Esgotado</li>
-            )}
-            {product.location ? (
-              <li className={styles.metaItem}>Retirada em {product.location}</li>
-            ) : null}
-            {product.condition ? (
-              <li className={styles.metaItem}>{product.condition}</li>
-            ) : null}
-          </ul>
+              {product.location ? (
+                <li className={styles.metaItem}>
+                  <Icon name="pin" size={13} className={styles.metaIcone} />
+                  {product.location}
+                </li>
+              ) : null}
+              {product.condition ? (
+                <li className={styles.metaItem}>{product.condition}</li>
+              ) : null}
+            </ul>
 
-          <AcoesDoAtivo product={product} whatsapp={whatsapp} />
+            <AcoesDoAtivo product={product} whatsapp={whatsapp} />
+          </div>
 
           <Accordion items={accordionItems} />
         </div>

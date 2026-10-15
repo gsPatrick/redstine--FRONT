@@ -44,32 +44,68 @@
   color: var(--gray-500);
 }
 
-/* Preço e, debaixo dele, o indicador de oportunidade. Os dois juntos num bloco
-   para o indicador não herdar o espaçamento da lista de meta. */
-.precoBloco {
+/*
+  Painel de compra: preço, estoque, localização e botões num cartão só.
+
+  Soltos na coluna, eles tinham o mesmo peso visual do texto descritivo acima e
+  a área que decide a compra não se distinguia da que explica o produto.
+*/
+.painelCompra {
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  margin-top: 6px;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 22px;
+  border: 1px solid var(--gray-250);
+  border-radius: var(--radius-card);
+  background-color: var(--gray-50);
 }
 
-/* Sob consulta: o indicador fica ao LADO, alinhado pela base do rótulo, e
-   quebra para baixo quando não couber. */
-.precoLinha {
-  flex-direction: row;
+/* Preço à esquerda, indicador à direita, separados por um divisor vertical. */
+.precoBloco {
+  display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
-  gap: 10px;
+  align-items: center;
+  gap: 20px;
 }
 
-/* Indicador de oportunidade — "pequeno e secundário", como o descritivo pede.
-   Vermelho, mas em 12.5px: maior do que isto compete com o preço, que é o
-   número que decide. */
+/*
+  Indicador de oportunidade — "pequeno e secundário", como o descritivo pede.
+
+  O divisor é `border-left` e não um elemento: um `<span>` separador seria lido
+  pelo leitor de tela como conteúdo, e aqui ele é só a linha que o protótipo
+  desenha. Some junto com o indicador quando não há indicador.
+*/
 .oportunidade {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
+  border-left: 1px solid var(--gray-300);
   font-size: 12.5px;
   font-weight: 600;
+  line-height: 1.35;
   letter-spacing: 0.01em;
-  color: var(--color-accent);
+  color: var(--gray-700);
+  /* Quebra em duas linhas, como no protótipo, em vez de esticar o cartão. */
+  max-width: 190px;
+}
+
+/* O selo é um círculo vermelho com "%" — desenhado em CSS e não como ícone,
+   porque é um caractere dentro de uma forma e isso o mantém nítido em
+   qualquer tamanho. */
+.selo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-white);
+  background-color: var(--color-accent);
 }
 
 /*
@@ -91,18 +127,41 @@
   color: var(--color-accent);
 }
 
+/* Estoque e localização como TEXTO com ícone, não como pílulas: dentro do
+   painel, três pílulas pareciam etiquetas de filtro clicáveis. */
 .meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px 10px;
+  align-items: center;
+  gap: 8px 22px;
 }
 
 .metaItem {
-  padding: 6px 14px;
-  border: 1px solid var(--gray-250);
-  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
   font-size: 13px;
-  color: var(--gray-600);
+  color: var(--gray-700);
+}
+
+.metaIcone {
+  color: var(--gray-500);
+}
+
+.bolinha {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+/* Verde para "em estoque" é pedido no descritivo do carrinho (seção 27) e vale
+   aqui pela mesma razão: é estado, não ação. */
+.bolinhaOk {
+  background-color: #08ad21;
+}
+
+.bolinhaFora {
+  background-color: var(--color-accent);
 }
 
 .price {
@@ -118,35 +177,42 @@
   text-wrap: pretty;
 }
 
-/* Faixa das ações principais: o CTA da modalidade e, ao lado, o WhatsApp. */
+/*
+  Faixa das ações principais: duas COLUNAS IGUAIS.
+
+  `1fr 1fr` e não `flex` com `flex-wrap`: em flex os dois botões ficavam com
+  larguras diferentes conforme o comprimento do rótulo, e a simetria entre eles
+  é justamente o que o protótipo mostra.
+*/
 .actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-  margin: 14px 0 12px;
 }
 
-.consultaBloco {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-
-/* Linha de apoio do CTA de consulta: diz o que acontece depois do clique. */
+/* Linha de apoio DENTRO do CTA de consulta: diz o que acontece depois do
+   clique, sem ocupar uma linha própria debaixo do botão. */
 .consultarApoio {
-  font-size: 12px;
-  color: var(--gray-500);
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--gray-600);
 }
 
+/* Mesma altura e mesma largura do CTA ao lado — é o par que o protótipo
+   mostra, e alturas diferentes entre botões irmãos é a assimetria que o
+   cliente aponta na padronização. */
 .whatsapp {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
-  padding: 10px 26px;
-  border-radius: 30px;
-  font-size: 17px;
-  font-weight: 500;
+  min-height: 62px;
+  padding: 10px 18px;
+  border: 1px solid #08ad21;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
   color: var(--color-white);
   background-color: #08ad21;
   transition:
@@ -269,22 +335,22 @@
   descritivo o coloca — aqui ele era o único com texto e desequilibrava a linha.
 */
 .actionsSecundarias {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-  margin: 4px 0 20px;
+  /* Três colunas IGUAIS ocupando a largura do painel, como no protótipo. Em
+     linha, encostados à esquerda, os três cartões pareciam um resto de espaço
+     por preencher. */
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
 }
 
 .cartaoAcao {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 42px;
-  height: 42px;
+  height: 46px;
   padding: 0 12px;
   border: 1px solid var(--gray-250);
-  border-radius: var(--radius-card);
+  border-radius: 12px;
   color: var(--gray-600);
   background-color: var(--color-white);
   transition: border-color var(--dur-fast) var(--ease-out),
@@ -324,21 +390,48 @@
   color: var(--gray-700);
 }
 
+/*
+  CTA de consulta: VAZADO, sobre fundo rosa claro.
+
+  Ao lado do WhatsApp verde preenchido, um vermelho também preenchido daria
+  dois botões com o mesmo volume e nenhum seria o principal. O vazado mantém o
+  vermelho como cor da ação sem disputar com o verde — e é o que o protótipo
+  desenha.
+*/
 .consultar {
-  padding: 13px 26px;
-  border: none;
-  border-radius: var(--radius-pill);
-  background: var(--color-accent);
-  color: var(--color-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  min-height: 62px;
+  padding: 10px 18px;
+  border: 1px solid var(--color-accent);
+  border-radius: 14px;
+  background-color: rgba(196, 4, 4, 0.05);
+  color: var(--color-accent);
   font-family: var(--font-sans);
-  font-size: 15px;
-  font-weight: 700;
+  text-align: left;
   cursor: pointer;
-  transition: filter var(--dur-base) var(--ease-out);
+  transition: background-color var(--dur-base) var(--ease-out);
 }
 
 .consultar:hover {
-  filter: brightness(1.08);
+  background-color: rgba(196, 4, 4, 0.1);
+}
+
+.consultarIcone {
+  flex-shrink: 0;
+}
+
+.consultarTexto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.consultarTitulo {
+  font-size: 14.5px;
+  font-weight: 700;
 }
 
 .painelConsulta {
@@ -347,4 +440,12 @@
   border: 1px solid var(--gray-300);
   border-radius: 14px;
   background: var(--color-white);
+}
+
+/* Título de abertura da aba "Sobre o produto". */
+.abaTitulo {
+  margin-bottom: 14px;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--gray-940);
 }
